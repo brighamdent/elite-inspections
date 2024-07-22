@@ -3,35 +3,35 @@ import Image from "next/image";
 import heroHouse from "../../public/hero_house.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import ScheduleButton from "@/components/ScheduleButton";
+import CallButton from "@/components/CallButton";
+import HomepageDivider from "@/components/HomepageDivider";
 
 export default function Home() {
   return (
     <>
       <Navbar />
       <div
-        className="relative bg-cover bg-center h-screen text-white"
+        className="relative bg-cover bg-center h-[82vh] text-white"
         style={{ backgroundImage: `url(${heroHouse.src})` }}
       >
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 p-4">
-          <h1 className="text-4xl">Best Home Inspectors in Brevard County</h1>
-          <p className="mt-2 text-lg">
-            Your Reliable Partner in Conducting Extensive Home Inspections for a
-            Secure Future.
-          </p>
-          <button
-            type="button"
-            className="bg-teal h-[70px] w-[275px] rounded-[55px] p-2 flex items-center "
-          >
-            <div className="flex justify-between items-center w-full">
-              <h2 className="ml-6">Schedule Now</h2>
-              <div className="w-[55px] h-[55px] rounded-[50px] bg-royalblue p-3 flex items-center justify-center">
-                <FontAwesomeIcon icon={faArrowRight} />
-              </div>
-            </div>
-          </button>
-          <button type="button"></button>
+        <div className="absolute inset-0 flex flex-col items-center justify-between pt-8 pb-8 bg-black bg-opacity-50 p-4">
+          <div>
+            <h1 className="text-3xl">Best Home Inspectors in Brevard County</h1>
+            <p className="mt-2">
+              Your Reliable Partner in Conducting Extensive Home Inspections for
+              a Secure Future.
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-around h-44">
+            <ScheduleButton />
+            <CallButton />
+          </div>
         </div>
       </div>
+      <HomepageDivider>
+        <h1>Top Services</h1>
+      </HomepageDivider>
     </>
   );
 }
