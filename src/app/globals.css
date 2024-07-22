@@ -4,4 +4,29 @@
 
 body {
   background: #03121b;
+  color: white;
+}
+
+h1 {
+  font-size: 36px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+.dark-blue {
+  color: #03121b;
+}
+
+.blue {
+  color: #0a354f;
+}
+
+.light-blue {
+  color: #48cbc5;
 }
