@@ -11,7 +11,7 @@ export default function ScheduleButton() {
       <div className="flex justify-between items-center w-full">
         <h2 className="ml-6">Schedule Now</h2>
         <div className="w-[55px] h-[55px] rounded-[50px] bg-royalblue p-3 flex items-center justify-center">
-          <FontAwesomeIcon icon={faArrowRight} />
+          <FontAwesomeIcon icon={faArrowRight} className="h-8" />
         </div>
       </div>
     </button>
