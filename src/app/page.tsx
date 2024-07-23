@@ -9,6 +9,7 @@ import HomepageDivider from "@/components/HomepageDivider";
 import TopServices from "@/components/TopServices";
 import { Reviews } from "@/components/Reviews";
 import { Faqs } from "@/components/Faqs";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
       <TopServices />
       <Reviews />
       <Faqs />
+      <Footer />
     </>
   );
 }
