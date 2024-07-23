@@ -6,6 +6,7 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import ScheduleButton from "@/components/ScheduleButton";
 import CallButton from "@/components/CallButton";
 import HomepageDivider from "@/components/HomepageDivider";
+import TopServices from "@/components/TopServices";
 
 export default function Home() {
   return (
@@ -29,9 +30,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <HomepageDivider>
-        <h1>Top Services</h1>
-      </HomepageDivider>
+      <TopServices />
     </>
   );
 }
