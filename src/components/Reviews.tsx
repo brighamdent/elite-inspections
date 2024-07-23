@@ -32,14 +32,16 @@ export const Reviews = () => {
         <h1>Reviews</h1>
         <p>Don’t take our word for it, hear our clients have to say!</p>
       </HomepageDivider>
-      {reviews.map((review) => (
-        <div className="flex flex-col items-center bg-royalblue rounded-xl p-6 h-[600px] justify-around mt-8 m-4">
-          {" "}
-          <Image src={review.photo} alt="" />
-          <h3>{review.review}</h3>
-          <h2>- {review.name}</h2>
-        </div>
-      ))}
+      <div className="mt-4 mb-6">
+        {reviews.map((review) => (
+          <div className="flex flex-col items-center bg-royalblue rounded-xl p-6 h-[600px] justify-around mt-8 m-6">
+            {" "}
+            <Image src={review.photo} alt="" />
+            <h3>{review.review}</h3>
+            <h2>- {review.name}</h2>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
