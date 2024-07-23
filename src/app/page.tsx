@@ -7,6 +7,7 @@ import ScheduleButton from "@/components/ScheduleButton";
 import CallButton from "@/components/CallButton";
 import HomepageDivider from "@/components/HomepageDivider";
 import TopServices from "@/components/TopServices";
+import { Reviews } from "@/components/Reviews";
 
 export default function Home() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
         </div>
       </div>
       <TopServices />
+      <Reviews />
     </>
   );
 }
