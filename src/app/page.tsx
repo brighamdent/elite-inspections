@@ -8,6 +8,7 @@ import CallButton from "@/components/CallButton";
 import HomepageDivider from "@/components/HomepageDivider";
 import TopServices from "@/components/TopServices";
 import { Reviews } from "@/components/Reviews";
+import { Faqs } from "@/components/Faqs";
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
       </div>
       <TopServices />
       <Reviews />
+      <Faqs />
     </>
   );
 }
