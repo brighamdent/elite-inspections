@@ -28,3 +28,17 @@ h3 {
 p {
   font-size: 16px;
 }
+
+.bg-hero-house {
+  background-image: url("/hero_house.jpg"); /* Adjust the path as necessary */
+  background-size: cover;
+  background-position: center;
+  height: 82vh;
+  color: white; /* Assuming you want white text color */
+}
+
+@media (min-width: 1024px) {
+  .bg-hero-house {
+    background-image: none; /* Remove background image on large screens */
+  }
+}

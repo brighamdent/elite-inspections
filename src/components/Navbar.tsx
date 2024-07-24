@@ -13,7 +13,7 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-40  ">
       <div
-        className={`sticky top-0 bg-royalblue w-full z-50 h-24 flex justify-between items-center p-6 ${!isOpened && "shadow-lg"}`}
+        className={`sticky top-0 bg-royalblue w-full z-50 h-24 flex justify-between items-center p-6 lg:pl-12 lg:pr-12 ${!isOpened && "shadow-lg"}`}
       >
         <Image src={plainLogo} alt="" className="xl:hidden" />
         <div className="w-[500px] hidden xl:block ">
