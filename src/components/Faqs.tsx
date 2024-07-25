@@ -42,7 +42,7 @@ export const Faqs = () => {
         <h1>FAQs</h1>
         <p>Need some answers?</p>
       </HomepageDivider>
-      <div className="mt-4 mb-5">
+      <div className="mt-4 mb-5 lg:w-1/2 max-w-[800px]">
         {faqs.map((faq) => (
           <div className="flex items-center justify-between m-6 bg-royalblue rounded-xl h-24 p-6 text-left">
             <h3 className="w-5/6">{faq.question}</h3>
