@@ -33,22 +33,30 @@ export default function TopServices() {
       <HomepageDivider>
         <h1>Top Services</h1>
       </HomepageDivider>
-      {services.map((service) => (
-        <div className="flex flex-col justify-around items-center pb-8">
-          <Image
-            src={service.photo}
-            alt=""
-            width={1000}
-            height={1000}
-            className="w-full"
-          />
-          <div className="flex flex-col items-center justify-around p-6 h-64 mt-2 mb-4 ">
-            <h2>{service.name}</h2>
-            <h3>{service.description}</h3>
+      <div className="lg:mt-12 flex flex-col items-center">
+        {services.map((service, index) => (
+          <div
+            className={`flex flex-col justify-around lg:justify-center items-center pb-8 lg:p-12 ${index % 2 !== 0 ? "lg:flex-row-reverse" : "lg:flex-row "}`}
+          >
+            <Image
+              src={service.photo}
+              alt=""
+              width={1000}
+              height={1000}
+              className="w-full lg:w-[45%] lg:rounded-2xl"
+            />
+            <div
+              className={` flex flex-col items-center lg:items-start lg:text-start lg:w-[400px]  ${index % 2 === 0 ? "lg:ml-32" : "lg:mr-32"}`}
+            >
+              <div className="flex flex-col items-center lg:items-start lg:text-start justify-around p-6 lg:p-0 h-64 mt-2 mb-4 ">
+                <h2>{service.name}</h2>
+                <h3>{service.description}</h3>
+              </div>
+              <SeePricingButton />
+            </div>
           </div>
-          <SeePricingButton />
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }
