@@ -42,3 +42,17 @@ p {
     background-image: none; /* Remove background image on large screens */
   }
 }
+
+.bg-about-portrait {
+  background-image: url("/about_portrait.jpg"); /* Adjust the path as necessary */
+  background-size: cover;
+  background-position: center;
+  height: 40vh;
+  color: white; /* Assuming you want white text color */
+}
+
+@media (min-width: 1024px) {
+  .bg-about-portrait {
+    background-image: none; /* Remove background image on large screens */
+  }
+}
