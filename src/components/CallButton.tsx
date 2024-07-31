@@ -12,7 +12,6 @@ export default function CallButton() {
         <h2 className="ml-10 lg:ml-8">555-555-555</h2>
         <div className="w-[55px] h-[55px] lg:w-[50px] lg:h-[50px] rounded-[50px] bg-teal p-2 flex items-center justify-center">
           <FontAwesomeIcon icon={faPhone} className="h-6" />
-          <h1>hello</h1>
         </div>
       </div>
     </button>
