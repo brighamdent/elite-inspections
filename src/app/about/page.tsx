@@ -38,7 +38,7 @@ export default function page() {
             standards. We strive to be the most trusted inspection company,
             known for our commitment to quality and customer satisfaction.
           </p>
-          <h2>Why Choose Us</h2>
+          <h2>Porque escogernos</h2>
           <p className="mb-4">
             Certified Professionals: Our inspectors are fully certified and
             trained to provide the highest quality inspections. Detailed
