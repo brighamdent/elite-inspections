@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export default function page() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-between h-[90vh]">
       <h1 className="z-10 relative hidden sm:block m-4">About Us</h1>
       <div className="flex flex-col lg:flex-row justify-center lg:m-10 mt-0 ">
         <div className="flex flex-col items-center">
