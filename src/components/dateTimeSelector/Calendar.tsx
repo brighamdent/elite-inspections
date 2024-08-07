@@ -13,23 +13,37 @@ import {
 } from "date-fns";
 
 export default function Calendar() {
-  const [selectedMonth, setSelectedMonth] = useState(getMonth(new Date()) + 1);
-  const [selectedYear, setSelectedYear] = useState(getYear(new Date()));
-  const [currentDate, setCurrentDate] = useState(
-    new Date(selectedYear, selectedMonth - 1),
+  const [selectedMonth, setSelectedMonth] = useState();
+  const [currentMonth, setCurrentMonth] = useState(
+    new Date(getYear(new Date()), getMonth(new Date())),
   );
-  const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
-  const firstDay = getDay(startOfMonth(currentDate));
-  const lastDay = getDate(endOfMonth(currentDate));
-  console.log(selectedMonth, selectedYear);
-  console.log(format(currentDate, "MMMM"));
+  const firstDay = getDay(startOfMonth(currentMonth));
+  const lastDay = getDate(endOfMonth(currentMonth));
+  const monthFormatted = format(currentMonth, "MMMM");
+  const currentYear = currentMonth.getFullYear();
+
+  const nextMonth = () => {
+    setCurrentMonth(
+      (prevMonth) =>
+        new Date(prevMonth.getFullYear(), prevMonth.getMonth() + 1),
+    );
+  };
+
+  const prevMonth = () => {
+    setCurrentMonth(
+      (prevMonth) =>
+        new Date(prevMonth.getFullYear(), prevMonth.getMonth() - 1),
+    );
+  };
   return (
     <div className="bg-royalblue rounded-3xl p-6 w-[500px] flex flex-col items-center">
       <div className="flex justify-between items-center w-[81%]">
-        <h3>February 2024</h3>
+        <h3>
+          {monthFormatted} {currentYear}
+        </h3>
         <div className="flex items-center h-full text-teal">
-          <FontAwesomeIcon icon={faAngleLeft} />
-          <FontAwesomeIcon icon={faAngleRight} />
+          <FontAwesomeIcon icon={faAngleLeft} onClick={prevMonth} />
+          <FontAwesomeIcon icon={faAngleRight} onClick={nextMonth} />
         </div>
       </div>
       <div className="grid grid-cols-7 gap-2 ">
