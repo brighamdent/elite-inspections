@@ -50,9 +50,9 @@ export default function Calendar() {
   return (
     <div className="bg-royalblue rounded-3xl p-6  flex flex-col items-center">
       <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">
-        <h3>
+        <p className="text-md">
           {monthFormatted} {currentYear}
-        </h3>
+        </p>
         <div className="flex items-center h-full text-teal">
           <FontAwesomeIcon
             icon={faAngleLeft}
@@ -68,19 +68,19 @@ export default function Calendar() {
       </div>
       <div className="grid grid-cols-7 gap-2 ">
         {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, i) => (
-          <div className="text-center text-white text-xs" key={i}>
+          <div className="text-center text-white text-[10px]" key={i}>
             {day}
           </div>
         ))}
         {Array.from({ length: 42 }).map((_, i) => (
           <button
-            className={`bg-darkblue rounded-3xl w-12 h-12 flex items-center justify-center ${i < firstDay ? "bg-royalblue" : ""} ${i >= lastDay + firstDay ? "hidden" : ""} ${selectedDate.day === i - firstDay + 1 ? "bg-teal" : ""}`}
+            className={`bg-darkblue rounded-3xl w-10 h-10 flex items-center justify-center ${i < firstDay ? "bg-royalblue" : ""} ${i >= lastDay + firstDay ? "hidden" : ""} ${selectedDate.day === i - firstDay + 1 ? "bg-teal" : ""}`}
             key={i}
             disabled={i < firstDay}
             onClick={() => handleDayClick(i - firstDay + 1)}
           >
             {i >= firstDay && i < lastDay + firstDay && (
-              <p className="font-bold text-xl">{i - firstDay + 1}</p>
+              <p className="font-bold text-md">{i - firstDay + 1}</p>
             )}
           </button>
         ))}
