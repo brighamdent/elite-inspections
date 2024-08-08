@@ -34,3 +34,26 @@ export async function POST(req: NextRequest) {
     );
   }
 }
+
+export async function GET(req: NextRequest) {
+  const date = req.nextUrl.searchParams.get("date");
+
+  if (!date) {
+    return NextResponse.json({ error: "Date is required" }, { status: 400 });
+  }
+
+  try {
+    const [rows] = await pool.query(
+      "SELECT DATE_FORMAT(appointment_time, '%H:%i') as time FROM appointments WHERE DATE(appointment_time) = ?",
+      [date],
+    );
+    console.log("Query results:", rows);
+    return NextResponse.json(rows, { status: 200 });
+  } catch (error) {
+    console.error("Error during GET request:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch transaction" },
+      { status: 500 },
+    );
+  }
+}

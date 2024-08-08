@@ -19,10 +19,13 @@ export default function Calendar({ setDate }) {
   const currentYear = currentDate.getFullYear();
   const currentMonthNumber = currentDate.getMonth() + 1;
   const currentDay = currentDate.getDate();
+  const dayOfWeek = format(currentDate, "EEEE");
   const [selectedDate, setSelectedDate] = useState({
     month: currentMonthNumber,
     day: currentDay,
     year: currentYear,
+    dayOfWeek,
+    monthName: monthFormatted,
   });
 
   const nextMonth = () => {
@@ -44,6 +47,8 @@ export default function Calendar({ setDate }) {
       month: currentMonthNumber,
       day: selectedDay,
       year: currentYear,
+      dayOfWeek,
+      monthName: monthFormatted,
     });
   };
 
@@ -52,6 +57,8 @@ export default function Calendar({ setDate }) {
       month: currentMonthNumber,
       day: selectedDate.day,
       year: currentYear,
+      dayOfWeek,
+      monthName: monthFormatted,
     });
   }, [currentMonthNumber]);
   useEffect(() => {
