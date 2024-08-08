@@ -1,7 +1,6 @@
-"use client";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   startOfMonth,
   endOfMonth,
@@ -12,13 +11,13 @@ import {
   format,
 } from "date-fns";
 
-export default function Calendar() {
+export default function Calendar({ setDate }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const firstDay = getDay(startOfMonth(currentDate));
   const lastDay = getDate(endOfMonth(currentDate));
   const monthFormatted = format(currentDate, "MMMM");
   const currentYear = currentDate.getFullYear();
-  const currentMonthNumber = currentDate.getMonth() + 1; // Note: This returns 0-based month index (0 for January, 1 for February, etc.)
+  const currentMonthNumber = currentDate.getMonth() + 1;
   const currentDay = currentDate.getDate();
   const [selectedDate, setSelectedDate] = useState({
     month: currentMonthNumber,
@@ -47,8 +46,20 @@ export default function Calendar() {
       year: currentYear,
     });
   };
+
+  useEffect(() => {
+    setSelectedDate({
+      month: currentMonthNumber,
+      day: selectedDate.day,
+      year: currentYear,
+    });
+  }, [currentMonthNumber]);
+  useEffect(() => {
+    setDate(selectedDate);
+  }, [selectedDate]);
+
   return (
-    <div className="bg-royalblue rounded-3xl p-6  flex flex-col items-center">
+    <div className="bg-royalblue rounded-3xl p-4  flex flex-col items-center">
       <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">
         <p className="text-md">
           {monthFormatted} {currentYear}
