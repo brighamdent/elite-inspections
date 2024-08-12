@@ -64,7 +64,7 @@ export default function DateTimeSelector() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col md:flex-row bg-royalblue rounded-3xl p-6">
+      <div className="flex flex-col md:flex-row bg-royalblue rounded-3xl justify-between">
         <Calendar setDate={setDate} />
         <TimeSelector
           date={date}
@@ -73,13 +73,13 @@ export default function DateTimeSelector() {
           setSelectedTime={setSelectedTime}
         />
       </div>
-      <button
-        type="button"
-        onClick={handleClick}
-        className="bg-teal rounded-3xl p-2 m-2"
-      >
-        Make Apointment
-      </button>
+      {/* <button */}
+      {/*   type="button" */}
+      {/*   onClick={handleClick} */}
+      {/*   className="bg-teal rounded-3xl p-2 m-2" */}
+      {/* > */}
+      {/*   Make Apointment */}
+      {/* </button> */}
     </div>
   );
 }

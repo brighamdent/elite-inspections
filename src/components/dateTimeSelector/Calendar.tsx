@@ -92,7 +92,7 @@ export default function Calendar({ setDate }) {
         ))}
         {Array.from({ length: 42 }).map((_, i) => (
           <button
-            className={`bg-darkblue rounded-3xl w-10 h-10 flex items-center justify-center ${i < firstDay ? "bg-royalblue" : ""} ${i >= lastDay + firstDay ? "hidden" : ""} ${selectedDate.day === i - firstDay + 1 ? "bg-teal" : ""}`}
+            className={`bg-darkblue rounded-3xl w-12 h-12 flex items-center justify-center ${i < firstDay ? "bg-royalblue" : ""} ${i >= lastDay + firstDay ? "hidden" : ""} ${selectedDate.day === i - firstDay + 1 ? "bg-teal" : ""}`}
             key={i}
             disabled={i < firstDay}
             onClick={() => handleDayClick(i - firstDay + 1)}
