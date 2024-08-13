@@ -1,11 +1,36 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
+interface DateData {
+  month: number | null;
+  day: number | null;
+  year: number | null;
+  dayOfWeek: string | null;
+  monthName: string | null;
+}
 
+interface ContactDetailsData {
+  person: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  emailAddress: string;
+  address: string;
+  finishedSqft: number | undefined;
+  yearBuilt: number | undefined;
+  foundationType: string;
+  bedCount: number | undefined;
+  bathCount: number | undefined;
+  notes: string;
+}
 interface AppointmentContextType {
-  appointmentTime: string;
-  setAppointmentTime: React.Dispatch<React.SetStateAction<string>>;
+  date: DateData;
+  setDate: React.Dispatch<React.SetStateAction<DateData>>;
+  selectedTime: string;
+  setSelectedTime: React.Dispatch<React.SetStateAction<string>>;
   currentStage: number;
   setCurrentStage: React.Dispatch<React.SetStateAction<number>>;
+  contactDetails: ContactDetailsData;
+  setContactDetails: React.Dispatch<React.SetStateAction<ContactDetailsData>>;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -28,16 +53,26 @@ export function AppointmentProvider({
   children: React.ReactNode;
 }) {
   const [currentStage, setCurrentStage] = useState(1);
-  const [appointmentTime, setAppointmentTime] = useState("");
-  const [contactDetailsForm, setContactDetailsFrom] = useState({
+  const [date, setDate] = useState<DateData>({
+    month: null,
+    day: null,
+    year: null,
+    dayOfWeek: null,
+    monthName: null,
+  });
+  const [selectedTime, setSelectedTime] = useState("");
+  const [contactDetails, setContactDetails] = useState<ContactDetailsData>({
     person: "",
     firstName: "",
     lastName: "",
     phoneNumber: "",
     emailAddress: "",
-    finishedSqft: null,
-    yearBuilt: null,
+    address: "",
+    finishedSqft: undefined,
+    yearBuilt: undefined,
     foundationType: "",
+    bedCount: undefined,
+    bathCount: undefined,
     notes: "",
   });
   const [serviceDetails, setServiceDetails] = useState({
@@ -47,10 +82,14 @@ export function AppointmentProvider({
   return (
     <AppointmentContext.Provider
       value={{
-        appointmentTime,
-        setAppointmentTime,
+        date,
+        setDate,
+        selectedTime,
+        setSelectedTime,
         currentStage,
         setCurrentStage,
+        contactDetails,
+        setContactDetails,
       }}
     >
       {children}

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function AppointmentStatus() {
-  const { currentStage } = useAppointment();
+  const { currentStage, setCurrentStage } = useAppointment();
   const appointmentStages = [
     {
       stageNumber: 1,
@@ -25,7 +25,7 @@ export default function AppointmentStatus() {
   ];
 
   return (
-    <div className="p-6 flex flex-col items-center">
+    <div className="pb-0 flex flex-col items-center">
       <div className="flex flex-col md:flex-row">
         {appointmentStages.map((stage, index) => (
           <div
@@ -48,12 +48,13 @@ export default function AppointmentStatus() {
         <h2>{appointmentStages[currentStage - 1].stageDescription}</h2>
         <button
           type="button"
-          className="bg-teal rounded-3xl flex items-center justify-between p-1 ml-6"
+          className="bg-teal group hover:bg-darkblue rounded-3xl flex items-center justify-between p-1 ml-6 transition-colors"
+          onClick={() => setCurrentStage(currentStage + 1)}
         >
           <p className="font-extrabold ml-2 mr-2">
             {currentStage !== 3 ? "Next" : "Review Info"}
           </p>
-          <div className="bg-royalblue rounded-3xl h-6 w-6 flex items-center justify-center">
+          <div className="bg-royalblue group-hover:bg-teal rounded-3xl h-6 w-6 flex items-center justify-center transition-colors">
             <FontAwesomeIcon icon={faArrowRight} />
           </div>
         </button>

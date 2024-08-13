@@ -2,18 +2,12 @@
 import React, { useEffect, useState } from "react";
 import Calendar from "./Calendar";
 import TimeSelector from "./TimeSelector";
+import { useAppointment } from "@/context/AppointmentContext";
 
 export default function DateTimeSelector() {
-  const [date, setDate] = useState({
-    month: null,
-    day: null,
-    year: null,
-    dayOfWeek: null,
-    monthName: null,
-  });
-  const [selectedTime, setSelectedTime] = useState();
   const [unavailableTimes, setUnavailableTimes] = useState([]);
   const [message, setMessage] = useState("");
+  const { date, setDate, selectedTime, setSelectedTime } = useAppointment();
   const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
 
   const handleClick = async (e) => {

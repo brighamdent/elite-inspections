@@ -1,5 +1,5 @@
-import { format, parse } from "date-fns";
 import React, { useEffect, useState } from "react";
+import convertTo12Hour from "@/utils/convertTo12Hour";
 
 export default function TimeSelector({
   date,
@@ -20,10 +20,6 @@ export default function TimeSelector({
   ];
   const [availableTimes, setAvailableTimes] = useState(avalability);
 
-  const convertTo12Hour = (time24h: string) => {
-    const date = parse(time24h, "HH:mm", new Date());
-    return format(date, "h:mm a");
-  };
   useEffect(() => {
     console.log(unavailableTimes);
     const unavailableTimesSet = new Set(
