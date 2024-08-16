@@ -37,7 +37,7 @@ export default function ContactDetailsForm() {
             </div>
           </button>
         </div>
-        <SelectedAppointment />
+        <SelectedAppointment edit={true} />
         <div className="w-full bg-darkblue h-8 rounded-3xl mt-2 flex justify-between p-4 items-center">
           <p>I am the...</p>
           <div>
@@ -160,7 +160,7 @@ export default function ContactDetailsForm() {
               />
             </div>
           </div>
-          <div className="flex justify-between items-center w-full mt-2">
+          <div className="flex justify-between items-center w-full mt-2 gap-x-1">
             <div className="flex gap-x-2">
               <label htmlFor="finishedSqft">Total Finished Square Feet</label>
               <input

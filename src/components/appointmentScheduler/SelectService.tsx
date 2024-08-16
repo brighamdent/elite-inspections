@@ -60,8 +60,8 @@ export default function SelectService() {
           />
         </div>
       )}
-      <SelectedAppointment />
-      <PropertyDetails />
+      <SelectedAppointment edit={true} />
+      <PropertyDetails edit={true} />
       <div className="flex justify-between">
         <div className="flex flex-col">
           <div className="bg-darkblue rounded-3xl flex justify-between p-4 mb-4">

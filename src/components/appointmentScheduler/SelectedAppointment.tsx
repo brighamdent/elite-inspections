@@ -2,7 +2,7 @@ import React from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 import convertTo12Hour from "@/utils/convertTo12Hour";
 
-export default function SelectedAppointment() {
+export default function SelectedAppointment({ edit }) {
   const { date, selectedTime, setCurrentStage } = useAppointment();
   return (
     <div>
@@ -11,12 +11,14 @@ export default function SelectedAppointment() {
           Scheduled for: {date.dayOfWeek}, {date.monthName} {date.day},{" "}
           {date.year} {convertTo12Hour(selectedTime)}{" "}
         </p>
-        <p
-          className="text-xs border-b h-4 ml-2 mt-2 cursor-pointer"
-          onClick={() => setCurrentStage(1)}
-        >
-          Edit
-        </p>
+        {edit && (
+          <p
+            className="text-xs border-b h-4 ml-2 mt-2 cursor-pointer"
+            onClick={() => setCurrentStage(2)}
+          >
+            Edit
+          </p>
+        )}
       </div>
     </div>
   );

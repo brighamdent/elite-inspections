@@ -25,7 +25,7 @@ export default function ReviewInfo() {
           </div>
         </button>
       </div>
-      <SelectedAppointment />
+      <SelectedAppointment edit={true} />
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-end">
           <div className=" bg-darkblue h-8 rounded-3xl mt-2 flex justify-between p-4 items-center">
@@ -64,8 +64,8 @@ export default function ReviewInfo() {
           </p>
         </div>
       </div>
-      <PersonalDetails />
-      <PropertyDetails />
+      <PersonalDetails edit={true} />
+      <PropertyDetails edit={true} />
     </div>
   );
 }

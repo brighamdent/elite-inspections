@@ -7,6 +7,7 @@ import ContactDetailsForm from "./ContactDetailsForm";
 import { useAppointment } from "@/context/AppointmentContext";
 import SelectService from "./SelectService";
 import ReviewInfo from "./ReviewInfo";
+import AppointmentConfirmation from "./AppointmentConfirmation";
 
 export default function AppointmentScheduler() {
   const { currentStage } = useAppointment();
@@ -17,6 +18,7 @@ export default function AppointmentScheduler() {
       {currentStage === 2 && <ContactDetailsForm />}
       {currentStage === 3 && <SelectService />}
       {currentStage === 4 && <ReviewInfo />}
+      {currentStage === 5 && <AppointmentConfirmation />}
     </div>
   );
 }
