@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 import convertTo12Hour from "@/utils/convertTo12Hour";
 
 export default function SelectedAppointment({ edit }) {
   const { date, selectedTime, setCurrentStage } = useAppointment();
+  useEffect(() => {
+    console.log(date);
+  }, [date]);
   return (
     <div>
       <div className="flex w-full items-center justify-start">
         <p className="text-left mt-4 mb-2">
           Scheduled for: {date.dayOfWeek}, {date.monthName} {date.day},{" "}
-          {date.year} {convertTo12Hour(selectedTime)}{" "}
+          {date.year} {selectedTime ? convertTo12Hour(selectedTime) : " "}{" "}
         </p>
         {edit && (
           <p

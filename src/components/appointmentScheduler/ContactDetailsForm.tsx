@@ -165,6 +165,7 @@ export default function ContactDetailsForm() {
               <label htmlFor="finishedSqft">Total Finished Square Feet</label>
               <input
                 type="text"
+                pattern="\d*"
                 id="finishedSqft"
                 name="finishedSqft"
                 value={contactDetails.finishedSqft}
@@ -177,6 +178,7 @@ export default function ContactDetailsForm() {
               <label htmlFor="year_built">Year Built</label>
               <input
                 type="text"
+                pattern="\d*"
                 id="year_built"
                 name="yearBuilt"
                 value={contactDetails.yearBuilt}

@@ -7,8 +7,23 @@ import PersonalDetails from "./PersonalDetails";
 import PropertyDetails from "./PropertyDetails";
 
 export default function ReviewInfo() {
-  const { currentStage, setCurrentStage, contactDetails, serviceDetails } =
-    useAppointment();
+  const {
+    currentStage,
+    setCurrentStage,
+    contactDetails,
+    serviceDetails,
+    makeAppointment,
+  } = useAppointment();
+
+  const handleClick = () => {
+    try {
+      makeAppointment();
+      setCurrentStage(currentStage + 1);
+    } catch {
+      console.log("Something went wrong");
+    }
+  };
+  console.log(contactDetails);
 
   return (
     <div>
@@ -17,7 +32,7 @@ export default function ReviewInfo() {
         <button
           type="button"
           className="bg-teal group hover:bg-darkblue rounded-3xl flex items-center justify-between p-1 ml-6 transition-colors"
-          onClick={() => setCurrentStage(currentStage + 1)}
+          onClick={handleClick}
         >
           <p className="font-extrabold ml-2 mr-2">Confirm</p>
           <div className="bg-royalblue group-hover:bg-teal rounded-3xl h-6 w-6 flex items-center justify-center transition-colors">
@@ -37,7 +52,7 @@ export default function ReviewInfo() {
                 name="person"
                 value={contactDetails.person}
                 checked={true}
-                required
+                readOnly
               />
               <label htmlFor="person"> {contactDetails.person}</label>
             </div>

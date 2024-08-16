@@ -15,11 +15,11 @@ interface ContactDetailsData {
   phoneNumber: string;
   emailAddress: string;
   address: string;
-  finishedSqft: number | undefined;
-  yearBuilt: number | undefined;
+  finishedSqft: number | string;
+  yearBuilt: number | string;
   foundationType: string;
-  bedCount: number | undefined;
-  bathCount: number | undefined;
+  bedCount: number | string;
+  bathCount: number | string;
   notes: string;
 }
 
@@ -39,6 +39,7 @@ interface AppointmentContextType {
   setContactDetails: React.Dispatch<React.SetStateAction<ContactDetailsData>>;
   serviceDetails: ServiceDetailsData;
   setServiceDetails: React.Dispatch<React.SetStateAction<ServiceDetailsData>>;
+  makeAppointment: () => void;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -76,17 +77,68 @@ export function AppointmentProvider({
     phoneNumber: "",
     emailAddress: "",
     address: "",
-    finishedSqft: undefined,
-    yearBuilt: undefined,
+    finishedSqft: "",
+    yearBuilt: "",
     foundationType: "",
-    bedCount: undefined,
-    bathCount: undefined,
+    bedCount: "",
+    bathCount: "",
     notes: "",
   });
   const [serviceDetails, setServiceDetails] = useState<ServiceDetailsData>({
     inspectionType: "",
-    quoteAmount: undefined,
+    quoteAmount: 600,
   });
+  const makeAppointment = async () => {
+    const {
+      person,
+      firstName,
+      lastName,
+      phoneNumber,
+      emailAddress,
+      address,
+      finishedSqft,
+      yearBuilt,
+      foundationType,
+      bedCount,
+      bathCount,
+      notes,
+    } = contactDetails;
+    console.log(person);
+    try {
+      const res = await fetch("/api/appointments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date,
+          selectedTime,
+          person,
+          firstName,
+          lastName,
+          phoneNumber,
+          emailAddress,
+          address,
+          finishedSqft,
+          yearBuilt,
+          foundationType,
+          bedCount,
+          bathCount,
+          notes,
+        }),
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        // setMessage(result.message);
+      } else {
+        // setMessage("Error scheduling appointment");
+      }
+    } catch (error) {
+      // setMessage("Error scheduling appointment");
+      console.log(error);
+    }
+  };
   return (
     <AppointmentContext.Provider
       value={{
@@ -100,6 +152,7 @@ export function AppointmentProvider({
         setContactDetails,
         serviceDetails,
         setServiceDetails,
+        makeAppointment,
       }}
     >
       {children}

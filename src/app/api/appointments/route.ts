@@ -5,14 +5,74 @@ import pool from "../../../lib/db";
 
 export async function POST(req: NextRequest) {
   try {
-    const { formattedDate } = await req.json();
+    const {
+      date,
+      selectedTime,
+      person,
+      firstName,
+      lastName,
+      phoneNumber,
+      emailAddress,
+      address,
+      finishedSqft,
+      yearBuilt,
+      foundationType,
+      bedCount,
+      bathCount,
+      notes,
+    } = await req.json();
+    const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
+    console.log(selectedTime);
     const connection = await pool.getConnection();
+    console.log(
+      person,
+      firstName,
+      lastName,
+      phoneNumber,
+      emailAddress,
+      address,
+      finishedSqft,
+      yearBuilt,
+      foundationType,
+      bedCount,
+      bathCount,
+      notes,
+    );
 
     try {
-      await connection.execute(
-        "INSERT INTO appointments (appointment_time) VALUES (?)",
-        [formattedDate],
+      // Start a transaction
+      await connection.beginTransaction();
+
+      // Insert a new contact
+      const [contactResult]: any = await connection.execute(
+        "INSERT INTO contacts (first_name, last_name, phone_number, email) VALUES (?, ?, ?, ?)",
+        [firstName, lastName, phoneNumber, emailAddress],
       );
+      const contactId = contactResult.insertId;
+
+      // Insert a new property
+      const [propertyResult]: any = await connection.execute(
+        "INSERT INTO properties (address, total_finished_square_feet, year_built, foundation_type, beds, baths, notes) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        [
+          address,
+          finishedSqft,
+          yearBuilt,
+          foundationType,
+          bedCount,
+          bathCount,
+          notes,
+        ],
+      );
+      const propertyId = propertyResult.insertId;
+
+      // Insert a new appointment using the contact and property IDs
+      await connection.execute(
+        "INSERT INTO appointments (scheduled_time, role, contact_id, property_id) VALUES (?, ?, ?, ?)",
+        [formattedDate, person, contactId, propertyId],
+      );
+
+      // Commit the transaction
+      await connection.commit();
       connection.release();
       return NextResponse.json(
         { message: "Appointment scheduled successfully!" },

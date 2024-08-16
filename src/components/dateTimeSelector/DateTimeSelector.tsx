@@ -22,7 +22,7 @@ export default function DateTimeSelector() {
     currentStage,
     setCurrentStage,
   } = useAppointment();
-  const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
+  // const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
 
   const handleSubmit = () => {
     if (date.day && selectedTime) setCurrentStage(currentStage + 1);
@@ -32,7 +32,6 @@ export default function DateTimeSelector() {
   };
 
   const handleClick = async (e) => {
-    console.log(formattedDate);
     e.preventDefault();
     try {
       const res = await fetch("/api/appointments", {
@@ -40,7 +39,7 @@ export default function DateTimeSelector() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ formattedDate }),
+        // body: JSON.stringify({ formattedDate }),
       });
 
       const result = await res.json();
