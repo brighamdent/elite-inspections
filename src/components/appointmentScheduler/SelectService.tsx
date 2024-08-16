@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 import convertTo12Hour from "@/utils/convertTo12Hour";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropertyDetails from "./PropertyDetails";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faWarning,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function SelectService() {
+  const [message, setMessage] = useState("");
   const {
     date,
     selectedTime,
@@ -16,6 +21,10 @@ export default function SelectService() {
     setCurrentStage,
   } = useAppointment();
 
+  const handleSubmit = () => {
+    if (serviceDetails.inspectionType) setCurrentStage(currentStage + 1);
+    else setMessage("Please Select an Inspection Type");
+  };
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target;
     setServiceDetails({ ...serviceDetails, [name]: value });
@@ -29,7 +38,7 @@ export default function SelectService() {
         <button
           type="button"
           className="bg-teal group hover:bg-darkblue rounded-3xl flex items-center justify-between p-1 ml-6 transition-colors"
-          onClick={() => setCurrentStage(currentStage + 1)}
+          onClick={handleSubmit}
         >
           <p className="font-extrabold ml-2 mr-2">Next</p>
           <div className="bg-royalblue group-hover:bg-teal rounded-3xl h-6 w-6 flex items-center justify-center transition-colors">
@@ -37,10 +46,31 @@ export default function SelectService() {
           </div>
         </button>
       </div>
-      <p className="w-full text-left mt-4 mb-2">
-        Scheduled for: {date.dayOfWeek}, {date.monthName} {date.day},{" "}
-        {date.year} {convertTo12Hour(selectedTime)}{" "}
-      </p>
+      {message && (
+        <div className="flex items-center justify-between bg-yellow-200 text-yellow-500 border border-yellow-500 w-full rounded-md p-4 h-16 mb-5">
+          <div className="flex items-center">
+            <FontAwesomeIcon className="mr-4" icon={faWarning} />
+            <h3>{message}</h3>
+          </div>
+          <FontAwesomeIcon
+            className="ml-4 lg:ml-[600px]"
+            onClick={() => setMessage("")}
+            icon={faXmark}
+          />
+        </div>
+      )}
+      <div className="flex w-full items-center justify-start">
+        <p className="text-left mt-4 mb-2">
+          Scheduled for: {date.dayOfWeek}, {date.monthName} {date.day},{" "}
+          {date.year} {convertTo12Hour(selectedTime)}{" "}
+        </p>
+        <p
+          className="text-xs border-b h-4 ml-2 mt-2 cursor-pointer"
+          onClick={() => setCurrentStage(1)}
+        >
+          Edit
+        </p>
+      </div>
       <PropertyDetails />
       <div className="flex justify-between">
         <div className="flex flex-col">
@@ -51,6 +81,7 @@ export default function SelectService() {
               name="inspectionType"
               onChange={handleChange}
             >
+              <option value="">Select an option</option>
               <option value="Elite Home Inspection">
                 Elite Home Inspection
               </option>

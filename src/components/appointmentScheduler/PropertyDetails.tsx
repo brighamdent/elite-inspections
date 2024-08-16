@@ -2,10 +2,18 @@ import React from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 
 export default function PropertyDetails() {
-  const { contactDetails } = useAppointment();
+  const { contactDetails, setCurrentStage } = useAppointment();
   return (
     <div>
-      <p className="w-full text-left mb-1">Property Details:</p>
+      <div className="flex w-full items-center justify-start">
+        <p className=" text-left mb-1">Property Details:</p>
+        <p
+          className="text-xs border-b h-4 ml-2 mb-1 cursor-pointer"
+          onClick={() => setCurrentStage(2)}
+        >
+          Edit
+        </p>
+      </div>
       <div className="bg-darkblue rounded-3xl w-full p-5 text-left mb-4 ">
         <p>Address: {contactDetails.address}</p>
         <p>Total Finished Square Footage: {contactDetails.finishedSqft}</p>

@@ -36,10 +36,18 @@ export default function ContactDetailsForm() {
             </div>
           </button>
         </div>
-        <p className="w-full text-left mt-4 mb-2">
-          Scheduled for: {date.dayOfWeek}, {date.monthName} {date.day},{" "}
-          {date.year} {convertTo12Hour(selectedTime)}{" "}
-        </p>
+        <div className="flex w-full items-center justify-start">
+          <p className="text-left mt-4 mb-2">
+            Scheduled for: {date.dayOfWeek}, {date.monthName} {date.day},{" "}
+            {date.year} {convertTo12Hour(selectedTime)}{" "}
+          </p>
+          <p
+            className="text-xs border-b h-4 ml-2 mt-2 cursor-pointer"
+            onClick={() => setCurrentStage(1)}
+          >
+            Edit
+          </p>
+        </div>
         <div className="w-full bg-darkblue h-8 rounded-3xl mt-2 flex justify-between p-4 items-center">
           <p>I am the...</p>
           <div>
