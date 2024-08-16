@@ -69,6 +69,7 @@ export default function SelectService() {
             <select
               className="bg-royalblue/50 rounded-3xl pl-3"
               name="inspectionType"
+              value={serviceDetails.inspectionType}
               onChange={handleChange}
             >
               <option value="">Select an option</option>

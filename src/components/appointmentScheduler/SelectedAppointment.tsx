@@ -14,7 +14,7 @@ export default function SelectedAppointment({ edit }) {
         {edit && (
           <p
             className="text-xs border-b h-4 ml-2 mt-2 cursor-pointer"
-            onClick={() => setCurrentStage(2)}
+            onClick={() => setCurrentStage(1)}
           >
             Edit
           </p>
