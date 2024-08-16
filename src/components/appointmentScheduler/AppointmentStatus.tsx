@@ -44,21 +44,6 @@ export default function AppointmentStatus() {
           </div>
         ))}
       </div>
-      <div className="flex items-center w-full p-2">
-        <h2>{appointmentStages[currentStage - 1].stageDescription}</h2>
-        <button
-          type="button"
-          className="bg-teal group hover:bg-darkblue rounded-3xl flex items-center justify-between p-1 ml-6 transition-colors"
-          onClick={() => setCurrentStage(currentStage + 1)}
-        >
-          <p className="font-extrabold ml-2 mr-2">
-            {currentStage !== 3 ? "Next" : "Review Info"}
-          </p>
-          <div className="bg-royalblue group-hover:bg-teal rounded-3xl h-6 w-6 flex items-center justify-center transition-colors">
-            <FontAwesomeIcon icon={faArrowRight} />
-          </div>
-        </button>
-      </div>
     </div>
   );
 }

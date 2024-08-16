@@ -22,6 +22,12 @@ interface ContactDetailsData {
   bathCount: number | undefined;
   notes: string;
 }
+
+interface ServiceDetailsData {
+  inspectionType: string;
+  quoteAmount: number | undefined;
+}
+
 interface AppointmentContextType {
   date: DateData;
   setDate: React.Dispatch<React.SetStateAction<DateData>>;
@@ -31,6 +37,8 @@ interface AppointmentContextType {
   setCurrentStage: React.Dispatch<React.SetStateAction<number>>;
   contactDetails: ContactDetailsData;
   setContactDetails: React.Dispatch<React.SetStateAction<ContactDetailsData>>;
+  serviceDetails: ServiceDetailsData;
+  setServiceDetails: React.Dispatch<React.SetStateAction<ServiceDetailsData>>;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -75,9 +83,9 @@ export function AppointmentProvider({
     bathCount: undefined,
     notes: "",
   });
-  const [serviceDetails, setServiceDetails] = useState({
+  const [serviceDetails, setServiceDetails] = useState<ServiceDetailsData>({
     inspectionType: "",
-    quote: "",
+    quoteAmount: undefined,
   });
   return (
     <AppointmentContext.Provider
@@ -90,6 +98,8 @@ export function AppointmentProvider({
         setCurrentStage,
         contactDetails,
         setContactDetails,
+        serviceDetails,
+        setServiceDetails,
       }}
     >
       {children}

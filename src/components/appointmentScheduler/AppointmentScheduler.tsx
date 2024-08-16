@@ -5,6 +5,7 @@ import { AppointmentProvider } from "@/context/AppointmentContext";
 import DateTimeSelector from "../dateTimeSelector/DateTimeSelector";
 import ContactDetailsForm from "./ContactDetailsForm";
 import { useAppointment } from "@/context/AppointmentContext";
+import SelectService from "./SelectService";
 
 export default function AppointmentScheduler() {
   const { currentStage } = useAppointment();
@@ -13,6 +14,7 @@ export default function AppointmentScheduler() {
       <AppointmentStatus />
       {currentStage === 1 && <DateTimeSelector />}
       {currentStage === 2 && <ContactDetailsForm />}
+      {currentStage === 3 && <SelectService />}
     </div>
   );
 }
