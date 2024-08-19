@@ -15,9 +15,9 @@ export default function ReviewInfo() {
     makeAppointment,
   } = useAppointment();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     try {
-      makeAppointment();
+      await makeAppointment();
       setCurrentStage(currentStage + 1);
     } catch {
       console.log("Something went wrong");

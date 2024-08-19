@@ -24,20 +24,6 @@ export async function POST(req: NextRequest) {
     const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
     console.log(selectedTime);
     const connection = await pool.getConnection();
-    console.log(
-      person,
-      firstName,
-      lastName,
-      phoneNumber,
-      emailAddress,
-      address,
-      finishedSqft,
-      yearBuilt,
-      foundationType,
-      bedCount,
-      bathCount,
-      notes,
-    );
 
     try {
       // Start a transaction
@@ -96,18 +82,21 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const date = req.nextUrl.searchParams.get("date");
+  const year = req.nextUrl.searchParams.get("year");
+  const month = req.nextUrl.searchParams.get("month");
 
-  if (!date) {
+  if (!year || !month) {
     return NextResponse.json({ error: "Date is required" }, { status: 400 });
   }
 
   try {
     const [rows] = await pool.query(
-      "SELECT DATE_FORMAT(appointment_time, '%H:%i') as time FROM appointments WHERE DATE(appointment_time) = ?",
-      [date],
+      "SELECT DATE_FORMAT(scheduled_time, '%Y-%m-%d %H:%i:%s') AS scheduled_time FROM appointments WHERE YEAR(scheduled_time) = ? AND MONTH(scheduled_time) = ?",
+      [year, month],
     );
+
     console.log("Query results:", rows);
+
     return NextResponse.json(rows, { status: 200 });
   } catch (error) {
     console.error("Error during GET request:", error);

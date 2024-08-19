@@ -39,7 +39,7 @@ interface AppointmentContextType {
   setContactDetails: React.Dispatch<React.SetStateAction<ContactDetailsData>>;
   serviceDetails: ServiceDetailsData;
   setServiceDetails: React.Dispatch<React.SetStateAction<ServiceDetailsData>>;
-  makeAppointment: () => void;
+  makeAppointment: () => Promise<void>;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -103,7 +103,6 @@ export function AppointmentProvider({
       bathCount,
       notes,
     } = contactDetails;
-    console.log(person);
     try {
       const res = await fetch("/api/appointments", {
         method: "POST",

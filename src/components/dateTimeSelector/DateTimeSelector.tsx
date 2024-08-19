@@ -13,6 +13,7 @@ import {
 
 export default function DateTimeSelector() {
   const [unavailableTimes, setUnavailableTimes] = useState([]);
+  const [currentMonthAppointments, setCurrentMonthAppointments] = useState([]);
   const [message, setMessage] = useState("");
   const {
     date,
@@ -55,26 +56,41 @@ export default function DateTimeSelector() {
   };
 
   useEffect(() => {
-    const fetchUnavailableTimes = async () => {
+    const fetchCurrentMonthAppointments = async () => {
       try {
-        const day = `${date.year}-${date.month}-${date.day}`;
-        const response = await fetch(`/api/appointments?date=${day}`);
+        const response = await fetch(
+          `/api/appointments?year=${date.year}&month=${date.month}`,
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch available times");
         }
 
         const data = await response.json();
-        setUnavailableTimes(data); // Assuming `data` is an array of times
+        setCurrentMonthAppointments(data); // Assuming `data` is an array of times
       } catch (error) {
         console.error("Error fetching available times:", error);
       }
     };
-    fetchUnavailableTimes();
+    fetchCurrentMonthAppointments();
   }, [date]);
 
   useEffect(() => {
-    console.log(unavailableTimes);
-  }, [unavailableTimes]);
+    const getUnavailableTimes = (day: number) => {
+      const times = currentMonthAppointments
+        .filter((appointment) => {
+          const appointmentDay = parseInt(
+            appointment.scheduled_time.slice(8, 10),
+            10,
+          );
+          return appointmentDay === day;
+        })
+        .map((appointment) => appointment.scheduled_time.slice(11, 16)); // Extracting time part (HH:MM)
+
+      setUnavailableTimes(times);
+    };
+
+    getUnavailableTimes(date.day);
+  }, [currentMonthAppointments]);
 
   return (
     <div className="flex flex-col">
@@ -98,14 +114,17 @@ export default function DateTimeSelector() {
             <h3>{message}</h3>
           </div>
           <FontAwesomeIcon
-            className="ml-4 lg:ml-[600px]"
+            className="ml-4"
             onClick={() => setMessage("")}
             icon={faXmark}
           />
         </div>
       )}
       <div className="flex flex-col md:flex-row bg-royalblue rounded-3xl justify-between">
-        <Calendar setDate={setDate} />
+        <Calendar
+          currentMonthAppointments={currentMonthAppointments}
+          setDate={setDate}
+        />
         <TimeSelector
           date={date}
           unavailableTimes={unavailableTimes}
@@ -113,13 +132,6 @@ export default function DateTimeSelector() {
           setSelectedTime={setSelectedTime}
         />
       </div>
-      {/* <button */}
-      {/*   type="button" */}
-      {/*   onClick={handleClick} */}
-      {/*   className="bg-teal rounded-3xl p-2 m-2" */}
-      {/* > */}
-      {/*   Make Apointment */}
-      {/* </button> */}
     </div>
   );
 }

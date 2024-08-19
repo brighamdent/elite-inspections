@@ -16,19 +16,31 @@ export default function TimeSelector({
     "14:00",
     "15:00",
     "16:00",
-    "17:00",
   ];
   const [availableTimes, setAvailableTimes] = useState(avalability);
 
   useEffect(() => {
-    console.log(unavailableTimes);
-    const unavailableTimesSet = new Set(
-      unavailableTimes.map((item) => item.time),
+    const unavailableTimesSet = new Set<string>();
+
+    unavailableTimes.forEach((time) => {
+      let [hour, minute] = time.split(":").map(Number);
+
+      // Add times for 3 hours before, current hour, and 3 hours after
+      for (let i = -3; i <= 3; i++) {
+        const adjustedHour = hour + i;
+        if (adjustedHour >= 0 && adjustedHour < 24) {
+          // Ensure the hour is within 0-23
+          const formattedTime = `${String(adjustedHour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+          unavailableTimesSet.add(formattedTime);
+        }
+      }
+    });
+
+    // Filter available times to exclude those in unavailableTimesSet
+    const newTimes = avalability.filter(
+      (time) => !unavailableTimesSet.has(time),
     );
-    const newtimes = avalability.filter(
-      (time, i) => !unavailableTimesSet.has(time),
-    );
-    setAvailableTimes(newtimes);
+    setAvailableTimes(newTimes);
   }, [unavailableTimes]);
 
   const handleClick = (time: string) => {
