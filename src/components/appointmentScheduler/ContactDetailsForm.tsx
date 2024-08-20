@@ -133,7 +133,7 @@ export default function ContactDetailsForm() {
             <div className="flex gap-x-2">
               <label htmlFor="email">Email</label>
               <input
-                type="text"
+                type="email"
                 id="email"
                 name="emailAddress"
                 value={contactDetails.emailAddress}

@@ -13,11 +13,13 @@ export default function ReviewInfo() {
     contactDetails,
     serviceDetails,
     makeAppointment,
+    sendAppointmentConfirmation,
   } = useAppointment();
 
   const handleClick = async () => {
     try {
       await makeAppointment();
+      await sendAppointmentConfirmation();
       setCurrentStage(currentStage + 1);
     } catch {
       console.log("Something went wrong");

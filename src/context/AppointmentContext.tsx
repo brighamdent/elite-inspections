@@ -40,6 +40,7 @@ interface AppointmentContextType {
   serviceDetails: ServiceDetailsData;
   setServiceDetails: React.Dispatch<React.SetStateAction<ServiceDetailsData>>;
   makeAppointment: () => Promise<void>;
+  sendAppointmentConfirmation: () => Promise<void>;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
@@ -131,11 +132,62 @@ export function AppointmentProvider({
       if (res.ok) {
         // setMessage(result.message);
       } else {
-        // setMessage("Error scheduling appointment");
+        throw Error("Something went wrong while connecting to our database.");
       }
     } catch (error) {
+      throw Error("Something went wrong while connecting to our database.");
       // setMessage("Error scheduling appointment");
       console.log(error);
+    }
+  };
+  const sendAppointmentConfirmation = async () => {
+    const {
+      person,
+      firstName,
+      lastName,
+      phoneNumber,
+      emailAddress,
+      address,
+      finishedSqft,
+      yearBuilt,
+      foundationType,
+      bedCount,
+      bathCount,
+      notes,
+    } = contactDetails;
+
+    try {
+      const response = await fetch("/api/appointmentConfirmation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date,
+          selectedTime,
+          firstName,
+          lastName,
+          phoneNumber,
+          emailAddress,
+          address,
+          finishedSqft,
+          yearBuilt,
+          foundationType,
+          bedCount,
+          bathCount,
+          notes,
+        }),
+      });
+      if (response.ok) {
+        console.log("Email Sent");
+      } else {
+        throw Error(
+          "Something went wrong while sending the confirmation email.",
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      throw Error("Something went wrong while sending the confirmation email.");
     }
   };
   return (
@@ -152,6 +204,7 @@ export function AppointmentProvider({
         serviceDetails,
         setServiceDetails,
         makeAppointment,
+        sendAppointmentConfirmation,
       }}
     >
       {children}
