@@ -95,10 +95,10 @@ export default function DateTimeSelector() {
   return (
     <div className="flex flex-col">
       <div className="flex items-center w-full p-4">
-        <h2>Select a Date and Time</h2>
+        <h2 className="w-full md:w-auto">Select a Date and Time</h2>
         <button
           type="button"
-          className="bg-teal group hover:bg-darkblue rounded-3xl flex items-center justify-between p-1 ml-6 transition-colors"
+          className="bg-teal group hover:bg-darkblue rounded-3xl items-center justify-between p-1 ml-6 transition-colors hidden md:flex"
           onClick={handleSubmit}
         >
           <p className="font-extrabold ml-2 mr-2">Next</p>
@@ -120,7 +120,7 @@ export default function DateTimeSelector() {
           />
         </div>
       )}
-      <div className="flex flex-col md:flex-row bg-royalblue rounded-3xl justify-between">
+      <div className="flex flex-col md:flex-row md:bg-royalblue rounded-3xl justify-between">
         <Calendar
           currentMonthAppointments={currentMonthAppointments}
           setDate={setDate}
@@ -131,6 +131,16 @@ export default function DateTimeSelector() {
           selectedTime={selectedTime}
           setSelectedTime={setSelectedTime}
         />
+        <button
+          type="button"
+          className=" w-80 h-14 bg-teal group hover:bg-darkblue rounded-[100px] items-center justify-between p-1 ml-6 transition-colors flex md:hidden"
+          onClick={handleSubmit}
+        >
+          <p className="font-extrabold ml-32 mr-2 text-2xl">Next</p>
+          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
+            <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
+          </div>
+        </button>
       </div>
     </div>
   );

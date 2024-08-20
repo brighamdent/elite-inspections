@@ -12,7 +12,7 @@ import AppointmentConfirmation from "./AppointmentConfirmation";
 export default function AppointmentScheduler() {
   const { currentStage } = useAppointment();
   return (
-    <div className="w-[750px] md:bg-royalblue rounded-3xl mt-20 pt-6 pb-6 flex flex-col items-center">
+    <div className="md:w-[750px] md:bg-royalblue rounded-3xl md:mt-20 pt-6 pb-6 flex flex-col items-center">
       {currentStage < 4 && <AppointmentStatus />}
       {currentStage === 1 && <DateTimeSelector />}
       {currentStage === 2 && <ContactDetailsForm />}

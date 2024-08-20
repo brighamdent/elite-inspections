@@ -114,7 +114,7 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
   };
 
   return (
-    <div className="bg-royalblue rounded-3xl p-4  flex flex-col items-center">
+    <div className=" rounded-3xl p-4  flex flex-col items-center">
       <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">
         <p className="text-md">
           {monthFormatted} {currentYear}
@@ -132,7 +132,7 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-2 ">
+      <div className="grid grid-cols-7 gap-2 md:gap-2 ">
         {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, i) => (
           <div className="text-center text-white text-[10px]" key={i}>
             {day}
@@ -140,7 +140,10 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
         ))}
         {Array.from({ length: 42 }).map((_, i) => (
           <button
-            className={`bg-darkblue  rounded-3xl w-12 h-12 flex items-center justify-center ${i < firstDay ? "bg-royalblue" : "disabled:bg-darkblue/50 disabled:text-white/50"} ${i >= lastDay + firstDay ? "hidden" : ""} ${selectedDate.day === i - firstDay + 1 ? "bg-teal" : ""}`}
+            className={`rounded-3xl w-10 h-10 md:w-12 md:h-12 flex items-center justify-center
+            ${i < firstDay ? "bg-transparent" : "bg-royalblue md:bg-darkblue disabled:bg-royalblue/20 md:disabled:bg-darkblue/50 disabled:text-white/50"}
+            ${i >= lastDay + firstDay ? "hidden" : ""}
+            ${selectedDate.day === i - firstDay + 1 ? "bg-teal md:bg-teal" : ""}`}
             key={i}
             disabled={checkForDisabled(i)}
             onClick={() => handleDayClick(i - firstDay + 1)}
