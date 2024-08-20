@@ -24,22 +24,31 @@ export default function ContactDetailsForm() {
 
   return (
     <div>
-      <form className="w-full pl-9 pr-9 pt-4" onSubmit={handleSubmit}>
-        <div className="flex items-center w-full">
-          <h2>Please Provide Contact Details</h2>
+      <form
+        className="w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex  flex-col md:flex-row items-center w-full">
+          <h2 className="text-xl md:text-[24px]">
+            Please Provide Contact Details
+          </h2>
           <button
             type="submit"
-            className="bg-teal group hover:bg-darkblue rounded-3xl flex items-center justify-between p-1 ml-6 transition-colors"
+            className="bg-teal group hover:bg-darkblue rounded-3xl hidden md:flex  flex-col md:flex-row items-center justify-between p-1 ml-6 transition-colors"
           >
             <p className="font-extrabold ml-2 mr-2">Next</p>
-            <div className="bg-royalblue group-hover:bg-teal rounded-3xl h-6 w-6 flex items-center justify-center transition-colors">
+            <div className="bg-royalblue group-hover:bg-teal rounded-3xl h-6 w-6 flex  flex-col md:flex-row items-center justify-center transition-colors">
               <FontAwesomeIcon icon={faArrowRight} />
             </div>
           </button>
         </div>
-        <SelectedAppointment edit={true} />
-        <div className="w-full bg-darkblue h-8 rounded-3xl mt-2 flex justify-between p-4 items-center">
-          <p>I am the...</p>
+        <div className="md:self-start">
+          <SelectedAppointment edit={true} />
+        </div>
+        <div className="w-80 md:w-full md:bg-darkblue md:h-8 rounded-3xl mt-2 flex pl-24 pr-20  flex-col md:flex-row justify-between p-4 md:pl-4 md:pr-4 items-start md:items-center bg-royalblue/50">
+          <p className="w-full text-center md:w-auto font-bold md:font-normal">
+            I am the...
+          </p>
           <div>
             <input
               type="radio"
@@ -89,80 +98,114 @@ export default function ContactDetailsForm() {
             <label htmlFor="sellers_agent"> Seller's Agent</label>
           </div>
         </div>
-        <p className="w-full text-left mt-4 mb-2">Personal Details:</p>
-        <div className="bg-darkblue rounded-3xl w-full p-4 ">
-          <div className="flex justify-between items-center w-full">
-            <div className="flex gap-x-2">
-              <label htmlFor="first_name">First Name</label>
+        <p className="w-full text-xl md:text-[16px] text-center md:text-left mt-4 mb-2">
+          Personal Details:
+        </p>
+        <div className="bg-darkblue rounded-3xl w-full md:p-4 ">
+          <div className="flex  flex-col md:flex-row justify-between items-center md:w-full">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+              <label
+                htmlFor="first_name"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                First Name
+              </label>
               <input
                 type="text"
                 id="first_name"
                 name="firstName"
                 value={contactDetails.firstName}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-3 w-56"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
-            <div className="flex gap-x-2">
-              <label htmlFor="last_name">Last Name</label>
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+              <label
+                htmlFor="last_name"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Last Name
+              </label>
               <input
                 type="text"
                 id="last_name"
                 name="lastName"
                 value={contactDetails.lastName}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-3 w-56"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
           </div>
-          <div className="flex justify-between items-center w-full mt-2">
-            <div className="flex gap-x-2">
-              <label htmlFor="phoneNumber">Phone Number</label>
+          <div className="flex  flex-col md:flex-row justify-between items-center w-full mt-2">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+              <label
+                htmlFor="phoneNumber"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Phone Number
+              </label>
               <input
                 type="text"
                 id="phone_number"
                 name="phoneNumber"
                 value={contactDetails.phoneNumber}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-3 w-56"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
-            <div className="flex gap-x-2">
-              <label htmlFor="email">Email</label>
+            <div className="flex  items-start md:items-center flex-col md:flex-row gap-x-2">
+              <label
+                htmlFor="email"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
                 name="emailAddress"
                 value={contactDetails.emailAddress}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-3 w-56"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
           </div>
         </div>
-        <p className="w-full text-left mt-4 mb-2">Property Details:</p>
-        <div className="bg-darkblue rounded-3xl w-full p-4 ">
+        <p className="w-full text-xl md:text-[16px] text-center md:text-left mt-4 mb-2">
+          Property Details:
+        </p>
+        <div className="bg-darkblue rounded-3xl w-full p-4 pt-0 md:pt-4 ">
           <div className="flex justify-between items-center w-full">
-            <div className="flex gap-x-2 w-full">
-              <label htmlFor="address">Address</label>
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full">
+              <label
+                htmlFor="address"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Address
+              </label>
               <input
                 type="text"
                 id="address"
                 name="address"
                 value={contactDetails.address}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-3 w-full"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-full md:w-full h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
           </div>
-          <div className="flex justify-between items-center w-full mt-2 gap-x-1">
-            <div className="flex gap-x-2">
-              <label htmlFor="finishedSqft">Total Finished Square Feet</label>
+          <div className="flex  flex-col md:flex-row justify-between items-center w-full mt-2 gap-x-1">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+              <label
+                htmlFor="finishedSqft"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Total Finished Square Feet
+              </label>
               <input
                 type="text"
                 pattern="\d*"
@@ -170,12 +213,17 @@ export default function ContactDetailsForm() {
                 name="finishedSqft"
                 value={contactDetails.finishedSqft}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-3 w-44"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-44 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
-            <div className="flex gap-x-2">
-              <label htmlFor="year_built">Year Built</label>
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+              <label
+                htmlFor="year_built"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Year Built
+              </label>
               <input
                 type="text"
                 pattern="\d*"
@@ -183,16 +231,21 @@ export default function ContactDetailsForm() {
                 name="yearBuilt"
                 value={contactDetails.yearBuilt}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-3 w-44"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-44 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
           </div>
-          <div className="flex justify-between items-center w-full mt-2">
-            <div className="flex gap-x-2">
-              <label htmlFor="foundation_type">Foundation Type</label>
+          <div className="flex flex-col md:flex-row justify-between items-center w-full mt-2">
+            <div className="flex flex-col items-start md:items-center md:flex-row gap-x-2">
+              <label
+                htmlFor="foundation_type"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Foundation Type
+              </label>
               <select
-                className="bg-royalblue/50 rounded-3xl pl-3 w-60"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-60 h-10 md:h-6 text-xl md:text-[16px]"
                 id="foundation_type"
                 name="foundationType"
                 value={contactDetails.foundationType}
@@ -206,10 +259,15 @@ export default function ContactDetailsForm() {
                 <option value="option 4">Option 4</option>
               </select>
             </div>
-            <div className="flex gap-x-2">
-              <label htmlFor="phone_number">Beds</label>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2">
+              <label
+                htmlFor="phone_number"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Beds
+              </label>
               <select
-                className="bg-royalblue/50 rounded-3xl pl-3 w-20"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-20 h-10 md:h-6 text-xl md:text-[16px]"
                 id="bed_count"
                 name="bedCount"
                 value={contactDetails.bedCount}
@@ -223,10 +281,15 @@ export default function ContactDetailsForm() {
                 <option value={4}>4</option>
               </select>
             </div>
-            <div className="flex gap-x-2">
-              <label htmlFor="phone_number">Bath</label>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2">
+              <label
+                htmlFor="phone_number"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Bath
+              </label>
               <select
-                className="bg-royalblue/50 rounded-3xl pl-3 w-20"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-20 h-10 md:h-6 text-xl md:text-[16px]"
                 id="bath_count"
                 name="bathCount"
                 value={contactDetails.bathCount}
@@ -241,11 +304,16 @@ export default function ContactDetailsForm() {
               </select>
             </div>
           </div>
-          <div className="flex justify-between items-center w-full mt-2">
-            <div className="flex items-center gap-x-2 w-full">
-              <label htmlFor="address">Notes</label>
+          <div className="flex flex-col md:flex-row justify-between items-center w-full mt-2">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full">
+              <label
+                htmlFor="address"
+                className="text-sm md:text-[16px] m-3 md:m-0"
+              >
+                Notes
+              </label>
               <textarea
-                className="bg-royalblue/50 rounded-xl pl-3 w-full h-16"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-full md:w-full h-32 md:h-16 text-xl md:text-[16px]"
                 name="notes"
                 value={contactDetails.notes}
                 onChange={handleChange}
@@ -253,6 +321,15 @@ export default function ContactDetailsForm() {
             </div>
           </div>
         </div>
+        <button
+          type="submit"
+          className=" w-80 h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden"
+        >
+          <p className="font-extrabold ml-32 mr-2 text-2xl">Next</p>
+          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
+            <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
+          </div>
+        </button>
       </form>
     </div>
   );

@@ -4,13 +4,10 @@ import convertTo12Hour from "@/utils/convertTo12Hour";
 
 export default function SelectedAppointment({ edit }) {
   const { date, selectedTime, setCurrentStage } = useAppointment();
-  useEffect(() => {
-    console.log(date);
-  }, [date]);
   return (
     <div>
       <div className="flex w-full items-center justify-start">
-        <p className="text-left mt-4 mb-2">
+        <p className="text-left mt-4 mb-2 text-xs md:text-[16px]">
           Scheduled for: {date.dayOfWeek}, {date.monthName} {date.day},{" "}
           {date.year} {selectedTime ? convertTo12Hour(selectedTime) : " "}{" "}
         </p>

@@ -133,7 +133,7 @@ export default function DateTimeSelector() {
         />
         <button
           type="button"
-          className=" w-80 h-14 bg-teal group hover:bg-darkblue rounded-[100px] items-center justify-between p-1 ml-6 transition-colors flex md:hidden"
+          className=" w-80 h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 ml-6 transition-colors flex md:hidden"
           onClick={handleSubmit}
         >
           <p className="font-extrabold ml-32 mr-2 text-2xl">Next</p>
