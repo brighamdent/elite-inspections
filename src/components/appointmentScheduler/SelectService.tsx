@@ -54,7 +54,7 @@ export default function SelectService() {
             <h3>{message}</h3>
           </div>
           <FontAwesomeIcon
-            className="ml-4 lg:ml-[600px]"
+            className="ml-4"
             onClick={() => setMessage("")}
             icon={faXmark}
           />
