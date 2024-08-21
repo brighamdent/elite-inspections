@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 import convertTo12Hour from "@/utils/convertTo12Hour";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,11 +26,16 @@ export default function SelectService() {
     if (serviceDetails.inspectionType) setCurrentStage(currentStage + 1);
     else setMessage("Please Select an Inspection Type");
   };
+
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target;
     setServiceDetails({ ...serviceDetails, [name]: value });
     console.log(serviceDetails.inspectionType);
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [message]);
 
   return (
     <div className="w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center md:block">

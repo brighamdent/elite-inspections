@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,10 @@ export default function AppointmentStatus() {
       stageDescription: "Please Provide Contact Details",
     },
   ];
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentStage]);
 
   return (
     <div className="pb-0 flex flex-col items-center">

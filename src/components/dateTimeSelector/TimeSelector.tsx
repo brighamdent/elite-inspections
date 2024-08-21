@@ -54,7 +54,7 @@ export default function TimeSelector({
       <div className="max-h-72 overflow-auto pr-4 pl-4 flex flex-col items-center">
         {availableTimes.map((time, i) => (
           <button
-            className={`bg-royalblue md:bg-darkblue p-4 w-80  md:w-64 h-12 rounded-2xl flex flex-col items-center justify-center m-1 ${time == selectedTime ? "bg-teal" : ""}`}
+            className={`bg-royalblue md:bg-darkblue p-4 w-80  md:w-64 h-12 rounded-2xl flex flex-col items-center justify-center m-1 ${time == selectedTime ? "bg-teal md:bg-teal" : ""}`}
             key={i}
             onClick={() => handleClick(time)}
           >
