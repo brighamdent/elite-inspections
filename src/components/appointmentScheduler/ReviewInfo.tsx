@@ -28,12 +28,12 @@ export default function ReviewInfo() {
   console.log(contactDetails);
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <div className="flex items-center w-full">
         <h2>Please Double Check Your Information</h2>
         <button
           type="button"
-          className="bg-teal group hover:bg-darkblue rounded-3xl flex items-center justify-between p-1 ml-6 transition-colors"
+          className="bg-teal group hover:bg-darkblue rounded-3xl md:flex items-center justify-between p-1 ml-6 transition-colors hidden "
           onClick={handleClick}
         >
           <p className="font-extrabold ml-2 mr-2">Confirm</p>
@@ -42,8 +42,10 @@ export default function ReviewInfo() {
           </div>
         </button>
       </div>
-      <SelectedAppointment edit={true} />
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col items-center md:items-start w-full">
+        <SelectedAppointment edit={true} />
+      </div>
+      <div className="flex flex-col md:flex-row items-center justify-between mb-4">
         <div className="flex items-end">
           <div className=" bg-darkblue h-8 rounded-3xl mt-2 flex justify-between p-4 items-center">
             <p className="mr-1">I am the...</p>
@@ -67,10 +69,10 @@ export default function ReviewInfo() {
           </p>
         </div>
         <div className="flex items-end ml-4">
-          <div className=" w-full bg-darkblue h-8 rounded-3xl mt-2 flex justify-between p-4 items-center">
+          <div className=" w-full bg-darkblue md:h-8 rounded-3xl mt-2 flex flex-col md:flex-row justify-between p-4 items-center">
+            <p>Service:</p>
             <p>
-              Service: {serviceDetails.inspectionType} | $
-              {serviceDetails.quoteAmount}
+              {serviceDetails.inspectionType} | ${serviceDetails.quoteAmount}
             </p>
           </div>
           <p
@@ -81,8 +83,20 @@ export default function ReviewInfo() {
           </p>
         </div>
       </div>
-      <PersonalDetails edit={true} />
-      <PropertyDetails edit={true} />
+      <div className="w-full flex flex-col items-center md:items-stretch">
+        <PersonalDetails edit={true} />
+        <PropertyDetails edit={true} />
+      </div>
+      <button
+        type="button"
+        className=" mt-5 w-80 h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden"
+        onClick={handleClick}
+      >
+        <p className="font-extrabold ml-24 mr-2 text-2xl">Confirm</p>
+        <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
+          <FontAwesomeIcon className="h-8 w-8" icon={faArrowUp} />
+        </div>
+      </button>
     </div>
   );
 }
