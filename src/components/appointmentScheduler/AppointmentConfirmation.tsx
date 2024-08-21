@@ -18,9 +18,13 @@ export default function AppointmentConfirmation() {
         Your apointment has been confirmed! We sent you an email with all of the
         details.{" "}
       </h3>
-      <SelectedAppointment edit={false} />
-      <PersonalDetails edit={false} />
-      <PropertyDetails edit={false} />
+      <div className="flex flex-col items-center md:items-start w-full">
+        <SelectedAppointment edit={false} />
+      </div>
+      <div className="w-full flex flex-col items-center md:items-stretch">
+        <PersonalDetails edit={false} />
+        <PropertyDetails edit={false} />
+      </div>
       <p className="md:text-left w-80 md:w-auto">
         If you need to change any of your appointment details please give us a
         call at 555-555-555 or email us at businessemail@gmail.com
