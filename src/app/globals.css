@@ -79,3 +79,19 @@ p {
     background-image: none; /* Remove background image on large screens */
   }
 }
+
+.loader {
+  border: solid #f3f3f3; /* Light grey */
+  border-top: solid #48cbc5; /* Teal */
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
