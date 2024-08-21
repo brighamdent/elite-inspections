@@ -33,7 +33,7 @@ export default function AppointmentStatus() {
             key={index}
           >
             <div
-              className={` bg-royalblue md:bg-darkblue text-white h-4 w-4 md:h-8 md:w-8 text-xs rounded-3xl flex items-center justify-center mr-1 md:mr-2 ${currentStage === stage.stageNumber && "bg-teal md:bg-teal"}`}
+              className={` bg-royalblue md:bg-darkblue text-white h-4 w-4 md:h-8 md:w-8 text-xs md:text-xl rounded-3xl flex items-center justify-center mr-1 md:mr-2 ${currentStage === stage.stageNumber && "bg-teal md:bg-teal"}`}
             >
               {stage.stageNumber}
             </div>

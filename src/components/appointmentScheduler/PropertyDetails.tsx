@@ -5,7 +5,7 @@ export default function PropertyDetails({ edit }) {
   const { contactDetails, setCurrentStage } = useAppointment();
   return (
     <div>
-      <div className="flex w-full items-center justify-start">
+      <div className="flex w-full items-center justify-center md:justify-start">
         <p className=" text-left mb-1">Property Details:</p>
         {edit && (
           <p
@@ -16,20 +16,47 @@ export default function PropertyDetails({ edit }) {
           </p>
         )}
       </div>
-      <div className="bg-darkblue rounded-3xl w-full p-5 text-left mb-4 ">
-        <p>Address: {contactDetails.address}</p>
-        <p>Total Finished Square Footage: {contactDetails.finishedSqft}</p>
-        <div className="flex space-x-2">
-          <p>Year Built: {contactDetails.yearBuilt}</p>
-          <p className="text-teal font-extrabold"> | </p>
-          <p>Foundation Type: {contactDetails.foundationType}</p>
+      <div className="bg-royalblue/50 md:bg-darkblue rounded-3xl w-80 md:w-auto p-5 text-left mb-4 space-y-2 md:space-y-0 ">
+        <div className="flex flex-col items-start md:items-center md:flex-row">
+          <p className="mr-1 text-xs md:text-base">Address:</p>
+          <p className="text-xl md:text-[16px]">{contactDetails.address}</p>
         </div>
-        <div className="flex space-x-2">
-          <p>Beds: {contactDetails.bedCount}</p>
-          <p className="text-teal font-extrabold"> | </p>
-          <p>Bath: {contactDetails.bathCount}</p>
+        <div className="flex flex-col items-start md:items-center md:flex-row">
+          <p className="mr-1 text-xs md:text-base">
+            Total Finished Square Footage:
+          </p>
+          <p className="text-xl md:text-[16px]">
+            {contactDetails.finishedSqft}
+          </p>
         </div>
-        <p>Notes: {contactDetails.notes}</p>
+        <div className="flex flex-col items-start md:items-center md:flex-row space-y-2 md:space-y-0 md:space-x-2">
+          <div className="flex flex-col items-start md:items-center md:flex-row">
+            <p className="mr-1 text-xs md:text-base">Year Built:</p>
+            <p className="text-xl md:text-[16px]">{contactDetails.yearBuilt}</p>
+          </div>
+          <p className="text-teal font-extrabold hidden md:flex"> | </p>
+          <div className="flex flex-col items-start md:items-center md:flex-row">
+            <p className="mr-1 text-xs md:text-base">Foundation Type:</p>
+            <p className="text-xl md:text-[16px]">
+              {contactDetails.foundationType}
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col items-start md:items-center md:flex-row md:space-x-2">
+          <div className="flex flex-col items-start md:items-center md:flex-row space-y-2 md:space-y-0">
+            <p className="mr-1 text-xs md:text-base">Beds:</p>
+            <p className="text-xl md:text-[16px]">{contactDetails.bedCount}</p>
+          </div>
+          <p className="text-teal font-extrabold hidden md:flex"> | </p>
+          <div className="flex flex-col items-start md:items-center md:flex-row">
+            <p className="mr-1 text-xs md:text-base">Bath:</p>
+            <p className="text-xl md:text-[16px]">{contactDetails.bathCount}</p>
+          </div>
+        </div>
+        <div className="flex flex-col items-start md:items-center md:flex-row">
+          <p className="mr-1 text-xs md:text-base">Notes:</p>
+          <p className="text-xl md:text-[16px]">{contactDetails.notes}</p>
+        </div>
       </div>
     </div>
   );
