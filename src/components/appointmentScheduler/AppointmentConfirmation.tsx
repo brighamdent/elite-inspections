@@ -14,14 +14,14 @@ export default function AppointmentConfirmation() {
           <FontAwesomeIcon icon={faCheck} className="h-6" />
         </div>
       </div>
-      <h3 className=" md:self-start text-center md:text-left md:mr-20 mt-2">
+      <h3 className=" md:self-start text-center md:text-left md:mr-20 mt-2 w-80 md:w-auto">
         Your apointment has been confirmed! We sent you an email with all of the
         details.{" "}
       </h3>
       <SelectedAppointment edit={false} />
       <PersonalDetails edit={false} />
       <PropertyDetails edit={false} />
-      <p className="md:text-left">
+      <p className="md:text-left w-80 md:w-auto">
         If you need to change any of your appointment details please give us a
         call at 555-555-555 or email us at businessemail@gmail.com
       </p>
