@@ -25,18 +25,15 @@ export default function TimeSelector({
     unavailableTimes.forEach((time) => {
       let [hour, minute] = time.split(":").map(Number);
 
-      // Add times for 3 hours before, current hour, and 3 hours after
       for (let i = -3; i <= 3; i++) {
         const adjustedHour = hour + i;
         if (adjustedHour >= 0 && adjustedHour < 24) {
-          // Ensure the hour is within 0-23
           const formattedTime = `${String(adjustedHour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
           unavailableTimesSet.add(formattedTime);
         }
       }
     });
 
-    // Filter available times to exclude those in unavailableTimesSet
     const newTimes = avalability.filter(
       (time) => !unavailableTimesSet.has(time),
     );
@@ -47,7 +44,7 @@ export default function TimeSelector({
     setSelectedTime(time);
   };
   return (
-    <div className=" pt-4 pb-4 md:pb-0 flex flex-col items-center max-h-96 overflow-scroll">
+    <div className=" pt-4 pb-4 md:pb-0 flex flex-col items-center max-h-96 ">
       <p className="text-md mb-2">
         {date.dayOfWeek}, {date.monthName} {date.day}, {date.year}
       </p>
