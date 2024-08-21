@@ -1,7 +1,9 @@
+"use client";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [formValues, setFormValues] = useState({
@@ -9,18 +11,26 @@ export default function Login() {
     password: "",
   });
   const { currentUser, login } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/admin/schedule");
+    }
+  }, [currentUser, router]);
 
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
-  const handleSubmit = async (event: SubmitEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     const { email, password } = formValues;
     try {
       await login(email, password);
+      router.push("/admin/schedule");
     } catch (error) {
       console.log(error);
     }

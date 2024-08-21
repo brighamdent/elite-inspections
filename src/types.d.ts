@@ -12,3 +12,5 @@ type ChangeEvent =
   | React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLSelectElement>
   | React.ChangeEvent<HTMLTextAreaElement>;
+
+type FormEvent = React.FormEvent<HTMLFormElement>;

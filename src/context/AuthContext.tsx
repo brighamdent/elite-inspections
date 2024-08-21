@@ -17,6 +17,8 @@ interface AuthContextType {
     email: string,
     password: string,
   ) => Promise<firebase.auth.UserCredentials>;
+  logout: () => Promise<void>;
+  loading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,6 +33,7 @@ export function useAuth(): AuthContextType {
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const login = (email: string, password: string) => {
     return auth.signInWithEmailAndPassword(email, password);
@@ -43,13 +46,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      return unsubscribe;
+      setLoading(false);
+      return () => {
+        setLoading(false); // Ensure loading is set to false if unsubscribing
+        unsubscribe();
+      };
     });
   }, []);
 
   const value: AuthContextType = {
     currentUser,
     login,
+    logout,
+    loading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
