@@ -5,7 +5,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <Login />
     </div>
   );

@@ -38,7 +38,7 @@ export default function Login() {
 
   return (
     <form
-      className="flex flex-col items-center rounded-3xl mt-40 p-4 md:bg-royalblue "
+      className="flex flex-col md:w-[550px] items-center rounded-3xl mt-40 p-4 md:bg-royalblue "
       onSubmit={handleSubmit}
     >
       <h2 className="mb-2">Admin Login</h2>
