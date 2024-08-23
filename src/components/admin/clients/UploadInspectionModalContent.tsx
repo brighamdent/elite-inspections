@@ -1,6 +1,8 @@
+import { useAuth } from "@/context/AuthContext";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef, useState } from "react";
+import firebase from "firebase/compat/app";
 
 export default function UploadInspectionModalContent({
   appointment,
@@ -10,6 +12,7 @@ export default function UploadInspectionModalContent({
   const [file, setFile] = useState<File | null>(null);
   const [filePreviewUrl, setFilePreviewUrl] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { currentUser } = useAuth();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -38,15 +41,24 @@ export default function UploadInspectionModalContent({
     formData.append("file", file);
 
     try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
-      const result = await response.json();
-      if (response.ok) {
-        alert("File uploaded successfully!");
+      const user = firebase.auth().currentUser;
+      if (user) {
+        const token = await user.getIdToken();
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert("File uploaded successfully!");
+        } else {
+          alert("Error uploading file: " + result.error);
+        }
       } else {
-        alert("Error uploading file: " + result.error);
+        console.error("No user is currently signed in.");
       }
     } catch (error) {
       console.error("Error uploading file:", error);

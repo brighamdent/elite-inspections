@@ -1,14 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
-import fs from "fs";
-import path from "path";
 import { PassThrough } from "stream";
+import { verifyAdmin } from "@/lib/authMiddleware";
 
 const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS!);
-
-// const SERVICE_ACCOUNT_FILE = path.resolve(
-//   process.env.GOOGLE_CREDENTIALS_FILE_PATH || "",
-// );
 
 const FOLDER_ID = process.env.GOOGLE_DRIVE_FOLDER_ID!;
 
@@ -21,6 +16,16 @@ const drive = google.drive({ version: "v3", auth });
 
 export async function POST(req: NextRequest) {
   try {
+    // Check admin status
+    const isAdmin = await verifyAdmin(req);
+
+    // Log admin check result
+    console.log("Admin check result:", isAdmin);
+
+    if (isAdmin !== true) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+    }
+
     const formData = await req.formData();
     const file = formData.get("file");
 
@@ -33,7 +38,6 @@ export async function POST(req: NextRequest) {
       parents: [FOLDER_ID],
     };
 
-    // Convert Blob to Node.js Readable Stream
     const readableStream = file.stream();
     const passThrough = new PassThrough();
     readableStream.pipeTo(
