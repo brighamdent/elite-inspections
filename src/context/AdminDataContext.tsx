@@ -39,6 +39,7 @@ interface AppointmentType {
 
 interface AdminDataContextType {
   currentMonthAppointments: AppointmentType[];
+  todaysAppointments: AppointmentType[];
 }
 
 const AdminDataContext = createContext<AdminDataContextType | undefined>(
@@ -59,12 +60,19 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
   >([]);
   const [todaysAppointments, setTodaysAppointments] = useState<any>([]);
   const [firstEffectDone, setFirstEffectDone] = useState(false);
+  const [date, setDate] = useState({
+    month: getCurrentMonth(),
+    day: null,
+    year: getCurrentYear(),
+    dayOfWeek: null,
+    monthName: null,
+  });
 
   useEffect(() => {
     const fetchAppointmentData = async () => {
       try {
         const response = await fetch(
-          `/api/appointmentsAdmin?year=${getCurrentYear()}&month=${getCurrentMonth()}`,
+          `/api/appointmentsAdmin?year=${date.year}&month=${date.month}`,
         );
 
         if (!response.ok) {
@@ -80,7 +88,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       }
     };
     fetchAppointmentData();
-  }, []);
+  }, [date.month, date.year]);
 
   useEffect(() => {
     const fetchTodaysAppointments = () => {
@@ -94,7 +102,9 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
   }, [firstEffectDone]);
 
   return (
-    <AdminDataContext.Provider value={{ currentMonthAppointments }}>
+    <AdminDataContext.Provider
+      value={{ currentMonthAppointments, todaysAppointments, date, setDate }}
+    >
       {children}
     </AdminDataContext.Provider>
   );

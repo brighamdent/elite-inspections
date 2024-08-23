@@ -5,7 +5,7 @@ const AdminLayout = ({ children }: any) => {
   return (
     <div>
       <StatusBar />
-      <Logout />
+      {/* <Logout /> */}
       {children}
     </div>
   );

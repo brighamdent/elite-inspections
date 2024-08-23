@@ -23,3 +23,9 @@ export const formatDateBackwards = (date: Date) => {
 
   return `${year}-${month}-${day}`;
 };
+
+export const monthFormatting = (month: number | string) =>
+  String(month).padStart(2, "0");
+
+export const dayFormatting = (day: number | string) =>
+  String(day).padStart(2, "0");

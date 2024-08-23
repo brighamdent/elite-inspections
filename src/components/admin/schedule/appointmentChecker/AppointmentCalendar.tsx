@@ -1,18 +1,18 @@
+"use client";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { startOfMonth, endOfMonth, getDay, getDate, format } from "date-fns";
+import { useAdminData } from "@/context/AdminDataContext";
+import AppointmentModal from "../AppointmentModal";
 
-export default function Calendar({ currentMonthAppointments, setDate }) {
+export default function AppointmentCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const firstDay = getDay(startOfMonth(currentDate));
   const lastDay = getDate(endOfMonth(currentDate));
   const monthFormatted = format(currentDate, "MMMM");
   const currentYear = currentDate.getFullYear();
   const currentMonthNumber = currentDate.getMonth() + 1;
-  const realCurrentDay = new Date().getDate();
-  const realCurrentMonthNumber = new Date().getMonth() + 1;
-  const realCurrentYear = new Date().getFullYear();
   const currentDay = currentDate.getDate();
   const dayOfWeek = format(currentDate, "EEEE");
   const [selectedDate, setSelectedDate] = useState({
@@ -22,24 +22,24 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
     dayOfWeek,
     monthName: monthFormatted,
   });
+  const [dateSet, setDateSet] = useState(new Set());
   const [dateCountMap, setDateCountMap] = useState<Map<number, number>>(
     new Map(),
   );
+  const { currentMonthAppointments, setDate } = useAdminData();
 
   useEffect(() => {
-    const countMap = new Map<number, number>();
-
-    currentMonthAppointments.forEach((appointment) => {
-      const day = parseInt(appointment.scheduled_time.slice(8, 10), 10);
-
-      if (countMap.has(day)) {
-        countMap.set(day, countMap.get(day)! + 1);
-      } else {
-        countMap.set(day, 1);
-      }
-    });
-
-    setDateCountMap(countMap);
+    const parseDates = () => {
+      let newSet = new Set();
+      currentMonthAppointments.map((curr, i) => {
+        const date = curr.date.slice(-2);
+        if (!newSet.has(date)) {
+          newSet.add(Number(date));
+        }
+      });
+      setDateSet(newSet);
+    };
+    parseDates();
   }, [currentMonthAppointments]);
 
   const nextMonth = () => {
@@ -81,63 +81,58 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
 
   const checkForDisabled = (i: number) => {
     let boolean = false;
-    let day = i - firstDay + 1;
     if (i < firstDay) {
       boolean = true;
-    } else if (
-      realCurrentMonthNumber == selectedDate.month &&
-      realCurrentYear == selectedDate.year &&
-      day < realCurrentDay
-    ) {
-      boolean = true;
-    } else if (dateCountMap.has(day) && dateCountMap.get(day)! > 1) {
-      boolean = true;
     }
-
-    if (boolean == true && selectedDate.day == day) {
-      handleDayClick(day + 1);
-    }
-
     return boolean;
   };
 
+  console.log(dateSet.has(17));
+
   return (
-    <div className=" rounded-3xl p-4  flex flex-col items-center">
+    <div className=" rounded-3xl flex flex-col w-80 lg:max-w-[750px] lg:w-full items-center">
       <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">
-        <p className="text-md">
+        <p className="text-lg lg:text-3xl">
           {monthFormatted} {currentYear}
         </p>
-        <div className="flex items-center h-full text-teal ">
+        <div className="flex items-center ">
           <button
-            disabled={selectedDate.month == realCurrentMonthNumber}
             onClick={prevMonth}
-            className="mr-6 h-6 disabled:text-teal/10"
+            className="mr-6 h-6 lg:h-10 text-teal disabled:text-teal/10"
           >
-            <FontAwesomeIcon icon={faAngleLeft} />
+            <FontAwesomeIcon icon={faAngleLeft} className="h-full" />
           </button>
-          <button onClick={nextMonth} className="mr-6 h-6">
-            <FontAwesomeIcon icon={faAngleRight} />
+          <button onClick={nextMonth} className=" text-teal mr-6 h-6 lg:h-10">
+            <FontAwesomeIcon icon={faAngleRight} className="h-full" />
           </button>
+          <AppointmentModal />
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-2 md:gap-2 ">
+      <div className="grid grid-cols-7 gap-2 lg:gap-2 ">
         {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, i) => (
-          <div className="text-center text-white text-[10px]" key={i}>
+          <div
+            className="text-center text-white text-[10px] xl:text-base"
+            key={i}
+          >
             {day}
           </div>
         ))}
         {Array.from({ length: 42 }).map((_, i) => (
           <button
-            className={`rounded-3xl w-10 h-10 md:w-12 md:h-12 flex items-center justify-center
-            ${i < firstDay ? "bg-transparent" : "bg-royalblue md:bg-darkblue disabled:bg-royalblue/20 md:disabled:bg-darkblue/50 disabled:text-white/50"}
+            className={`rounded-[100px] w-10 h-10 lg:w-16 lg:h-16 xl:h-24 xl:w-24 flex items-center justify-center
+            ${i < firstDay ? "bg-transparent" : "bg-royalblue lg:bg-darkblue disabled:bg-royalblue/20 md:disabled:bg-darkblue/50 disabled:text-white/50"}
             ${i >= lastDay + firstDay ? "hidden" : ""}
-            ${selectedDate.day === i - firstDay + 1 ? "bg-teal md:bg-teal" : ""}`}
+            ${selectedDate.day === i - firstDay + 1 ? "bg-teal lg:bg-teal" : ""}`}
             key={i}
             disabled={checkForDisabled(i)}
             onClick={() => handleDayClick(i - firstDay + 1)}
           >
             {i >= firstDay && i < lastDay + firstDay && (
-              <p className="font-bold text-md">{i - firstDay + 1}</p>
+              <p
+                className={` font-bold text-lg xl:text-xl ${dateSet.has(i - firstDay + 1) && i - firstDay + 1 !== selectedDate.day ? " border-b-2 border-teal" : "text-white"}`}
+              >
+                {i - firstDay + 1}
+              </p>
             )}
           </button>
         ))}

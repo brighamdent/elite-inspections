@@ -6,7 +6,7 @@ export default function StatusBar() {
   const router = useRouter();
   const pathname = usePathname();
   return (
-    <div className="flex w-full justify-around">
+    <div className="flex w-full justify-around mt-4 mb-4">
       <h2
         onClick={() => router.push("/admin/schedule")}
         className={`cursor-pointer ${
@@ -26,7 +26,7 @@ export default function StatusBar() {
       <h2
         onClick={() => router.push("/admin/availability")}
         className={`cursor-pointer ${
-          pathname === "/admin/availablity" ? "text-teal" : ""
+          pathname === "/admin/availability" ? "text-teal" : ""
         }`}
       >
         Availability
