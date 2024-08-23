@@ -9,39 +9,13 @@ import { createContext, useContext, useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 import { useAuth } from "./AuthContext";
 
-interface ContactType {
-  contact_id: number;
-  first_name: string;
-  last_name: string;
-  phone_number: string;
-  email: string;
-}
-
-interface PropertyType {
-  property_id: number;
-  address: string;
-  total_finished_square_feet: string;
-  year_built: string;
-  foundation_type: string;
-  beds: number;
-  baths: number;
-  notes: string;
-}
-
-interface AppointmentType {
-  appointment_id: number;
-  date: string; // ISO 8601 format (e.g., "2024-08-16")
-  time: string; // Time in 24-hour format (e.g., "11:00")
-  role: "Homeowner" | "Seller's Agent" | "Homebuyer" | "Buyer's Agent";
-  contact_id: number;
-  property_id: number;
-  contact: ContactType;
-  property: PropertyType;
-}
-
 interface AdminDataContextType {
   currentMonthAppointments: AppointmentType[];
   todaysAppointments: AppointmentType[];
+  date: DateData;
+  setDate: React.Dispatch<React.SetStateAction<DateData>>;
+  pastAppointments: AppointmentType[];
+  setPastAppointments: React.Dispatch<React.SetStateAction<AppointmentType[]>>;
 }
 
 const AdminDataContext = createContext<AdminDataContextType | undefined>(
@@ -60,10 +34,14 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
   const [currentMonthAppointments, setCurrentMonthAppointments] = useState<
     AppointmentType[]
   >([]);
-  const [todaysAppointments, setTodaysAppointments] = useState<any>([]);
-  const [pastAppointments, setPastAppointments] = useState([]);
+  const [todaysAppointments, setTodaysAppointments] = useState<
+    AppointmentType[]
+  >([]);
+  const [pastAppointments, setPastAppointments] = useState<AppointmentType[]>(
+    [],
+  );
   const [firstEffectDone, setFirstEffectDone] = useState(false);
-  const [date, setDate] = useState({
+  const [date, setDate] = useState<DateData>({
     month: getCurrentMonth(),
     day: null,
     year: getCurrentYear(),
@@ -145,6 +123,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     };
     fetchAppointmentData();
   }, [currentUser, date.month, date.year]);
+
   return (
     <AdminDataContext.Provider
       value={{

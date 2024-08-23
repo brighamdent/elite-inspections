@@ -1,11 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useAdminData } from "@/context/AdminDataContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUpload } from "@fortawesome/free-solid-svg-icons";
+import UploadInspectionModal from "./UploadInspectionModal";
+import UploadInspectionModalContent from "./UploadInspectionModalContent";
+import UploadInspectionModalWrapper from "./UploadInspectionModalWrapper";
 
 export default function AwaitingInspection() {
   const { pastAppointments } = useAdminData();
   const [appointmentsAwaitingInspection, setAppointmentsAwaitingInspection] =
-    useState([]);
+    useState<AppointmentType[]>([]);
 
   useEffect(() => {
     const filteredAppointments = pastAppointments.filter(
@@ -16,10 +21,25 @@ export default function AwaitingInspection() {
 
   console.log(appointmentsAwaitingInspection);
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center h-full">
       <h3 className="font-bold">Awaiting Inspection</h3>
-      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl">
-        pastAppointments
+      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full">
+        {appointmentsAwaitingInspection.map((app, index) => (
+          <div
+            className="rounded-3xl bg-royalblue/50 w-80 p-4 m-2 flex items-center"
+            key={index}
+          >
+            <UploadInspectionModalWrapper>
+              <UploadInspectionModalContent appointment={app} />
+            </UploadInspectionModalWrapper>
+            <div className="text-left ml-2">
+              <p className="text-sm">
+                {app.contact.first_name} {app.contact.last_name}
+              </p>
+              <p className="text-sm">{app.property.address}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -35,3 +35,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#JSON secrets
+elite-inspect-website-c2950a7e0eeb.json

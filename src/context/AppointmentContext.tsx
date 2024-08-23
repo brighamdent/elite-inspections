@@ -1,12 +1,5 @@
 "use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
-interface DateData {
-  month: number | null;
-  day: number | null;
-  year: number | null;
-  dayOfWeek: string | null;
-  monthName: string | null;
-}
 
 interface ContactDetailsData {
   person: string;
