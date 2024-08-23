@@ -61,6 +61,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     AppointmentType[]
   >([]);
   const [todaysAppointments, setTodaysAppointments] = useState<any>([]);
+  const [pastAppointments, setPastAppointments] = useState([]);
   const [firstEffectDone, setFirstEffectDone] = useState(false);
   const [date, setDate] = useState({
     month: getCurrentMonth(),
@@ -111,14 +112,49 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         (curr) => curr.date === formatDateBackwards(getCurrentDate()),
       );
       setTodaysAppointments(newArr);
-      console.log(newArr);
     };
     fetchTodaysAppointments();
   }, [firstEffectDone]);
 
+  useEffect(() => {
+    const fetchAppointmentData = async () => {
+      try {
+        const user = firebase.auth().currentUser;
+        if (user) {
+          const token = await user.getIdToken();
+          const response = await fetch(`/api/pastAppointments`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const data: AppointmentType[] = await response.json();
+          setPastAppointments(data);
+          console.log(data);
+        } else {
+          console.error("No user is currently signed in.");
+        }
+      } catch (error) {
+        console.error("Failed to fetch past appointments:", error);
+      }
+    };
+    fetchAppointmentData();
+  }, [currentUser, date.month, date.year]);
   return (
     <AdminDataContext.Provider
-      value={{ currentMonthAppointments, todaysAppointments, date, setDate }}
+      value={{
+        currentMonthAppointments,
+        todaysAppointments,
+        date,
+        setDate,
+        pastAppointments,
+        setPastAppointments,
+      }}
     >
       {children}
     </AdminDataContext.Provider>
