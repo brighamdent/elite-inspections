@@ -51,8 +51,8 @@ export async function POST(req: NextRequest) {
 
       // Insert a new appointment using the contact and property IDs
       await connection.execute(
-        "INSERT INTO appointments (scheduled_time, role, contact_id, property_id) VALUES (?, ?, ?, ?)",
-        [formattedDate, person, contactId, propertyId],
+        "INSERT INTO appointments (scheduled_time, role, contact_id, property_id, status) VALUES (?, ?, ?, ?, ?)",
+        [formattedDate, person, contactId, propertyId, "Pending Inspection"],
       );
 
       // Commit the transaction

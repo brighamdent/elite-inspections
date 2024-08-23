@@ -1,8 +1,16 @@
 import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { RowDataPacket } from "mysql2";
+import { verifyAdmin } from "@/lib/authMiddleware";
 
 export async function GET(req: NextRequest) {
+  console.log("hey I'm runnin");
+  const isAdmin = await verifyAdmin(req);
+
+  if (isAdmin !== true) {
+    return isAdmin;
+  }
+
   const year = req.nextUrl.searchParams.get("year");
   const month = req.nextUrl.searchParams.get("month");
 

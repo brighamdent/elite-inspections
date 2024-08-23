@@ -6,6 +6,8 @@ import {
   getCurrentYear,
 } from "@/utils/dateUtils";
 import { createContext, useContext, useEffect, useState } from "react";
+import firebase from "firebase/compat/app";
+import { useAuth } from "./AuthContext";
 
 interface ContactType {
   contact_id: number;
@@ -67,28 +69,41 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     dayOfWeek: null,
     monthName: null,
   });
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchAppointmentData = async () => {
       try {
-        const response = await fetch(
-          `/api/appointmentsAdmin?year=${date.year}&month=${date.month}`,
-        );
+        const user = firebase.auth().currentUser;
+        if (user) {
+          const token = await user.getIdToken();
+          const response = await fetch(
+            `/api/appointmentsAdmin?year=${date.year}&month=${date.month}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            },
+          );
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+
+          const data: AppointmentType[] = await response.json();
+          console.log(data);
+          setCurrentMonthAppointments(data);
+          setFirstEffectDone(true);
+        } else {
+          console.error("No user is currently signed in.");
         }
-
-        const data: AppointmentType[] = await response.json();
-        console.log(data);
-        setCurrentMonthAppointments(data);
-        setFirstEffectDone(true);
       } catch (error) {
         console.error("Failed to fetch admin data:", error);
       }
     };
     fetchAppointmentData();
-  }, [date.month, date.year]);
+  }, [currentUser, date.month, date.year]);
 
   useEffect(() => {
     const fetchTodaysAppointments = () => {
