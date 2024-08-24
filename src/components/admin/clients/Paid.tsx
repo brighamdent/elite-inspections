@@ -22,7 +22,7 @@ export default function Paid() {
   return (
     <div className="flex flex-col items-center h-full">
       <h3 className="font-bold">Paid</h3>
-      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full">
+      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full overflow-y-scroll">
         {appointmentsPaid.length > 0 ? (
           appointmentsPaid.map((app, index) => (
             <div

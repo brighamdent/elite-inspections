@@ -21,7 +21,7 @@ export default function AwaitingPayment() {
   return (
     <div className="flex flex-col items-center h-full">
       <h3 className="font-bold">Awaiting Payment</h3>
-      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full">
+      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full overflow-y-scroll">
         {appointmentsAwaitingPayment.length > 0 ? (
           appointmentsAwaitingPayment.map((app, index) => (
             <div

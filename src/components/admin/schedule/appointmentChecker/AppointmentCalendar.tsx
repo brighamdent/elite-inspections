@@ -108,7 +108,7 @@ export default function AppointmentCalendar() {
           <AppointmentModal />
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-2 lg:gap-2 ">
+      <div className="grid grid-cols-7 gap-2 lg:gap-2 overflow-y-scroll max-h-[600px] ">
         {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, i) => (
           <div
             className="text-center text-white text-[10px] xl:text-base"

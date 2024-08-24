@@ -7,7 +7,7 @@ import React from "react";
 export default function page() {
   return (
     <ProtectedRoute>
-      <div className="flex flex-col items-center lg:flex-row justify-around lg:bg-royalblue lg:h-[700px] rounded-3xl lg:p-4 lg:m-4">
+      <div className="flex flex-col items-center lg:flex-row justify-center space-x-6 lg:bg-royalblue lg:h-[700px] rounded-3xl lg:p-4 lg:m-4 overflow-x-auto">
         <AwaitingInspection />
         <AwaitingPayment />
         <Paid />

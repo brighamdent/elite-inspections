@@ -9,7 +9,7 @@ import React from "react";
 export default function page() {
   return (
     <ProtectedRoute>
-      <div className="flex flex-col items-center space-y-8 lg:space-y-0 lg:flex-row justify-around lg:bg-royalblue lg:h-[700px] rounded-3xl lg:p-4 lg:m-4">
+      <div className="flex flex-col items-center lg:items-start space-y-8 lg:space-y-0 lg:flex-row justify-around lg:bg-royalblue lg:h-[700px] rounded-3xl lg:p-4 lg:m-4">
         <TodaysAppointments />
         <AppointmentCalendar />
         <SelectedDayAppointments />
