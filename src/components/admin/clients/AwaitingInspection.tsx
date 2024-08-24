@@ -29,9 +29,7 @@ export default function AwaitingInspection() {
             className="rounded-3xl bg-royalblue/50 w-80 p-4 m-2 flex items-center"
             key={index}
           >
-            <UploadInspectionModalWrapper>
-              <UploadInspectionModalContent appointment={app} />
-            </UploadInspectionModalWrapper>
+            <UploadInspectionModalWrapper appointment={app} />
             <div className="text-left ml-2">
               <p className="text-sm">
                 {app.contact.first_name} {app.contact.last_name}

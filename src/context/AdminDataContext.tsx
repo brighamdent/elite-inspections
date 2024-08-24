@@ -16,6 +16,8 @@ interface AdminDataContextType {
   setDate: React.Dispatch<React.SetStateAction<DateData>>;
   pastAppointments: AppointmentType[];
   setPastAppointments: React.Dispatch<React.SetStateAction<AppointmentType[]>>;
+  updatePastAppointments: number;
+  setUpdatePastAppointments: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const AdminDataContext = createContext<AdminDataContextType | undefined>(
@@ -40,6 +42,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
   const [pastAppointments, setPastAppointments] = useState<AppointmentType[]>(
     [],
   );
+  const [updatePastAppointments, setUpdatePastAppointments] = useState(0);
   const [firstEffectDone, setFirstEffectDone] = useState(false);
   const [date, setDate] = useState<DateData>({
     month: getCurrentMonth(),
@@ -122,7 +125,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
       }
     };
     fetchAppointmentData();
-  }, [currentUser, date.month, date.year]);
+  }, [currentUser, date.month, date.year, updatePastAppointments]);
 
   return (
     <AdminDataContext.Provider
@@ -133,6 +136,8 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         setDate,
         pastAppointments,
         setPastAppointments,
+        updatePastAppointments,
+        setUpdatePastAppointments,
       }}
     >
       {children}
