@@ -42,4 +42,6 @@ interface AppointmentType {
   contact: ContactType;
   property: PropertyType;
   status: string;
+  file_id: number;
+  service_details_id: number;
 }

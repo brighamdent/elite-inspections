@@ -18,7 +18,10 @@ interface ContactDetailsData {
 
 interface ServiceDetailsData {
   inspectionType: string;
-  quoteAmount: number | undefined;
+  quoteAmount: number | string;
+  extraSqft: number | string;
+  poolInspection: false;
+  windMitigation: false;
 }
 
 interface AppointmentContextType {
@@ -79,8 +82,11 @@ export function AppointmentProvider({
     notes: "",
   });
   const [serviceDetails, setServiceDetails] = useState<ServiceDetailsData>({
-    inspectionType: "",
-    quoteAmount: 600,
+    inspectionType: "Hello",
+    quoteAmount: 1234,
+    extraSqft: 1234,
+    poolInspection: false,
+    windMitigation: false,
   });
   const makeAppointment = async () => {
     const {
@@ -97,6 +103,14 @@ export function AppointmentProvider({
       bathCount,
       notes,
     } = contactDetails;
+    const {
+      inspectionType,
+      quoteAmount,
+      extraSqft,
+      poolInspection,
+      windMitigation,
+    } = serviceDetails;
+    console.log(windMitigation);
     try {
       const res = await fetch("/api/appointments", {
         method: "POST",
@@ -118,6 +132,11 @@ export function AppointmentProvider({
           bedCount,
           bathCount,
           notes,
+          inspectionType,
+          quoteAmount,
+          extraSqft,
+          poolInspection,
+          windMitigation,
         }),
       });
 

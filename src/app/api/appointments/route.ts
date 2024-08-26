@@ -18,9 +18,34 @@ export async function POST(req: NextRequest) {
       bedCount,
       bathCount,
       notes,
+      inspectionType,
+      quoteAmount,
+      extraSqft,
+      poolInspection,
+      windMitigation,
     } = await req.json();
     const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
-    console.log(selectedTime);
+    console.log(
+      date,
+      selectedTime,
+      person,
+      firstName,
+      lastName,
+      phoneNumber,
+      emailAddress,
+      address,
+      finishedSqft,
+      yearBuilt,
+      foundationType,
+      bedCount,
+      bathCount,
+      notes,
+      inspectionType,
+      quoteAmount,
+      extraSqft,
+      poolInspection,
+      windMitigation,
+    );
     const connection = await pool.getConnection();
 
     try {
@@ -49,10 +74,29 @@ export async function POST(req: NextRequest) {
       );
       const propertyId = propertyResult.insertId;
 
+      const [serviceDetailsResult]: any = await connection.execute(
+        "INSERT INTO service_details (inspection_type, quote_amount, extra_sqft, pool_inspection, wind_mitigation) VALUES (?, ?, ?, ?,?)",
+        [
+          inspectionType,
+          quoteAmount,
+          extraSqft,
+          poolInspection,
+          windMitigation,
+        ],
+      );
+      const serviceDetailsId = serviceDetailsResult.insertId;
+
       // Insert a new appointment using the contact and property IDs
       await connection.execute(
-        "INSERT INTO appointments (scheduled_time, role, contact_id, property_id, status) VALUES (?, ?, ?, ?, ?)",
-        [formattedDate, person, contactId, propertyId, "Awaiting Inspection"],
+        "INSERT INTO appointments (scheduled_time, role, contact_id, property_id, status, service_details_id) VALUES (?, ?, ?, ?, ?,?)",
+        [
+          formattedDate,
+          person,
+          contactId,
+          propertyId,
+          "Awaiting Inspection",
+          serviceDetailsId,
+        ],
       );
 
       // Commit the transaction

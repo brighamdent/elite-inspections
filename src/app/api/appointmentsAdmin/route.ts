@@ -26,7 +26,8 @@ export async function GET(req: NextRequest) {
         DATE_FORMAT(scheduled_time, '%H:%i') AS time,
         role,
         contact_id,
-        property_id
+        property_id,
+        service_details_id
        FROM appointments 
        WHERE YEAR(scheduled_time) = ? AND MONTH(scheduled_time) = ? 
        ORDER BY scheduled_time ASC;`,
@@ -39,6 +40,7 @@ export async function GET(req: NextRequest) {
 
     const appointmentData = await Promise.all(
       appointments.map(async (appointment) => {
+        console.log(appointment.service_details_id);
         const [contactRows] = await pool.query<RowDataPacket[]>(
           `SELECT * FROM contacts WHERE contact_id = ?`,
           [appointment.contact_id],
@@ -47,11 +49,16 @@ export async function GET(req: NextRequest) {
           `SELECT * FROM properties WHERE property_id = ?`,
           [appointment.property_id],
         );
+        const [serviceDetailsRows] = await pool.query<RowDataPacket[]>(
+          `SELECT * FROM service_details WHERE service_details_id = ?`,
+          [appointment.service_details_id],
+        );
 
         return {
           ...appointment,
           contact: contactRows[0] || null,
           property: propertyRows[0] || null,
+          service_details: serviceDetailsRows[0] || null,
         };
       }),
     );
