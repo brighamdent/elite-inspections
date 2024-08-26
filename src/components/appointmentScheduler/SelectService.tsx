@@ -22,6 +22,18 @@ export default function SelectService() {
     setCurrentStage,
   } = useAppointment();
 
+  useEffect(() => {
+    const calculateQuote = () => {
+      const extraSqft =
+        contactDetails.finishedSqft >= 3000
+          ? contactDetails.finishedSqft - 3000
+          : 0;
+      const quoteAmount = extraSqft * 0.13 + 350;
+      setServiceDetails({ ...serviceDetails, extraSqft, quoteAmount });
+    };
+    calculateQuote();
+  }, [serviceDetails.inspectionType, contactDetails]);
+
   const handleSubmit = () => {
     if (serviceDetails.inspectionType) setCurrentStage(currentStage + 1);
     else setMessage("Please Select an Inspection Type");
@@ -30,7 +42,6 @@ export default function SelectService() {
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target;
     setServiceDetails({ ...serviceDetails, [name]: value });
-    console.log(serviceDetails.inspectionType);
   };
 
   useEffect(() => {
@@ -94,7 +105,7 @@ export default function SelectService() {
               Your Quote
             </p>
             <div className="bg-royalblue/50 rounded-3xl">
-              <h1>$610</h1>
+              <h1>${serviceDetails.quoteAmount!}</h1>
             </div>
           </div>
         </div>
@@ -103,18 +114,24 @@ export default function SelectService() {
             <p className="font-bold w-full text-left">Quote Breakdown</p>
             <div className="justify-between flex">
               <p className="text-xs">Elite Home Inspection</p>
-              <p className="text-xs">$350</p>
+              <p className="text-xs">$350.00</p>
             </div>
-            <div className="justify-between flex">
-              <p className="text-xs">$0.13 x 2000 extra sq ft</p>
-              <p className="text-xs">$250</p>
-            </div>
+            {serviceDetails.extraSqft! && (
+              <div className="justify-between flex">
+                <p className="text-xs">
+                  $0.13 x {serviceDetails.extraSqft} extra sq ft
+                </p>
+                <p className="text-xs">
+                  ${(serviceDetails.extraSqft * 0.13).toFixed(2)}
+                </p>
+              </div>
+            )}
           </div>
           <div>
             <div className="bg-teal h-[2px] w-full" />
             <div className="flex justify-between pl-2 pr-2">
               <p className="text-xs">Total:</p>
-              <p className="text-xs">$610</p>
+              <p className="text-xs">${serviceDetails.quoteAmount!}</p>
             </div>
           </div>
         </div>

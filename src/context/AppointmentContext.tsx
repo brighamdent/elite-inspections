@@ -8,7 +8,7 @@ interface ContactDetailsData {
   phoneNumber: string;
   emailAddress: string;
   address: string;
-  finishedSqft: number | string;
+  finishedSqft: number;
   yearBuilt: number | string;
   foundationType: string;
   bedCount: number | string;
@@ -19,7 +19,7 @@ interface ContactDetailsData {
 interface ServiceDetailsData {
   inspectionType: string;
   quoteAmount: number | string;
-  extraSqft: number | string;
+  extraSqft: number;
   poolInspection: false;
   windMitigation: false;
 }
@@ -74,7 +74,7 @@ export function AppointmentProvider({
     phoneNumber: "",
     emailAddress: "",
     address: "",
-    finishedSqft: "",
+    finishedSqft: 0,
     yearBuilt: "",
     foundationType: "",
     bedCount: "",
@@ -82,9 +82,9 @@ export function AppointmentProvider({
     notes: "",
   });
   const [serviceDetails, setServiceDetails] = useState<ServiceDetailsData>({
-    inspectionType: "Hello",
-    quoteAmount: 1234,
-    extraSqft: 1234,
+    inspectionType: "",
+    quoteAmount: 0,
+    extraSqft: 0,
     poolInspection: false,
     windMitigation: false,
   });
