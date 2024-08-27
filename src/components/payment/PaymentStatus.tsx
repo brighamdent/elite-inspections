@@ -1,26 +1,24 @@
 "use client";
 import React, { useEffect } from "react";
-import { useAppointment } from "@/context/AppointmentContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { usePaymentData } from "@/context/PaymentDataContext";
 
-export default function AppointmentStatus() {
-  const { currentStage } = useAppointment();
+export default function PaymentStatus() {
+  const { currentStage } = usePaymentData();
   const appointmentStages = [
     {
       stageNumber: 1,
-      stageName: "Schedule Time",
-      stageDescription: "Select a Date and Time",
+      stageName: "Service Summary",
+      stageDescription: "Review Your Service Summary",
     },
     {
       stageNumber: 2,
-      stageName: "Contact Details",
-      stageDescription: "Please Provide Contact Details",
+      stageName: "Complete Payment",
+      stageDescription: "Complete Payment",
     },
     {
       stageNumber: 3,
-      stageName: "Select Service",
-      stageDescription: "Please Provide Contact Details",
+      stageName: "View Inspection",
+      stageDescription: "Thank you for your payment!",
     },
   ];
 

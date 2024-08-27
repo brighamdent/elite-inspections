@@ -18,6 +18,7 @@ export async function GET(req: NextRequest) {
         role,
         contact_id,
         property_id,
+        status,
         service_details_id
        FROM appointments 
        WHERE appointment_id = ?
