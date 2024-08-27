@@ -1,9 +1,9 @@
 "use client";
-import React, { createContext, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 interface PaymentDataContextType {
-  user: string | null;
+  userData: AppointmentType | undefined;
 }
 
 const PaymentDataContext = createContext<PaymentDataContextType | undefined>(
@@ -25,9 +25,29 @@ export const PaymentDataProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const [userData, setUserData] = useState<AppointmentType>();
   const searchParams = useSearchParams();
-  const user = searchParams.get("user");
-  const value: PaymentDataContextType = { user };
+  const userId = searchParams.get("user");
+  const value: PaymentDataContextType = {
+    userData,
+  };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await fetch(`/api/userToPay?userId=${userId}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data: AppointmentType = await response.json();
+      setUserData(data);
+    };
+    fetchUserData();
+  }, []);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
   return (
     <PaymentDataContext.Provider value={value}>
       {children}

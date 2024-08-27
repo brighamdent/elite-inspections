@@ -4,7 +4,6 @@ import { RowDataPacket } from "mysql2";
 import { verifyAdmin } from "@/lib/authMiddleware";
 
 export async function GET(req: NextRequest) {
-  console.log("hey I'm runnin");
   const isAdmin = await verifyAdmin(req);
 
   if (isAdmin !== true) {
@@ -40,7 +39,6 @@ export async function GET(req: NextRequest) {
 
     const appointmentData = await Promise.all(
       appointments.map(async (appointment) => {
-        console.log(appointment.service_details_id);
         const [contactRows] = await pool.query<RowDataPacket[]>(
           `SELECT * FROM contacts WHERE contact_id = ?`,
           [appointment.contact_id],
