@@ -93,8 +93,24 @@ export default function UploadInspectionModalContent({
         const result = await setFileIdResponse.json();
         alert("Error setting file ID: " + result.error);
       } else {
-        alert("File uploaded and ID set successfully!");
+        alert("File uploaded successfully!");
       }
+
+      const inspectionReadyResponse = await fetch("/api/inspectionReady", {
+        method: "POST",
+        body: JSON.stringify({
+          appointmentId: appointment.appointment_id,
+          firstName: appointment.contact.first_name,
+          lastName: appointment.contact.last_name,
+          emailAddress: appointment.contact.email,
+        }),
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      console.log(inspectionReadyResponse);
     } catch (error) {
       console.error("Error uploading file:", error);
       alert("Error uploading file.");

@@ -25,27 +25,6 @@ export async function POST(req: NextRequest) {
       windMitigation,
     } = await req.json();
     const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
-    console.log(
-      date,
-      selectedTime,
-      person,
-      firstName,
-      lastName,
-      phoneNumber,
-      emailAddress,
-      address,
-      finishedSqft,
-      yearBuilt,
-      foundationType,
-      bedCount,
-      bathCount,
-      notes,
-      inspectionType,
-      quoteAmount,
-      extraSqft,
-      poolInspection,
-      windMitigation,
-    );
     const connection = await pool.getConnection();
 
     try {
