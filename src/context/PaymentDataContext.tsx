@@ -1,7 +1,10 @@
 "use client";
 import React, { createContext, useContext } from "react";
+import { useSearchParams } from "next/navigation";
 
-interface PaymentDataContextType {}
+interface PaymentDataContextType {
+  user: string | null;
+}
 
 const PaymentDataContext = createContext<PaymentDataContextType | undefined>(
   undefined,
@@ -22,8 +25,12 @@ export const PaymentDataProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const value: PaymentDataContextType = {};
+  const searchParams = useSearchParams();
+  const user = searchParams.get("user");
+  const value: PaymentDataContextType = { user };
   return (
-    <PaymentDataContext.Provider value={value}></PaymentDataContext.Provider>
+    <PaymentDataContext.Provider value={value}>
+      {children}
+    </PaymentDataContext.Provider>
   );
 };

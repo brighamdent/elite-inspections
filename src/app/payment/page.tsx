@@ -1,9 +1,12 @@
-"use client";
+import Payment from "@/components/payment/Payment";
+import { PaymentDataProvider } from "@/context/PaymentDataContext";
 import React from "react";
-import { useSearchParams } from "next/navigation";
 export default function page() {
-  const searchParams = useSearchParams();
-  const user = searchParams.get("user");
-
-  return <div>User ID: {user}</div>;
+  return (
+    <div>
+      <PaymentDataProvider>
+        <Payment />
+      </PaymentDataProvider>
+    </div>
+  );
 }

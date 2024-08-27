@@ -1,5 +1,4 @@
 import AppointmentScheduler from "@/components/appointmentScheduler/AppointmentScheduler";
-import DateTimeSelector from "@/components/dateTimeSelector/DateTimeSelector";
 import { AppointmentProvider } from "@/context/AppointmentContext";
 import React from "react";
 
