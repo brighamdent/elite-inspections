@@ -1,3 +1,4 @@
+import { usePaymentData } from "@/context/PaymentDataContext";
 import {
   faArrowUp,
   faCheck,
@@ -8,11 +9,38 @@ import React, { useState } from "react";
 
 export default function PaymentConfirmation() {
   const [loading, setLoading] = useState(false);
-  const handleClick = () => {};
+  const { fileId } = usePaymentData();
+  const handleClick = async () => {
+    setLoading(true);
+    try {
+      // Make a fetch request to start the file download
+      const response = await fetch(`/api/downloadInspection?fileId=${fileId}`);
+      if (!response.ok) {
+        throw new Error("Failed to download file");
+      }
+
+      // Create a link element for downloading
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "inspection.pdf"; // Adjust filename if needed
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error downloading file:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
-    <div className="flex flex-col items-center md:items-start pl-9 pr-9">
-      <div className="flex items-center md:self-start">
-        <h2>Thank you for your payment</h2>
+    <div className="flex flex-col items-center md:items-start w-80 md:w-full md:pl-9 md:pr-9">
+      <div className="flex items-center md:self-start mt-2">
+        <h2 className="text-[18px] md:text-[24px]">
+          Thank you for your payment
+        </h2>
         <div className="bg-teal rounded-3xl h-10 w-10 ml-2 flex items-center justify-center ">
           <FontAwesomeIcon icon={faCheck} className="h-6" />
         </div>
@@ -42,7 +70,7 @@ export default function PaymentConfirmation() {
           )}
         </div>
       </button>
-      <div className="bg-darkblue rounded-3xl p-4 mt-6 text-left">
+      <div className="bg-darkblue rounded-3xl p-4 mt-6 flex flex-col w-full text-center md:text-left md:items-start items-center">
         <p className="mb-4">
           Thank you for choosing Elite Home Inspection Group. We appreciate your
           business and look forward to serving you again in the future.

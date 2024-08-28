@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
 import nodemailer from "nodemailer";
-import { Readable } from "stream"; // Import Readable from stream
+import { Readable } from "stream";
 
 const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS!);
 
 const auth = new google.auth.GoogleAuth({
   credentials,
-  scopes: ["https://www.googleapis.com/auth/drive.file"],
+  scopes: ["https://www.googleapis.com/auth/drive"],
 });
 
 const drive = google.drive({ version: "v3", auth });
@@ -30,8 +30,9 @@ async function sendEmailWithAttachment(
     from: process.env.EMAIL,
     to: recipient,
     subject: "Download Your Inspection",
-    text: `Hello ${firstName}
-We have attatched your inpection below.
+    text: `Hello ${firstName},
+
+We have attached your inspection below.
 
 Thank you for choosing Elite Home Inspection Group. We appreciate your business and look forward to serving you again in the future.
 
@@ -59,6 +60,7 @@ export async function POST(req: NextRequest) {
   try {
     const { fileId, firstName, lastName, email } = await req.json();
 
+    // Fetch the file from Google Drive
     const response = await drive.files.get(
       { fileId: fileId, alt: "media" },
       { responseType: "stream" },
@@ -66,6 +68,7 @@ export async function POST(req: NextRequest) {
 
     const fileStream = response.data as Readable;
 
+    // Send the email with the file as an attachment
     await sendEmailWithAttachment(
       fileStream,
       `${lastName}_inspection.pdf`,

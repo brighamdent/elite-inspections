@@ -103,7 +103,7 @@ export default function PaymentForm() {
             {
               method: "POST",
               body: JSON.stringify({
-                fileId,
+                fileId: data.fileId,
                 firstName: userData?.contact.first_name,
                 lastName: userData?.contact.last_name,
                 email: userData?.contact.email,
