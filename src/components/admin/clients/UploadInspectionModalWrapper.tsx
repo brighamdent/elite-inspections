@@ -32,7 +32,7 @@ export default function UploadInspectionModalWrapper({
           <div className="max-h-[80vh] md:max-h-fit overflow-y-scroll md:overflow-y-auto fixed bg-darkblue rounded-3xl md:bg-transparent left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center">
             <UploadInspectionModalContent
               appointment={appointment}
-              handleToggleModal={handleToggleModal}
+              handleModalToggle={handleToggleModal}
             />
           </div>
         </>

@@ -50,7 +50,7 @@ export default function ServiceSummary() {
               <p className="text-xs">Elite Home Inspection</p>
               <p className="text-xs">$350.00</p>
             </div>
-            {userData!.service_details.extra_sqft! && (
+            {userData?.service_details.extra_sqft ? (
               <div className="justify-between flex">
                 <p className="text-xs">
                   $0.13 x {userData!.service_details.extra_sqft} extra sq ft
@@ -59,6 +59,8 @@ export default function ServiceSummary() {
                   ${(userData!.service_details.extra_sqft * 0.13).toFixed(2)}
                 </p>
               </div>
+            ) : (
+              ""
             )}
           </div>
           <div>
@@ -78,7 +80,7 @@ export default function ServiceSummary() {
               <p className="text-xs">Elite Home Inspection</p>
               <p className="text-xs">$350.00</p>
             </div>
-            {userData!.service_details.extra_sqft! && (
+            {userData?.service_details.extra_sqft ? (
               <div className="justify-between flex">
                 <p className="text-xs">
                   $0.13 x {userData!.service_details.extra_sqft} extra sq ft
@@ -87,6 +89,8 @@ export default function ServiceSummary() {
                   ${(userData!.service_details.extra_sqft * 0.13).toFixed(2)}
                 </p>
               </div>
+            ) : (
+              ""
             )}
           </div>
           <div>
@@ -94,7 +98,7 @@ export default function ServiceSummary() {
             <div className="flex justify-between pl-2 pr-2">
               <p className="text-xs">Total:</p>
               <p className="text-xs">
-                ${userData?.service_details.quote_amount!}
+                ${userData?.service_details.quote_amount}
               </p>
             </div>
           </div>

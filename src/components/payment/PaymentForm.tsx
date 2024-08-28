@@ -16,7 +16,7 @@ export default function PaymentForm() {
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { userData } = usePaymentData();
+  const { userData, currentStage, setCurrentStage } = usePaymentData();
   const [success, setSuccess] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
 
@@ -86,13 +86,36 @@ export default function PaymentForm() {
           console.log("Successful payment");
           console.log(response);
           setSuccess(true);
+          const setToPaidResponse = await fetch("/api/setUserToPaid", {
+            method: "POST",
+            body: JSON.stringify({
+              appointmentId: userData?.appointment_id,
+            }),
+          });
+          const data = await setToPaidResponse.json();
+          const fileId = data.fileId;
+
+          setCurrentStage(currentStage + 1);
+
+          const completePaymentResponse = await fetch(
+            "/api/completedPaymentEmail",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                fileId,
+                firstName: userData?.contact.first_name,
+                lastName: userData?.contact.last_name,
+                email: userData?.contact.email,
+              }),
+            },
+          );
         }
       } catch (error) {
         console.log("Error", error);
         setError("There was an error processing your payment");
       }
     } else {
-      console.log(error.message);
+      console.log(error);
       setError("There was an error processing your payment");
     }
     setLoading(false);

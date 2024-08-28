@@ -10,7 +10,7 @@ export default function UploadInspectionModalContent({
   handleModalToggle,
 }: {
   appointment: AppointmentType;
-  handleModalToggle: any;
+  handleModalToggle: () => void;
 }) {
   const [file, setFile] = useState<File | null>(null);
   const [filePreviewUrl, setFilePreviewUrl] = useState<string | null>(null);
