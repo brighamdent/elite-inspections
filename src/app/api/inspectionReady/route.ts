@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       from: process.env.EMAIL,
       to: emailAddress,
       subject: `Home Inspection Ready to View`,
-      text: `Dear ${firstName} ${lastName},
+      text: `Hello ${firstName},
 Your inspection is ready to view and download please complete your payment using the link below. 
 
 http://localhost:3000/payment?user=${appointmentId}
@@ -26,6 +26,7 @@ http://localhost:3000/payment?user=${appointmentId}
 Thank you for choosing Elite Home Inspection Group!
 
 Best regards,
+John Howell
 Elite Home Inspection Group`,
     };
 

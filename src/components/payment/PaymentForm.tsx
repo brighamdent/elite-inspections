@@ -16,7 +16,8 @@ export default function PaymentForm() {
   const elements = useElements();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { userData, currentStage, setCurrentStage } = usePaymentData();
+  const { userData, currentStage, setCurrentStage, fileId, setFileId } =
+    usePaymentData();
   const [success, setSuccess] = useState(false);
   const nameRef = useRef<HTMLInputElement>(null);
 
@@ -93,7 +94,7 @@ export default function PaymentForm() {
             }),
           });
           const data = await setToPaidResponse.json();
-          const fileId = data.fileId;
+          setFileId(data.fileId);
 
           setCurrentStage(currentStage + 1);
 

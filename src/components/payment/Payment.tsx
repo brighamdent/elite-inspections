@@ -6,6 +6,7 @@ import ServiceSummary from "./ServiceSummary";
 import PaymentForm from "./PaymentForm";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import PaymentConfirmation from "./PaymentConfirmation";
 
 export default function Payment() {
   const stripePromise = loadStripe(
@@ -23,6 +24,7 @@ export default function Payment() {
               <PaymentForm />
             </Elements>
           )}
+          {currentStage === 3 && <PaymentConfirmation />}
         </div>
       ) : (
         <div>No user Found</div>

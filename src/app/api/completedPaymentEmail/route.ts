@@ -16,6 +16,7 @@ async function sendEmailWithAttachment(
   fileStream: Readable,
   fileName: string,
   recipient: string,
+  firstName: string,
 ) {
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -29,12 +30,13 @@ async function sendEmailWithAttachment(
     from: process.env.EMAIL,
     to: recipient,
     subject: "Download Your Inspection",
-    text: `Hello
+    text: `Hello ${firstName}
+We have attatched your inpection below.
 
 Thank you for choosing Elite Home Inspection Group. We appreciate your business and look forward to serving you again in the future.
 
-Best regards,
-John
+Best Regards,
+John Howell
 Elite Home Inspection Group`,
     attachments: [
       {
@@ -68,6 +70,7 @@ export async function POST(req: NextRequest) {
       fileStream,
       `${lastName}_inspection.pdf`,
       email,
+      firstName,
     );
 
     return NextResponse.json(

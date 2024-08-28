@@ -6,6 +6,8 @@ interface PaymentDataContextType {
   userData: AppointmentType | undefined;
   currentStage: number;
   setCurrentStage: React.Dispatch<React.SetStateAction<number>>;
+  fileId: string;
+  setFileId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const PaymentDataContext = createContext<PaymentDataContextType | undefined>(
@@ -29,12 +31,15 @@ export const PaymentDataProvider = ({
 }) => {
   const [userData, setUserData] = useState<AppointmentType>();
   const [currentStage, setCurrentStage] = useState(1);
+  const [fileId, setFileId] = useState("");
   const searchParams = useSearchParams();
   const userId = searchParams.get("user");
   const value: PaymentDataContextType = {
     userData,
     currentStage,
     setCurrentStage,
+    fileId,
+    setFileId,
   };
   useEffect(() => {
     const fetchUserData = async () => {
