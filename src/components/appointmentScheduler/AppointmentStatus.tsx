@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import { useAppointment } from "@/context/AppointmentContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function AppointmentStatus() {
   const { currentStage } = useAppointment();

@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 interface PaymentDataContextType {
   userData: AppointmentType | undefined;
   currentStage: number;
+  setCurrentStage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const PaymentDataContext = createContext<PaymentDataContextType | undefined>(
@@ -33,6 +34,7 @@ export const PaymentDataProvider = ({
   const value: PaymentDataContextType = {
     userData,
     currentStage,
+    setCurrentStage,
   };
   useEffect(() => {
     const fetchUserData = async () => {

@@ -32,6 +32,15 @@ interface PropertyType {
   notes: string;
 }
 
+interface ServiceDetailsType {
+  service_details_id: number;
+  inspection_type: string;
+  quote_amount: number;
+  extra_sqft: number;
+  pool_inspection: boolean;
+  wind_mitigation: boolean;
+}
+
 interface AppointmentType {
   appointment_id: number;
   date: string;
@@ -44,4 +53,5 @@ interface AppointmentType {
   status: string;
   file_id: number;
   service_details_id: number;
+  service_details: ServiceDetailsType;
 }
