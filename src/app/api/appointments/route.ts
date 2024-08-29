@@ -117,7 +117,7 @@ export async function GET(req: NextRequest) {
     );
 
     console.log("Query results:", rows);
-
+    connection.release();
     return NextResponse.json(rows, { status: 200 });
   } catch (error) {
     console.error("Error during GET request:", error);
