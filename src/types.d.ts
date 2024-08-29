@@ -55,3 +55,14 @@ interface AppointmentType {
   service_details_id: number;
   service_details: ServiceDetailsType;
 }
+
+interface DaysOfWeekType {
+  id: number;
+  day_name: string;
+  available: boolean;
+}
+
+interface BlockedDayType {
+  id: number;
+  date: date;
+}

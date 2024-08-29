@@ -120,8 +120,6 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
     setDate(selectedDate);
   }, [selectedDate]);
 
-  // console.log(format(new Date(2024, 8, 8), "EEEE"));
-
   const checkForDisabled = (i: number) => {
     let boolean = false;
     let day = i - firstDay + 1;
@@ -140,8 +138,6 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
     } else if (dateCountMap.has(day) && dateCountMap.get(day)! > 1) {
       boolean = true;
     } else if (blockedWeekdays.includes(currWeekday)) {
-      console.log("currWeekday", currWeekday);
-
       boolean = true;
     } else if (
       blockedDates?.includes(
@@ -157,6 +153,34 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
     return boolean;
   };
 
+  // const checkForDisabled = (i: number) => {
+  //   let boolean = false;
+  //   let day = i - firstDay + 1;
+  //   const currWeekday = format(
+  //     new Date(selectedDate.year, selectedDate.month, day),
+  //     "EEEE",
+  //   );
+  //   if (i < firstDay) {
+  //     boolean = true;
+  //   } else if (
+  //     realCurrentMonthNumber == selectedDate.month &&
+  //     realCurrentYear == selectedDate.year &&
+  //     day < realCurrentDay
+  //   ) {
+  //     boolean = true;
+  //   } else if (dateCountMap.has(day) && dateCountMap.get(day)! > 1) {
+  //     boolean = true;
+  //   }
+  //   // else if (blockedWeekdays.includes(currWeekday)) {
+  //   //   boolean = true;
+  //   // }
+  //
+  //   if (boolean == true && selectedDate.day == day) {
+  //     handleDayClick(day + 1);
+  //   }
+  //
+  //   return boolean;
+  // };
   return (
     <div className=" rounded-3xl p-4  flex flex-col items-center">
       <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">
