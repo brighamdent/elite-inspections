@@ -22,9 +22,29 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
     dayOfWeek,
     monthName: monthFormatted,
   });
+  const [blockedWeekdays, setBlockedWeekdays] = useState<string[]>([]);
   const [dateCountMap, setDateCountMap] = useState<Map<number, number>>(
     new Map(),
   );
+
+  useEffect(() => {
+    const fetchBlockedDays = async () => {
+      try {
+        const response = await fetch("/api/weekdayAvailability");
+        const blockedDaysObject: DaysOfWeekType[] = await response.json();
+        const blockedDaysArray: string[] = blockedDaysObject
+          .filter((day) => !day.available)
+          .map((day) => {
+            return day.day_name;
+          });
+        setBlockedWeekdays(blockedDaysArray);
+      } catch (error) {
+        console.error("Error fetching blocked days:", error);
+      }
+    };
+
+    fetchBlockedDays();
+  }, []);
 
   useEffect(() => {
     const countMap = new Map<number, number>();
@@ -79,9 +99,15 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
     setDate(selectedDate);
   }, [selectedDate]);
 
+  // console.log(format(new Date(2024, 8, 8), "EEEE"));
+
   const checkForDisabled = (i: number) => {
     let boolean = false;
     let day = i - firstDay + 1;
+    const currWeekday = format(
+      new Date(selectedDate.year, selectedDate.month - 1, day),
+      "EEEE",
+    );
     if (i < firstDay) {
       boolean = true;
     } else if (
@@ -92,8 +118,11 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
       boolean = true;
     } else if (dateCountMap.has(day) && dateCountMap.get(day)! > 1) {
       boolean = true;
-    }
+    } else if (blockedWeekdays.includes(currWeekday)) {
+      console.log("currWeekday", currWeekday);
 
+      boolean = true;
+    }
     if (boolean == true && selectedDate.day == day) {
       handleDayClick(day + 1);
     }
@@ -101,6 +130,34 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
     return boolean;
   };
 
+  // const checkForDisabled = (i: number) => {
+  //   let boolean = false;
+  //   let day = i - firstDay + 1;
+  //   const currWeekday = format(
+  //     new Date(selectedDate.year, selectedDate.month, day),
+  //     "EEEE",
+  //   );
+  //   if (i < firstDay) {
+  //     boolean = true;
+  //   } else if (
+  //     realCurrentMonthNumber == selectedDate.month &&
+  //     realCurrentYear == selectedDate.year &&
+  //     day < realCurrentDay
+  //   ) {
+  //     boolean = true;
+  //   } else if (dateCountMap.has(day) && dateCountMap.get(day)! > 1) {
+  //     boolean = true;
+  //   }
+  //   // else if (blockedWeekdays.includes(currWeekday)) {
+  //   //   boolean = true;
+  //   // }
+  //
+  //   if (boolean == true && selectedDate.day == day) {
+  //     handleDayClick(day + 1);
+  //   }
+  //
+  //   return boolean;
+  // };
   return (
     <div className=" rounded-3xl p-4  flex flex-col items-center">
       <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">
@@ -109,7 +166,10 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
         </p>
         <div className="flex items-center h-full text-teal ">
           <button
-            disabled={selectedDate.month == realCurrentMonthNumber}
+            disabled={
+              selectedDate.month == realCurrentMonthNumber &&
+              selectedDate.year == realCurrentYear
+            }
             onClick={prevMonth}
             className="mr-6 h-6 disabled:text-teal/10"
           >
