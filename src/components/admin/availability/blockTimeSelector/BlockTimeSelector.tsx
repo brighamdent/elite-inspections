@@ -84,7 +84,25 @@ export default function BlockTimeSelector({
     }
   };
 
-  const handleBlockTime = async () => {};
+  const handleBlockTime = async () => {
+    try {
+      const user = firebase.auth().currentUser;
+      const token = await user?.getIdToken();
+      await fetch("/api/blockedTimes", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          date: `${date.year}-${date.month}-${date.day}`,
+          time: selectedTime,
+        }),
+      });
+      handleToggleModal();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleClick = () => {
     if (!selectedTime) {

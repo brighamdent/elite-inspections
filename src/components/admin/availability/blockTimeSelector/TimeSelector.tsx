@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import convertTo12Hour from "@/utils/convertTo12Hour";
+import { monthFormatting } from "@/utils/dateUtils";
 
 export default function TimeSelector({
   date,
@@ -18,8 +19,26 @@ export default function TimeSelector({
     "16:00",
   ];
   const [availableTimes, setAvailableTimes] = useState(avalability);
+  const [blockedTimes, setBlockedTimes] = useState<BlockedTimeType[]>([]);
 
   useEffect(() => {
+    const fetchBlockedTimes = async () => {
+      const response = await fetch("/api/blockedTimes", {
+        method: "GET",
+      });
+
+      const data = await response.json();
+      setBlockedTimes(data.data);
+      console.log(data.data);
+    };
+    fetchBlockedTimes();
+  }, []);
+
+  useEffect(() => {
+    // Reset availableTimes to the full availability whenever the date changes
+    let updatedAvailableTimes = [...avalability];
+
+    // Filter out unavailableTimes
     const unavailableTimesSet = new Set<string>();
 
     unavailableTimes.forEach((time) => {
@@ -34,13 +53,30 @@ export default function TimeSelector({
       }
     });
 
-    const newTimes = avalability.filter(
+    updatedAvailableTimes = updatedAvailableTimes.filter(
       (time) => !unavailableTimesSet.has(time),
     );
-    setAvailableTimes(newTimes);
-  }, [unavailableTimes]);
+
+    // Filter out blockedTimes based on the selected date
+    if (blockedTimes.length > 0) {
+      const formattedDate = `${date.year}-${String(date.month).padStart(2, "0")}-${String(date.day).padStart(2, "0")}`;
+
+      const todaysBlockedTimes = blockedTimes
+        .filter((time) => time.date === formattedDate)
+        .map((time) => time.time);
+
+      updatedAvailableTimes = updatedAvailableTimes.filter(
+        (time) => !todaysBlockedTimes.includes(time),
+      );
+    }
+
+    setAvailableTimes(updatedAvailableTimes);
+  }, [date, unavailableTimes, blockedTimes]);
 
   const handleClick = (time: string) => {
+    if (time == selectedTime) {
+      return setSelectedTime(null);
+    }
     setSelectedTime(time);
   };
   return (

@@ -66,3 +66,9 @@ interface BlockedDayType {
   id: number;
   date: date;
 }
+
+interface BlockedTimeType {
+  id: number;
+  date: date;
+  time: string;
+}
