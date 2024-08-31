@@ -83,7 +83,6 @@ export default function BlockTimeList() {
       if (!response.ok) {
         throw new Error("Failed to delete the date from backend.");
       }
-      console.log(timeToDelete);
       const newBlockedTimes = blockedTimes.filter(
         (time) => time.id !== timeToDelete.id,
       );
