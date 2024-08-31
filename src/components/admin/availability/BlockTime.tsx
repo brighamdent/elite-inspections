@@ -13,7 +13,7 @@ export default function BlockTime() {
       <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl justify-center p-4 h-full overflow-y-scroll">
         <button
           type="button"
-          className="w-80 bg-teal rounded-3xl h-16 "
+          className="w-80 m-2 bg-teal rounded-3xl h-16 "
           onClick={handleToggleModal}
         >
           <h2>Add Blocked Time</h2>

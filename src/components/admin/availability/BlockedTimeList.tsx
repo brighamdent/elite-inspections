@@ -96,46 +96,58 @@ export default function BlockTimeList() {
       <h3 className="font-bold">Block Time List</h3>
       <div className=" lg:bg-darkblue/50 rounded-3xl p-4 h-[638px]">
         <h2>Blocked Dates</h2>
-        <div className="flex flex-col h-64 overflow-y-scroll ">
-          {blockedDates?.map((date, index) => (
-            <div
-              className={`  p-6 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
-              key={index}
-            >
-              <div className="flex items-center">
-                <FontAwesomeIcon icon={faCalendar} className="mr-2" />
-                {formatBackwardsDate(date)}
-              </div>
-              <button onClick={() => deleteBlockedDate(date)}>
-                <FontAwesomeIcon icon={faX} />
-              </button>
-            </div>
-          ))}
-        </div>
-        <h2 className="mt-4">Blocked Times</h2>
-        <div className="flex flex-col h-64 overflow-y-scroll ">
-          {blockedTimes.map((date, index) => (
-            <div
-              className={`  p-4 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
-              key={index}
-            >
-              <div className="flex items-center text-sm">
-                <div className="flex items-center mr-2">
-                  {" "}
+        {blockedDates.length <= 1 ? (
+          <div className="w-80 h-64 mr-2 ml-2 flex items-center justify-center">
+            <div className="big-loader" />
+          </div>
+        ) : (
+          <div className="flex flex-col h-64 overflow-y-scroll ">
+            {blockedDates?.map((date, index) => (
+              <div
+                className={`  p-6 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
+                key={index}
+              >
+                <div className="flex items-center">
                   <FontAwesomeIcon icon={faCalendar} className="mr-2" />
-                  <p className="text-sm">{formatBackwardsDate(date.date)}</p>
+                  {formatBackwardsDate(date)}
                 </div>
-                <div className="flex items-center text-sm">
-                  <FontAwesomeIcon icon={faClock} className="mr-1" />
-                  <p className="text-sm">{convertTo12Hour(date.time)}</p>
-                </div>
+                <button onClick={() => deleteBlockedDate(date)}>
+                  <FontAwesomeIcon icon={faX} />
+                </button>
               </div>
-              <button onClick={() => deleteBlockedTime(date)}>
-                <FontAwesomeIcon icon={faX} />
-              </button>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
+        <h2 className="mt-4">Blocked Times</h2>
+        {blockedDates.length <= 1 ? (
+          <div className="w-80 h-64 mr-2 ml-2 flex items-center justify-center">
+            <div className="big-loader" />
+          </div>
+        ) : (
+          <div className="flex flex-col h-64 overflow-y-scroll ">
+            {blockedTimes.map((date, index) => (
+              <div
+                className={`  p-4 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
+                key={index}
+              >
+                <div className="flex items-center text-sm">
+                  <div className="flex items-center mr-2">
+                    {" "}
+                    <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+                    <p className="text-sm">{formatBackwardsDate(date.date)}</p>
+                  </div>
+                  <div className="flex items-center text-sm">
+                    <FontAwesomeIcon icon={faClock} className="mr-1" />
+                    <p className="text-sm">{convertTo12Hour(date.time)}</p>
+                  </div>
+                </div>
+                <button onClick={() => deleteBlockedTime(date)}>
+                  <FontAwesomeIcon icon={faX} />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
