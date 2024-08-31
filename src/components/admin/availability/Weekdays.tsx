@@ -47,12 +47,12 @@ export default function WeekDays() {
   return (
     <div className="flex flex-col items-center h-full">
       <h3 className="font-bold">Weekday Availability</h3>
-      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full overflow-y-scroll">
+      <div className="flex flex-col items-center justify-center lg:bg-darkblue/50 rounded-3xl p-4 h-full overflow-y-scroll">
         {daysOfWeek?.map((day) => (
           <button
             key={day.id}
             onClick={() => handleClick(day.id)}
-            className={`  p-2 m-2 rounded-3xl w-80 h-20 flex items-center justify-center ${day.available ? "bg-teal" : "bg-royalblue opacity-50"}`}
+            className={`  p-2 m-2 rounded-3xl w-80 h-16 flex items-center justify-center ${day.available ? "bg-teal" : "bg-royalblue opacity-50"}`}
           >
             <span className="text-2xl font-bold">{day.day_name}</span>
           </button>

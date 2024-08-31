@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "../../../lib/db";
 import { verifyAdmin } from "@/lib/authMiddleware";
+import { release } from "os";
 
 export async function POST(req: NextRequest) {
   const isAdmin = await verifyAdmin(req);
@@ -34,7 +35,10 @@ export async function GET(req: NextRequest) {
   try {
     const [rows] = await connection.execute(
       `
-SELECT DATE_FORMAT(date, '%Y-%m-%d') as date FROM blocked_dates
+SELECT DATE_FORMAT(date, '%Y-%m-%d') AS date 
+FROM blocked_dates 
+WHERE date >= CURDATE()
+ORDER BY date ASC;
 `,
     );
 
@@ -44,5 +48,43 @@ SELECT DATE_FORMAT(date, '%Y-%m-%d') as date FROM blocked_dates
   } catch (error) {
     connection.release();
     console.log(error);
+  } finally {
+    connection.release();
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const isAdmin = await verifyAdmin(req);
+
+  if (isAdmin !== true) {
+    return isAdmin;
+  }
+
+  const connection = await pool.getConnection();
+  try {
+    const { date } = await req.json();
+
+    await connection.execute(
+      `
+DELETE FROM blocked_dates 
+WHERE date = ?;
+`,
+      [date],
+    );
+    connection.release();
+
+    return NextResponse.json({
+      status: 200,
+      message: "Date deleted successfully",
+    });
+  } catch (error) {
+    connection.release();
+    console.log(error);
+    return NextResponse.json({
+      status: 500,
+      error: "Failed to delete the date",
+    });
+  } finally {
+    connection.release();
   }
 }

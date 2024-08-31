@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import pool from "../../../lib/db";
 
 export async function POST(req: NextRequest) {
+  const connection = await pool.getConnection();
   try {
     const {
       date,
@@ -25,7 +26,6 @@ export async function POST(req: NextRequest) {
       windMitigation,
     } = await req.json();
     const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
-    const connection = await pool.getConnection();
 
     try {
       // Start a transaction
@@ -99,6 +99,8 @@ export async function POST(req: NextRequest) {
       { message: "Failed to process request." },
       { status: 500 },
     );
+  } finally {
+    connection.release(); // Always release the connection
   }
 }
 
@@ -128,5 +130,7 @@ export async function GET(req: NextRequest) {
       { error: "Failed to fetch transaction" },
       { status: 500 },
     );
+  } finally {
+    connection.release();
   }
 }

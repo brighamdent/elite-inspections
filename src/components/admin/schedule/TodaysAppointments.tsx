@@ -12,7 +12,7 @@ export default function TodaysAppointments() {
       <p className="font-bold">
         Today's Appointments {formatDate(currentDate)}
       </p>
-      {todaysAppointments ? (
+      {todaysAppointments.length >= 1 ? (
         <div>
           {todaysAppointments.map((a, index) => (
             <div

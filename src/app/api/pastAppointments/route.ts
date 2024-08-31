@@ -17,8 +17,10 @@ export async function GET(req: NextRequest) {
     now.getDate() + 1,
   );
 
+  const connection = await pool.getConnection();
+
   try {
-    const [appointments] = await pool.query<RowDataPacket[]>(
+    const [appointments] = await connection.query<RowDataPacket[]>(
       `SELECT 
         appointment_id,
         DATE_FORMAT(scheduled_time, '%Y-%m-%d') AS date,
@@ -39,11 +41,11 @@ export async function GET(req: NextRequest) {
 
     const appointmentData = await Promise.all(
       appointments.map(async (appointment) => {
-        const [contactRows] = await pool.query<RowDataPacket[]>(
+        const [contactRows] = await connection.query<RowDataPacket[]>(
           `SELECT * FROM contacts WHERE contact_id = ?`,
           [appointment.contact_id],
         );
-        const [propertyRows] = await pool.query<RowDataPacket[]>(
+        const [propertyRows] = await connection.query<RowDataPacket[]>(
           `SELECT * FROM properties WHERE property_id = ?`,
           [appointment.property_id],
         );
@@ -56,8 +58,10 @@ export async function GET(req: NextRequest) {
       }),
     );
 
+    connection.release();
     return NextResponse.json(appointmentData, { status: 200 });
   } catch (error) {
+    connection.release();
     console.error("Error during GET request:", error);
     return NextResponse.json(
       { error: "Failed to fetch data" },

@@ -1,3 +1,5 @@
+import { parseISO, format } from "date-fns";
+
 export const getCurrentDate = () => {
   return new Date();
 };
@@ -29,3 +31,8 @@ export const monthFormatting = (month: number | string) =>
 
 export const dayFormatting = (day: number | string) =>
   String(day).padStart(2, "0");
+
+export const formatBackwardsDate = (dateString: string): string => {
+  const date = parseISO(dateString);
+  return format(date, "MMMM do, yyyy");
+};

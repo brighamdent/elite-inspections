@@ -34,9 +34,12 @@ export async function GET(req: NextRequest) {
   try {
     const [rows] = await connection.execute(
       `SELECT
-        DATE_FORMAT(date, '%Y-%m-%d') as date,
-        DATE_FORMAT(time, '%H:%i') AS time
-       FROM blocked_times
+    id,
+    DATE_FORMAT(date, '%Y-%m-%d') AS date,
+    DATE_FORMAT(time, '%H:%i') AS time
+    FROM blocked_times
+    WHERE date >= CURDATE()
+    ORDER BY date ASC, time ASC;
 `,
     );
 
@@ -46,5 +49,41 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     connection.release();
     console.log(error);
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  const isAdmin = await verifyAdmin(req);
+
+  if (isAdmin !== true) {
+    return isAdmin;
+  }
+
+  const connection = await pool.getConnection();
+  try {
+    const { timeId } = await req.json();
+
+    await connection.execute(
+      `
+DELETE FROM blocked_times
+WHERE id = ?;
+`,
+      [timeId],
+    );
+    connection.release();
+
+    return NextResponse.json({
+      status: 200,
+      message: "Date deleted successfully",
+    });
+  } catch (error) {
+    connection.release();
+    console.log(error);
+    return NextResponse.json({
+      status: 500,
+      error: "Failed to delete the date",
+    });
+  } finally {
+    connection.release();
   }
 }
