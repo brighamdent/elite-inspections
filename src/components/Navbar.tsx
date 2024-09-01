@@ -24,11 +24,11 @@ export default function Navbar() {
         className={`sticky top-0 bg-royalblue w-full z-50 h-24 flex justify-between items-center p-6 lg:pl-12 lg:pr-12 ${!isOpened && "shadow-lg"}`}
       >
         <Image src={plainLogo} alt="Logo" className="xl:hidden" />
-        <div className="w-[500px] hidden xl:block">
-          <Image src={longLogo} alt="Logo" className="w-[400px]" />
+        <div className="w-[370px] hidden xl:block">
+          <Image src={longLogo} alt="Logo" />
         </div>
         <div className="items-center justify-around w-[500px] hidden lg:flex">
-          <div className="flex justify-around w-[400px] font-bold">
+          <div className="flex justify-around w-[500px] font-bold">
             <Link href="/">
               <h3>Home</h3>
             </Link>
@@ -40,9 +40,9 @@ export default function Navbar() {
             </Link>
           </div>
         </div>
-        <div className="hidden lg:flex items-center w-[500px] h-4">
+        <div className="hidden lg:flex items-center w-[370px] h-4 space-x-2">
           <ScheduleButton size={"small"} color={"darkblue"} />
-          <CallButton />
+          <CallButton size="small" />
         </div>
         <FontAwesomeIcon
           icon={!isOpened ? faBars : faX}
@@ -64,7 +64,7 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="mt-12 flex flex-col justify-around items-center h-40">
-            <ScheduleButton />
+            <ScheduleButton size={"small"} color={"darkblue"} />
             <CallButton />
           </div>
         </div>
