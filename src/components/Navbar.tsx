@@ -1,16 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import ScheduleButton from "./ScheduleButton";
 import CallButton from "./CallButton";
 import Image from "next/image";
 import plainLogo from "../../public/plainlogo.svg";
 import longLogo from "../../public/longlogo.svg";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [isOpened, setIsOpened] = useState(false);
+  const pathName = usePathname();
+
+  useEffect(() => {
+    setIsOpened(false);
+  }, [pathName]);
 
   return (
     <div className="sticky top-0 z-40">
@@ -35,11 +41,11 @@ export default function Navbar() {
           </div>
         </div>
         <div className="hidden lg:flex items-center w-[500px] h-4">
-          <ScheduleButton />
+          <ScheduleButton size={"small"} color={"darkblue"} />
           <CallButton />
         </div>
         <FontAwesomeIcon
-          icon={faBars}
+          icon={!isOpened ? faBars : faX}
           className="h-full lg:hidden"
           onClick={() => setIsOpened(!isOpened)}
         />

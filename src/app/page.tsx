@@ -27,8 +27,8 @@ export default function Home() {
               </p>
             </div>
             <div className="flex flex-col lg:flex-row items-center lg:justify-start  h-44 space-y-4 lg:space-y-0 lg:space-x-6">
-              <ScheduleButton />
-              <CallButton />
+              <ScheduleButton size={"big"} color={"royalblue"} />
+              <CallButton size="big" />
             </div>
           </div>
           <Image

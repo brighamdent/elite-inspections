@@ -37,7 +37,7 @@ export default function page() {
           <h2 className="font-normal">Homes above 3500 sq ft</h2>
           <h1>$0.13</h1>
           <h2 className="mb-4 font-normal">Per additional sq ft</h2>
-          <ScheduleButton />
+          <ScheduleButton size="big" color="royalblue" />
         </div>
       </div>
       <div className="flex flex-col lg:flex-row justify-center items-center w-full lg:w-4/5 mt-0">
@@ -65,7 +65,7 @@ export default function page() {
             decisions and maintain the value of your commercial property.
           </p>
           <h3 className="mb-4">Give us a call to get a free quote today!</h3>
-          <CallButton />
+          <CallButton size="big" />
         </div>
       </div>
       <Footer />
