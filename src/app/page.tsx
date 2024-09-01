@@ -36,7 +36,7 @@ export default function Home() {
             width={1000}
             height={1000}
             alt=""
-            className="hidden lg:block rounded-3xl -mr-32 w-1/2"
+            className="hidden lg:block rounded-3xl -mr-32 max-h-[400px] 2xl:max-h-[600px]"
             objectFit="cover"
           />
         </div>
