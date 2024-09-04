@@ -96,7 +96,7 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="mt-12 flex flex-col justify-around items-center h-40">
-            <ScheduleButton size={"small"} color={"darkblue"} />
+            <ScheduleButton size={"big"} color={"darkblue"} />
             {/* <CallButton /> */}
           </div>
         </div>

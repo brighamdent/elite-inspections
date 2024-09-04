@@ -44,9 +44,8 @@ export default function ScheduleButton({ size, color }) {
     padding,
   } = sizes[size];
 
-  const bgColor = color === "darkblue" ? "bg-darkblue" : "bg-royalblue";
   const hoverColor =
-    color === "darkblue" ? "hover:bg-darkblue" : "hover:bg-royalblue";
+    color === "darkblue" ? "md:hover:bg-darkblue" : "md:hover:bg-royalblue";
 
   return (
     <Link href={"/schedule"}>
@@ -57,7 +56,7 @@ export default function ScheduleButton({ size, color }) {
         <div className="flex justify-between items-center w-full">
           <h2 className={`ml-4 lg:ml-2 ${textSize}`}>Schedule Now</h2>
           <div
-            className={`${outerDivSize} ${lgOuterDivSize} rounded-full bg-royalblue p-2 flex items-center justify-center group-hover:bg-teal`}
+            className={`${outerDivSize} ${lgOuterDivSize} rounded-full bg-royalblue p-2 flex items-center justify-center md:group-hover:bg-teal`}
           >
             <FontAwesomeIcon icon={faArrowRight} className={iconSize} />
           </div>

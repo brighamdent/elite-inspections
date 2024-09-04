@@ -49,7 +49,7 @@ export default function SelectService() {
   }, [message]);
 
   return (
-    <div className="w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center md:block">
+    <div className="w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center md:block min-w-[302px]">
       <div className="flex justify-center md:justify-start items-center w-full">
         <h2>Select Service</h2>
         <button
