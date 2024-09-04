@@ -18,7 +18,7 @@ interface ContactDetailsData {
 
 interface ServiceDetailsData {
   inspectionType: string;
-  quoteAmount: number | string;
+  quoteAmount: number;
   extraSqft: number;
   poolInspection: false;
   windMitigation: false;

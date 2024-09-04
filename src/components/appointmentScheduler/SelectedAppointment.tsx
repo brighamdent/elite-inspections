@@ -6,7 +6,7 @@ export default function SelectedAppointment({ edit }) {
   const { date, selectedTime, setCurrentStage } = useAppointment();
   return (
     <div>
-      <div className="flex flex-col-reverse md:flex-row items-center justify-start w-80 md:w-full">
+      <div className="flex flex-col md:flex-row items-center justify-start w-80 md:w-full">
         <p className="text-left md:mt-4 md:mb-2 text-xs md:text-[16px]">
           Scheduled for: {date.dayOfWeek}, {date.monthName} {date.day},{" "}
           {date.year} {selectedTime ? convertTo12Hour(selectedTime) : " "}{" "}

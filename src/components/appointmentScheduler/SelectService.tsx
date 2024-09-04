@@ -80,12 +80,12 @@ export default function SelectService() {
       <PropertyDetails edit={true} />
       <div className="flex flex-col md:flex-row items-center justify-between">
         <div className="flex flex-col">
-          <div className="bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between p-4 mb-4">
+          <div className="bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between p-2 mb-4">
             <p className="md:mr-2 text-sm md:text-[16px] m-3 md:m-0">
               Inspection Type
             </p>
             <select
-              className="bg-royalblue/50 rounded-3xl pl-3 md:pl-3 w-80 md:w-60 h-10 md:h-6 text-xl md:text-[16px]"
+              className="bg-royalblue/50 rounded-3xl pl-3 md:pl-3 w-full md:w-60 h-10 md:h-6 text-xl md:text-[16px]"
               name="inspectionType"
               value={serviceDetails.inspectionType}
               onChange={handleChange}
@@ -109,7 +109,7 @@ export default function SelectService() {
             </div>
           </div>
         </div>
-        <div className="bg-darkblue rounded-3xl md:p-4 min-h-[170px] w-80 md:w-[270px] flex flex-col justify-between ">
+        <div className="bg-darkblue rounded-3xl md:p-4 min-h-[170px] w-full pr-2 pl-2 md:pr-4 md:pl-4 md:w-[270px] flex flex-col justify-between ">
           <div className="pl-2 pr-2">
             <p className="font-bold w-full text-left">Quote Breakdown</p>
             <div className="justify-between flex">
@@ -131,21 +131,25 @@ export default function SelectService() {
             <div className="bg-teal h-[2px] w-full" />
             <div className="flex justify-between pl-2 pr-2">
               <p className="text-xs">Total:</p>
-              <p className="text-xs">${serviceDetails.quoteAmount!}</p>
+              <p className="text-xs">
+                ${serviceDetails.quoteAmount!.toFixed(2)}
+              </p>
             </div>
           </div>
         </div>
       </div>
-      <button
-        type="button"
-        className=" mt-5 w-80 h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden"
-        onClick={handleSubmit}
-      >
-        <p className="font-extrabold ml-20 mr-2 text-2xl">Review Info</p>
-        <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
-          <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
-        </div>
-      </button>
+      <div className="w-full pr-2 pl-2">
+        <button
+          type="button"
+          className=" mt-5 w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden"
+          onClick={handleSubmit}
+        >
+          <p className="font-extrabold ml-20 mr-2 text-2xl">Review Info</p>
+          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
+            <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
+          </div>
+        </button>
+      </div>
     </div>
   );
 }
