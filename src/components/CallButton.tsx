@@ -21,7 +21,7 @@ const sizes = {
     lgHeight: "lg:h-[45px]",
     lgWidth: "lg:w-[180px]",
     textSize: "text-base",
-    iconSize: "h-6",
+    iconSize: "h-5",
     outerDivSize: "w-[40px] h-[40px]",
     lgOuterDivSize: "lg:w-[35px] lg:h-[35px]",
     rounded: "rounded-[40px]",

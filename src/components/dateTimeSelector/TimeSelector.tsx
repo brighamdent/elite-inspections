@@ -80,10 +80,10 @@ export default function TimeSelector({
       <p className="text-md mb-2">
         {date.dayOfWeek}, {date.monthName} {date.day}, {date.year}
       </p>
-      <div className="max-h-72 overflow-auto pr-4 pl-4 flex flex-col items-center">
+      <div className="max-h-72 overflow-auto flex flex-col items-center">
         {availableTimes.map((time, i) => (
           <button
-            className={`bg-royalblue md:bg-darkblue p-4 w-80  md:w-64 h-12 rounded-2xl flex flex-col items-center justify-center m-1 ${time == selectedTime ? "bg-teal md:bg-teal" : ""}`}
+            className={`bg-royalblue md:bg-darkblue p-4 w-80  md:w-64 h-12 rounded-2xl flex flex-col items-center justify-center mt-1 mb-1 ${time == selectedTime ? "bg-teal md:bg-teal" : ""}`}
             key={i}
             onClick={() => handleClick(time)}
           >

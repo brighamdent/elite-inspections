@@ -4,7 +4,7 @@ import React from "react";
 
 export default function page() {
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full p-8">
       <AppointmentProvider>
         <AppointmentScheduler />
       </AppointmentProvider>

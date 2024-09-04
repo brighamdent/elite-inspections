@@ -48,7 +48,7 @@ export default function TopServices() {
             <div
               className={` flex flex-col items-center lg:items-start lg:text-start lg:w-[400px]  ${index % 2 === 0 ? "lg:ml-32" : "lg:mr-32"}`}
             >
-              <div className="flex flex-col items-center lg:items-start lg:text-start justify-around p-6 lg:p-0 h-64 mt-2 mb-4 ">
+              <div className="flex flex-col items-center lg:items-start lg:text-start justify-around p-6 lg:p-0 min-h-[300px] h-64 mt-2 mb-4 ">
                 <h2>{service.name}</h2>
                 <h3>{service.description}</h3>
               </div>

@@ -40,7 +40,7 @@ export default function page() {
           <ScheduleButton size="big" color="royalblue" />
         </div>
       </div>
-      <div className="flex flex-col lg:flex-row justify-center items-center w-full lg:w-4/5 mt-0">
+      <div className="flex flex-col lg:flex-row-reverse justify-center items-center w-full lg:w-4/5 mt-0 lg:mt-6 mb-0 lg:mb-8">
         <div className="flex flex-col items-center lg:items-start w-full lg:w-1/2 lg:p-4">
           <div className="relative h-96 lg:h-[500px] lg:rounded-3xl w-full overflow-hidden">
             <Image

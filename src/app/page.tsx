@@ -14,10 +14,10 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <div className="bg-hero-house relative  lg:bg-darkblue bg-center h-[82vh] text-white overflow-hidden">
+      <div className="bg-hero-house relative  lg:bg-darkblue bg-center min-h-[640px] h-[82vh] text-white lg:overflow-hidden">
         <div className="absolute inset-0 flex flex-col lg:flex-row items-center justify-between pt-8 pb-8 bg-darkblue bg-opacity-80 lg:bg-opacity-0 p-4">
-          <div className="w-full lg:ml-12 lg:m-8 flex flex-col justify-between lg:justify-around h-full lg:h-96 lg:items-start">
-            <div className="lg:text-left p-4">
+          <div className="w-full lg:ml-12 lg:m-8 flex flex-col justify-between lg:justify-around h-[100vh] lg:h-96 lg:items-start">
+            <div className="lg:text-left lg:p-4">
               <h1 className="text-5xl lg:text-7xl ">
                 Best Home Inspectors in Brevard County
               </h1>

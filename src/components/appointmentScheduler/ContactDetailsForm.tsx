@@ -45,57 +45,59 @@ export default function ContactDetailsForm() {
         <div className="md:self-start">
           <SelectedAppointment edit={true} />
         </div>
-        <div className="w-80 md:w-full md:bg-darkblue md:h-8 rounded-3xl mt-2 flex pl-24 pr-20  flex-col md:flex-row justify-between p-4 md:pl-4 md:pr-4 items-start md:items-center bg-royalblue/50">
-          <p className="w-full text-center md:w-auto font-bold md:font-normal">
-            I am the...
-          </p>
-          <div>
-            <input
-              type="radio"
-              id="homebuyer"
-              name="person"
-              value="Homebuyer"
-              checked={contactDetails.person === "Homebuyer"}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="homebuyer"> Homebuyer</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="homeowner"
-              name="person"
-              value="Homeowner"
-              checked={contactDetails.person === "Homeowner"}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="homeowner"> Homeowner</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="buyers_agent"
-              name="person"
-              value="Buyer's Agent"
-              checked={contactDetails.person === "Buyer's Agent"}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="buyers_agent"> Buyer's Agent</label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="sellers_agent"
-              name="person"
-              value="Seller's agent"
-              checked={contactDetails.person === "Seller's agent"}
-              onChange={handleChange}
-              required
-            />
-            <label htmlFor="sellers_agent"> Seller's Agent</label>
+        <div className="w-full pr-2 pl-2 md:pr-2 md:pl-2">
+          <div className=" w-full p-4 md:max-w-auto md:w-full md:bg-darkblue md:h-8 rounded-3xl mt-2 flex pl-24 pr-20  flex-col md:flex-row justify-between  md:pl-4 md:pr-4 items-start md:items-center bg-royalblue/50">
+            <p className="w-full text-center md:w-auto font-bold md:font-normal">
+              I am the...
+            </p>
+            <div>
+              <input
+                type="radio"
+                id="homebuyer"
+                name="person"
+                value="Homebuyer"
+                checked={contactDetails.person === "Homebuyer"}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="homebuyer"> Homebuyer</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="homeowner"
+                name="person"
+                value="Homeowner"
+                checked={contactDetails.person === "Homeowner"}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="homeowner"> Homeowner</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="buyers_agent"
+                name="person"
+                value="Buyer's Agent"
+                checked={contactDetails.person === "Buyer's Agent"}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="buyers_agent"> Buyer's Agent</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                id="sellers_agent"
+                name="person"
+                value="Seller's agent"
+                checked={contactDetails.person === "Seller's agent"}
+                onChange={handleChange}
+                required
+              />
+              <label htmlFor="sellers_agent"> Seller's Agent</label>
+            </div>
           </div>
         </div>
         <p className="w-full text-xl md:text-[16px] text-center md:text-left mt-4 mb-2">
@@ -103,7 +105,7 @@ export default function ContactDetailsForm() {
         </p>
         <div className="bg-darkblue rounded-3xl w-full md:p-4 ">
           <div className="flex  flex-col md:flex-row justify-between items-center md:w-full">
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0">
               <label
                 htmlFor="first_name"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -116,11 +118,11 @@ export default function ContactDetailsForm() {
                 name="firstName"
                 value={contactDetails.firstName}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0">
               <label
                 htmlFor="last_name"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -133,13 +135,13 @@ export default function ContactDetailsForm() {
                 name="lastName"
                 value={contactDetails.lastName}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
           </div>
-          <div className="flex  flex-col md:flex-row justify-between items-center w-full mt-2">
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+          <div className="flex  flex-col md:flex-row justify-between items-center w-full  mt-2 ">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-2 pl-2 md:pr-0 md:pl-0">
               <label
                 htmlFor="phoneNumber"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -152,11 +154,11 @@ export default function ContactDetailsForm() {
                 name="phoneNumber"
                 value={contactDetails.phoneNumber}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
-            <div className="flex  items-start md:items-center flex-col md:flex-row gap-x-2">
+            <div className="flex  items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-2 pl-2 md:pr-0 md:pl-0">
               <label
                 htmlFor="email"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -169,7 +171,7 @@ export default function ContactDetailsForm() {
                 name="emailAddress"
                 value={contactDetails.emailAddress}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
@@ -178,9 +180,9 @@ export default function ContactDetailsForm() {
         <p className="w-full text-xl md:text-[16px] text-center md:text-left mt-4 mb-2">
           Property Details:
         </p>
-        <div className="bg-darkblue rounded-3xl w-full p-4 pt-0 md:pt-4 ">
-          <div className="flex justify-between items-center w-full">
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full">
+        <div className="bg-darkblue rounded-3xl md:p-4 pt-0 md:pt-4 w-full ">
+          <div className="flex justify-between flex-col items-center ">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0">
               <label
                 htmlFor="address"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -199,7 +201,7 @@ export default function ContactDetailsForm() {
             </div>
           </div>
           <div className="flex  flex-col md:flex-row justify-between items-center w-full mt-2 gap-x-1">
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-2 pl-2 md:pr-0 md:pl-0">
               <label
                 htmlFor="finishedSqft"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -213,11 +215,11 @@ export default function ContactDetailsForm() {
                 name="finishedSqft"
                 value={contactDetails.finishedSqft}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-44 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-44 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2">
+            <div className="flex items-start md:items-center w-full pr-2 pl-2 md:pr-0 md:pl-0 flex-col md:flex-row gap-x-2 md:w-auto">
               <label
                 htmlFor="year_built"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -231,13 +233,13 @@ export default function ContactDetailsForm() {
                 name="yearBuilt"
                 value={contactDetails.yearBuilt}
                 onChange={handleChange}
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-44 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-44 h-10 md:h-6 text-xl md:text-[16px]"
                 required
               />
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center w-full mt-2">
-            <div className="flex flex-col items-start md:items-center md:flex-row gap-x-2">
+            <div className="flex flex-col items-start md:items-center md:flex-row gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0 md:w-auto">
               <label
                 htmlFor="foundation_type"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -245,7 +247,7 @@ export default function ContactDetailsForm() {
                 Foundation Type
               </label>
               <select
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-60 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-full md:w-60 h-10 md:h-6 text-xl max-w-80 md:text-[16px] "
                 id="foundation_type"
                 name="foundationType"
                 value={contactDetails.foundationType}
@@ -259,7 +261,7 @@ export default function ContactDetailsForm() {
                 <option value="option 4">Option 4</option>
               </select>
             </div>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2">
+            <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-x-2 pr-2 pl-2 md:pr-0 md:pl-0 md:w-auto">
               <label
                 htmlFor="phone_number"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -267,7 +269,7 @@ export default function ContactDetailsForm() {
                 Beds
               </label>
               <select
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-20 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-20 h-10 md:h-6 text-xl md:text-[16px]"
                 id="bed_count"
                 name="bedCount"
                 value={contactDetails.bedCount}
@@ -281,7 +283,7 @@ export default function ContactDetailsForm() {
                 <option value={4}>4</option>
               </select>
             </div>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full max-w-80 pr-2 pl-2 md:pr-0 md:pl-0 md:w-auto">
               <label
                 htmlFor="phone_number"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -289,7 +291,7 @@ export default function ContactDetailsForm() {
                 Bath
               </label>
               <select
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-80 md:w-20 h-10 md:h-6 text-xl md:text-[16px]"
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-20 h-10 md:h-6 text-xl md:text-[16px]"
                 id="bath_count"
                 name="bathCount"
                 value={contactDetails.bathCount}
@@ -305,7 +307,7 @@ export default function ContactDetailsForm() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center w-full mt-2">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0">
               <label
                 htmlFor="address"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -321,15 +323,17 @@ export default function ContactDetailsForm() {
             </div>
           </div>
         </div>
-        <button
-          type="submit"
-          className=" w-80 h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden"
-        >
-          <p className="font-extrabold ml-32 mr-2 text-2xl">Next</p>
-          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
-            <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
-          </div>
-        </button>
+        <div className=" pl-2 pr-2 w-full mt-4">
+          <button
+            type="submit"
+            className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden"
+          >
+            <p className="font-extrabold ml-28 mr-2 text-2xl">Next</p>
+            <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
+              <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
+            </div>
+          </button>
+        </div>
       </form>
     </div>
   );

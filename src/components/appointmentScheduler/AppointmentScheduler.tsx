@@ -24,7 +24,7 @@ export default function AppointmentScheduler() {
     };
   }, []);
   return (
-    <div className="md:w-[750px] md:bg-royalblue rounded-3xl md:mt-20 pt-6 pb-6 flex flex-col items-center">
+    <div className="md:w-[750px] md:bg-royalblue rounded-3xl md:mt-20 md:pt-6 md:pb-6 flex flex-col items-center">
       {currentStage < 4 && <AppointmentStatus />}
       {currentStage === 1 && <DateTimeSelector />}
       {currentStage === 2 && <ContactDetailsForm />}

@@ -24,19 +24,51 @@ export default function Navbar() {
         className={`sticky top-0 bg-royalblue w-full z-50 h-24 flex justify-between items-center p-6 lg:pl-12 lg:pr-12 ${!isOpened && "shadow-lg"}`}
       >
         <Image src={plainLogo} alt="Logo" className="xl:hidden" />
-        <div className="w-[370px] hidden xl:block">
-          <Image src={longLogo} alt="Logo" />
-        </div>
+        <Link href={"/"}>
+          <div className="w-[370px] hidden xl:block ">
+            <Image src={longLogo} alt="Logo" />
+          </div>
+        </Link>
         <div className="items-center justify-around w-[500px] hidden lg:flex">
           <div className="flex justify-around w-[500px] font-bold">
             <Link href="/">
-              <h3>Home</h3>
+              <div className="group">
+                <h3
+                  className={`border-b-2  pb-1 transition-all duration-300 ${
+                    pathName === "/"
+                      ? "border-b-2 border-teal text-teal"
+                      : "border-transparent"
+                  } group-hover:border-teal`}
+                >
+                  Home
+                </h3>
+              </div>
             </Link>
             <Link href="/services">
-              <h3>Services</h3>
+              <div className="group">
+                <h3
+                  className={`border-b-2  pb-1 transition-all duration-300 ${
+                    pathName === "/services"
+                      ? " border-teal text-teal"
+                      : "border-transparent"
+                  } group-hover:border-teal`}
+                >
+                  Services
+                </h3>
+              </div>
             </Link>
             <Link href="/about">
-              <h3>About</h3>
+              <div className="group">
+                <h3
+                  className={`border-b-2  pb-1 transition-all duration-300 ${
+                    pathName === "/about"
+                      ? "border-b-2 border-teal text-teal"
+                      : "border-transparent"
+                  } group-hover:border-teal `}
+                >
+                  About
+                </h3>
+              </div>
             </Link>
           </div>
         </div>
@@ -65,7 +97,7 @@ export default function Navbar() {
           </div>
           <div className="mt-12 flex flex-col justify-around items-center h-40">
             <ScheduleButton size={"small"} color={"darkblue"} />
-            <CallButton />
+            {/* <CallButton /> */}
           </div>
         </div>
       )}

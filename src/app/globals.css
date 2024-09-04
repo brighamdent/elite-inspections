@@ -51,12 +51,14 @@ p {
   right: 0;
   bottom: -2px;
 }
-
+/* .hero-section { */
+/*   min-height: calc(100vh - 50px); */
+/* } */
 .bg-hero-house {
   background-image: url("/hero_house.jpg"); /* Adjust the path as necessary */
   background-size: cover;
   background-position: center;
-  height: 82vh;
+  height: h;
   color: white; /* Assuming you want white text color */
 }
 
