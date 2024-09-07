@@ -12,8 +12,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function DateTimeSelector() {
-  const [unavailableTimes, setUnavailableTimes] = useState([]);
-  const [currentMonthAppointments, setCurrentMonthAppointments] = useState([]);
+  const [unavailableTimes, setUnavailableTimes] = useState<string[]>([]);
+  const [currentMonthAppointments, setCurrentMonthAppointments] = useState<
+    CalanderAppointmentType[]
+  >([]);
   const [message, setMessage] = useState("");
   const {
     date,
@@ -29,29 +31,6 @@ export default function DateTimeSelector() {
     if (date.day && selectedTime) setCurrentStage(currentStage + 1);
     else {
       setMessage("Please Select a Time");
-    }
-  };
-
-  const handleClick = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch("/api/appointments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        // body: JSON.stringify({ formattedDate }),
-      });
-
-      const result = await res.json();
-      if (res.ok) {
-        setMessage(result.message);
-        setSelectedTime("");
-      } else {
-        setMessage("Error scheduling appointment");
-      }
-    } catch (error) {
-      setMessage("Error scheduling appointment");
     }
   };
 
@@ -75,9 +54,9 @@ export default function DateTimeSelector() {
   }, [date]);
 
   useEffect(() => {
-    const getUnavailableTimes = (day: number) => {
+    const getUnavailableTimes = (day: number | null) => {
       const times = currentMonthAppointments
-        .filter((appointment) => {
+        .filter((appointment: CalanderAppointmentType) => {
           const appointmentDay = parseInt(
             appointment.scheduled_time.slice(8, 10),
             10,

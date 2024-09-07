@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { startOfMonth, endOfMonth, getDay, getDate, format } from "date-fns";
 import { monthFormatting } from "@/utils/dateUtils";
 
-export default function Calendar({ currentMonthAppointments, setDate }) {
+export default function Calendar({
+  currentMonthAppointments,
+  setDate,
+}: CalandarPropsType) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const firstDay = getDay(startOfMonth(currentDate));
   const lastDay = getDate(endOfMonth(currentDate));
@@ -53,7 +56,7 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
       try {
         const response = await fetch("/api/blockedDays", { method: "GET" });
         const data = await response.json();
-        const blockedDatesArray = data.data.map((day) => {
+        const blockedDatesArray = data.data.map((day: BlockedDayType) => {
           return day.date;
         });
         console.log(blockedDatesArray);

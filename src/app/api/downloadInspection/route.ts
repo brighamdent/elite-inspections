@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
 import { Readable } from "stream";
@@ -6,7 +8,7 @@ const credentials = JSON.parse(process.env.GOOGLE_CREDENTIALS!);
 
 const auth = new google.auth.GoogleAuth({
   credentials,
-  scopes: ["https://www.googleapis.com/auth/drive.readonly"], // Use read-only scope for downloading
+  scopes: ["https://www.googleapis.com/auth/drive.readonly"], // Read-only scope for downloading
 });
 
 const drive = google.drive({ version: "v3", auth });
@@ -14,6 +16,8 @@ const drive = google.drive({ version: "v3", auth });
 export async function GET(req: NextRequest) {
   try {
     const fileId = req.nextUrl.searchParams.get("fileId");
+    // const url = new URL(req.url);
+    // const fileId = url.searchParams.get("fileId");
     if (!fileId) {
       return NextResponse.json(
         { error: "File ID is required" },

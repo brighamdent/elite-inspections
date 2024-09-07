@@ -1,7 +1,7 @@
 import React from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 
-export default function PropertyDetails({ edit }) {
+export default function PropertyDetails({ edit }: { edit: boolean }) {
   const { contactDetails, setCurrentStage } = useAppointment();
   return (
     <div className="flex flex-col items-center md:items-start w-full pr-4 pl-4 md:pr-0 md:pl-0 ">

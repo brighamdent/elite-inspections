@@ -10,7 +10,7 @@ export default function TodaysAppointments() {
   return (
     <div className=" lg:bg-darkblue/50 h-full lg:flex-shrink lg:min-w-[200px] lg:max-w-full rounded-3xl  lg:p-4 md:p-0 ">
       <p className="font-bold">
-        Today's Appointments {formatDate(currentDate)}
+        Today&apos;s Appointments {formatDate(currentDate)}
       </p>
       {todaysAppointments.length >= 1 ? (
         <div>

@@ -12,9 +12,8 @@ import AppointmentConfirmation from "./AppointmentConfirmation";
 export default function AppointmentScheduler() {
   const { currentStage } = useAppointment();
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       event.preventDefault();
-      event.returnValue = ""; // Standard way to trigger the browser dialog
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);

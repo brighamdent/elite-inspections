@@ -1,12 +1,17 @@
+"use client"; // This must be at the top of the file
+
+export const dynamic = "force-dynamic"; // Ensure this comes after "use client"
+
+import React from "react";
 import Payment from "@/components/payment/Payment";
 import { PaymentDataProvider } from "@/context/PaymentDataContext";
-import React from "react";
-export default function page() {
+
+export default function Page() {
   return (
-    <div>
-      <PaymentDataProvider>
+    <PaymentDataProvider>
+      <div>
         <Payment />
-      </PaymentDataProvider>
-    </div>
+      </div>
+    </PaymentDataProvider>
   );
 }

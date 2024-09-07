@@ -2,7 +2,7 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-const sizes = {
+const sizes: any = {
   big: {
     height: "h-[70px]",
     width: "w-[275px]",
@@ -29,7 +29,7 @@ const sizes = {
   },
 };
 
-export default function CallButton({ size = "small" }) {
+export default function CallButton({ size = "small" }: { size: string }) {
   const {
     height,
     width,
@@ -41,7 +41,7 @@ export default function CallButton({ size = "small" }) {
     lgOuterDivSize,
     rounded,
     padding,
-  } = sizes[size];
+  } = sizes[size as any];
 
   return (
     <button

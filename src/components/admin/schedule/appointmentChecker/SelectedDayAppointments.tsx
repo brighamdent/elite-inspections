@@ -6,7 +6,9 @@ import { useAdminData } from "@/context/AdminDataContext";
 
 export default function SelectedDayAppointments() {
   const { currentMonthAppointments } = useAdminData();
-  const [selectedDayAppointments, setSelectedDayAppointments] = useState([]);
+  const [selectedDayAppointments, setSelectedDayAppointments] = useState<
+    AppointmentType[]
+  >([]);
   const { date } = useAdminData();
 
   useEffect(() => {

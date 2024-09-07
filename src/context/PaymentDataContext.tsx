@@ -1,5 +1,11 @@
 "use client";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  Suspense,
+} from "react";
 import { useSearchParams } from "next/navigation";
 
 interface PaymentDataContextType {
@@ -34,6 +40,7 @@ export const PaymentDataProvider = ({
   const [fileId, setFileId] = useState("");
   const searchParams = useSearchParams();
   const userId = searchParams.get("user");
+
   const value: PaymentDataContextType = {
     userData,
     currentStage,
@@ -41,6 +48,7 @@ export const PaymentDataProvider = ({
     fileId,
     setFileId,
   };
+
   useEffect(() => {
     const fetchUserData = async () => {
       const response = await fetch(`/api/userToPay?userId=${userId}`);
@@ -52,15 +60,18 @@ export const PaymentDataProvider = ({
       const data: AppointmentType = await response.json();
       setUserData(data);
     };
-    fetchUserData();
-  }, []);
+    if (userId) {
+      fetchUserData();
+    }
+  }, [userId]);
 
   useEffect(() => {
     console.log(userData);
   }, [userData]);
+
   return (
     <PaymentDataContext.Provider value={value}>
-      {children}
+      <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
     </PaymentDataContext.Provider>
   );
 };

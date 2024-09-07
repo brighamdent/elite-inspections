@@ -72,3 +72,23 @@ interface BlockedTimeType {
   date: date;
   time: string;
 }
+
+interface CalanderAppointmentType {
+  scheduled_time: string;
+}
+
+interface PastBlockedDaysType {
+  date: string;
+}
+
+interface CalandarPropsType {
+  currentMonthAppointments: CalanderAppointmentType[];
+  setDate: React.Dispatch<React.SetStateAction<DateData>>;
+}
+
+interface TimeSelectorProps {
+  date: DateData;
+  unavailableTimes: string[];
+  selectedTime: string;
+  setSelectedTime: React.Dispatch<React.SetStateAction<string>>;
+}

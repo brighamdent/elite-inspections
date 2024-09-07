@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import { startOfMonth, endOfMonth, getDay, getDate, format } from "date-fns";
 import { monthFormatting } from "@/utils/dateUtils";
 
-export default function Calendar({ currentMonthAppointments, setDate }) {
+export default function Calendar({
+  currentMonthAppointments,
+  setDate,
+}: CalandarPropsType) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const firstDay = getDay(startOfMonth(currentDate));
   const lastDay = getDate(endOfMonth(currentDate));
@@ -53,7 +56,7 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
       try {
         const response = await fetch("/api/blockedDays", { method: "GET" });
         const data = await response.json();
-        const blockedDatesArray = data.data.map((day) => {
+        const blockedDatesArray = data.data.map((day: PastBlockedDaysType) => {
           return day.date;
         });
         console.log(blockedDatesArray);
@@ -70,7 +73,7 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
   useEffect(() => {
     const countMap = new Map<number, number>();
 
-    currentMonthAppointments.forEach((appointment) => {
+    currentMonthAppointments.forEach((appointment: CalanderAppointmentType) => {
       const day = parseInt(appointment.scheduled_time.slice(8, 10), 10);
 
       if (countMap.has(day)) {
@@ -153,34 +156,6 @@ export default function Calendar({ currentMonthAppointments, setDate }) {
     return boolean;
   };
 
-  // const checkForDisabled = (i: number) => {
-  //   let boolean = false;
-  //   let day = i - firstDay + 1;
-  //   const currWeekday = format(
-  //     new Date(selectedDate.year, selectedDate.month, day),
-  //     "EEEE",
-  //   );
-  //   if (i < firstDay) {
-  //     boolean = true;
-  //   } else if (
-  //     realCurrentMonthNumber == selectedDate.month &&
-  //     realCurrentYear == selectedDate.year &&
-  //     day < realCurrentDay
-  //   ) {
-  //     boolean = true;
-  //   } else if (dateCountMap.has(day) && dateCountMap.get(day)! > 1) {
-  //     boolean = true;
-  //   }
-  //   // else if (blockedWeekdays.includes(currWeekday)) {
-  //   //   boolean = true;
-  //   // }
-  //
-  //   if (boolean == true && selectedDate.day == day) {
-  //     handleDayClick(day + 1);
-  //   }
-  //
-  //   return boolean;
-  // };
   return (
     <div className=" rounded-3xl p-4  flex flex-col items-center">
       <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">

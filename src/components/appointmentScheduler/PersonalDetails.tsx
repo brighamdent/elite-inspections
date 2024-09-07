@@ -1,7 +1,7 @@
 import { useAppointment } from "@/context/AppointmentContext";
 import React from "react";
 
-export default function PersonalDetails({ edit }) {
+export default function PersonalDetails({ edit }: { edit: boolean }) {
   const { contactDetails, setCurrentStage } = useAppointment();
   return (
     <div>

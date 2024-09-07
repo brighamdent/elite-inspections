@@ -16,8 +16,10 @@ export default function BlockTimeSelector({
 }: {
   handleToggleModal: () => void;
 }) {
-  const [unavailableTimes, setUnavailableTimes] = useState([]);
-  const [currentMonthAppointments, setCurrentMonthAppointments] = useState([]);
+  const [unavailableTimes, setUnavailableTimes] = useState<string[]>([]);
+  const [currentMonthAppointments, setCurrentMonthAppointments] = useState<
+    CalanderAppointmentType[]
+  >([]);
   const [message, setMessage] = useState("");
   const [date, setDate] = useState<DateData>({
     month: null,
@@ -48,9 +50,9 @@ export default function BlockTimeSelector({
   }, [date]);
 
   useEffect(() => {
-    const getUnavailableTimes = (day: number) => {
+    const getUnavailableTimes = (day: number | null) => {
       const times = currentMonthAppointments
-        .filter((appointment) => {
+        .filter((appointment: CalanderAppointmentType) => {
           const appointmentDay = parseInt(
             appointment.scheduled_time.slice(8, 10),
             10,
@@ -63,7 +65,7 @@ export default function BlockTimeSelector({
     };
 
     getUnavailableTimes(date.day);
-  }, [currentMonthAppointments]);
+  }, [currentMonthAppointments, date.day]);
 
   const handleBlockDay = async () => {
     try {

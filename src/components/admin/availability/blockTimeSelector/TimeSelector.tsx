@@ -7,7 +7,7 @@ export default function TimeSelector({
   unavailableTimes,
   selectedTime,
   setSelectedTime,
-}) {
+}: TimeSelectorProps) {
   const avalability = [
     "09:00",
     "10:00",
@@ -75,7 +75,7 @@ export default function TimeSelector({
 
   const handleClick = (time: string) => {
     if (time == selectedTime) {
-      return setSelectedTime(null);
+      return setSelectedTime("");
     }
     setSelectedTime(time);
   };

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 import convertTo12Hour from "@/utils/convertTo12Hour";
 
-export default function SelectedAppointment({ edit }) {
+export default function SelectedAppointment({ edit }: { edit: boolean }) {
   const { date, selectedTime, setCurrentStage } = useAppointment();
   return (
     <div>

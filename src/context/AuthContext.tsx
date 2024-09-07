@@ -3,7 +3,7 @@ import React from "react";
 import { useContext } from "react";
 import { createContext, useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { User } from "firebase/auth";
 
 interface UserData {
   user_id: string;
@@ -16,7 +16,7 @@ interface AuthContextType {
   login: (
     email: string,
     password: string,
-  ) => Promise<firebase.auth.UserCredentials>;
+  ) => Promise<firebase.default.auth.UserCredential>;
   logout: () => Promise<void>;
   loading: boolean;
 }
@@ -32,7 +32,7 @@ export function useAuth(): AuthContextType {
 }
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const login = (email: string, password: string) => {
@@ -45,10 +45,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+      setCurrentUser(user as User);
       setLoading(false);
       return () => {
-        setLoading(false); // Ensure loading is set to false if unsubscribing
+        setLoading(false);
         unsubscribe();
       };
     });

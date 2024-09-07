@@ -60,7 +60,10 @@ export const Faqs = () => {
       </HomepageDivider>
       <div className="mt-4 mb-5 lg:w-1/2 max-w-[800px]">
         {faqs.map((faq) => (
-          <div className="flex flex-col m-6 bg-royalblue rounded-xl min-h-24 p-6 text-left">
+          <div
+            className="flex flex-col m-6 bg-royalblue rounded-xl min-h-24 p-6 text-left"
+            key={faq.id}
+          >
             <div className="flex items-center justify-between">
               <h3 className="w-5/6">{faq.question}</h3>
               <button className="" onClick={() => handleClick(faq.id)}>

@@ -1,3 +1,4 @@
+"use client";
 import { usePaymentData } from "@/context/PaymentDataContext";
 import {
   faArrowUp,

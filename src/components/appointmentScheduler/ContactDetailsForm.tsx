@@ -17,7 +17,7 @@ export default function ContactDetailsForm() {
     const { name, value } = event.target;
     setContactDetails({ ...contactDetails, [name]: value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setCurrentStage(currentStage + 1);
   };
@@ -84,7 +84,7 @@ export default function ContactDetailsForm() {
                 onChange={handleChange}
                 required
               />
-              <label htmlFor="buyers_agent"> Buyer's Agent</label>
+              <label htmlFor="buyers_agent"> Buyer&apos;s Agent</label>
             </div>
             <div>
               <input
@@ -96,7 +96,7 @@ export default function ContactDetailsForm() {
                 onChange={handleChange}
                 required
               />
-              <label htmlFor="sellers_agent"> Seller's Agent</label>
+              <label htmlFor="sellers_agent"> Seller&apos;s Agent</label>
             </div>
           </div>
         </div>

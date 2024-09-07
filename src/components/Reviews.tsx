@@ -33,8 +33,11 @@ export const Reviews = () => {
         <p>Don’t take our word for it, hear our clients have to say!</p>
       </HomepageDivider>
       <div className="mt-4 mb-6 m-2 flex flex-col lg:flex-row">
-        {reviews.map((review) => (
-          <div className="flex flex-col items-center bg-royalblue rounded-xl p-6 h-[600px] lg:w-[30vw] lg:max-w-[390px] justify-around mt-8 m-4">
+        {reviews.map((review, index) => (
+          <div
+            className="flex flex-col items-center bg-royalblue rounded-xl p-6 h-[600px] lg:w-[30vw] lg:max-w-[390px] justify-around mt-8 m-4"
+            key={index}
+          >
             {" "}
             <Image src={review.photo} alt="" />
             <h3>{review.review}</h3>

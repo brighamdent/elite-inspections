@@ -37,6 +37,7 @@ export default function TopServices() {
         {services.map((service, index) => (
           <div
             className={`flex flex-col justify-around lg:justify-center items-center pb-8 lg:p-12 ${index % 2 !== 0 ? "lg:flex-row-reverse" : "lg:flex-row "}`}
+            key={index}
           >
             <Image
               src={service.photo}

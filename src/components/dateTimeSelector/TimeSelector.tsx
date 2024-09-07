@@ -6,7 +6,7 @@ export default function TimeSelector({
   unavailableTimes,
   selectedTime,
   setSelectedTime,
-}) {
+}: TimeSelectorProps) {
   const avalability = [
     "09:00",
     "10:00",

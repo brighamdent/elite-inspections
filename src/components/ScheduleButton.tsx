@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import React from "react";
 
-const sizes = {
+const sizes: any = {
   big: {
     height: "h-[70px]",
     width: "w-[275px]",
@@ -30,7 +30,13 @@ const sizes = {
   },
 };
 
-export default function ScheduleButton({ size, color }) {
+export default function ScheduleButton({
+  size,
+  color,
+}: {
+  size: string;
+  color: string;
+}) {
   const {
     height,
     width,
@@ -42,7 +48,7 @@ export default function ScheduleButton({ size, color }) {
     lgOuterDivSize,
     rounded,
     padding,
-  } = sizes[size];
+  } = sizes[size as any];
 
   const hoverColor =
     color === "darkblue" ? "md:hover:bg-darkblue" : "md:hover:bg-royalblue";
