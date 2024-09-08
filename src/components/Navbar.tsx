@@ -23,7 +23,9 @@ export default function Navbar() {
       <div
         className={`sticky top-0 bg-royalblue w-full z-50 h-24 flex justify-between items-center p-6 lg:pl-12 lg:pr-12 ${!isOpened && "shadow-lg"}`}
       >
-        <Image src={plainLogo} alt="Logo" className="xl:hidden" />
+        <Link href={"/"}>
+          <Image src={plainLogo} alt="Logo" className="xl:hidden" />
+        </Link>
         <Link href={"/"}>
           <div className="w-[370px] hidden xl:block ">
             <Image src={longLogo} alt="Logo" />
@@ -85,19 +87,39 @@ export default function Navbar() {
       {isOpened && (
         <div className="absolute top-0 z-0 h-screen bg-royalblue w-full flex flex-col items-center justify-center">
           <div className="flex flex-col w-96 items-center justify-around">
-            <Link href="/">
+            <Link
+              href="/"
+              onClick={() => {
+                if (pathName === "/") {
+                  setIsOpened(false);
+                }
+              }}
+            >
               <h1>Home</h1>
             </Link>
-            <Link href="/services">
+            <Link
+              href="/services"
+              onClick={() => {
+                if (pathName === "/services") {
+                  setIsOpened(false);
+                }
+              }}
+            >
               <h1>Services</h1>
             </Link>
-            <Link href="/about">
+            <Link
+              href="/about"
+              onClick={() => {
+                if (pathName === "/about") {
+                  setIsOpened(false);
+                }
+              }}
+            >
               <h1>About</h1>
             </Link>
           </div>
-          <div className="mt-12 flex flex-col justify-around items-center h-40">
+          <div className="flex flex-col justify-around items-center h-28">
             <ScheduleButton size={"big"} color={"darkblue"} />
-            {/* <CallButton /> */}
           </div>
         </div>
       )}
