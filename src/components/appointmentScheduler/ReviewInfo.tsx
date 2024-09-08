@@ -30,7 +30,7 @@ export default function ReviewInfo() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full md:pl-9 md:pr-9">
       <div className="flex items-center w-full pr-2 pl-2 md:pr-0 md:pl-0">
         <h2>Please Double Check Your Information</h2>
         <button
