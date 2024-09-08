@@ -42,7 +42,6 @@ export default function ServiceSummary() {
       <p className="text-left mb-4 text-[16px]">
         Service Address: {userData?.property.address}
       </p>
-      {/* <SelectedAppointment edit={true} /> */}
       <div className="flex flex-col md:flex-row items-center justify-between">
         <div className="bg-royalblue p-2 md:bg-darkblue rounded-3xl md:p-4 min-h-[170px] w-80 md:w-full md:mr-6 flex flex-col justify-between mb-6 md:mb-0 ">
           <div className="pl-2 pr-2">
@@ -81,7 +80,7 @@ export default function ServiceSummary() {
               <p className="text-xs">Elite Home Inspection</p>
               <p className="text-xs">$350.00</p>
             </div>
-            {userData?.service_details.extra_sqft ? (
+            {userData?.service_details.extra_sqft! > 0 ? (
               <div className="justify-between flex">
                 <p className="text-xs">
                   $0.13 x {userData!.service_details.extra_sqft} extra sq ft

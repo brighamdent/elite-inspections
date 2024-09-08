@@ -116,7 +116,7 @@ export default function SelectService() {
               <p className="text-xs">Elite Home Inspection</p>
               <p className="text-xs">$350.00</p>
             </div>
-            {serviceDetails.extraSqft! && (
+            {serviceDetails.extraSqft > 0 && (
               <div className="justify-between flex">
                 <p className="text-xs">
                   $0.13 x {serviceDetails.extraSqft} extra sq ft
