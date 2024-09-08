@@ -19,6 +19,7 @@ export default function Calendar({
   const realCurrentYear = new Date().getFullYear();
   const currentDay = currentDate.getDate();
   const dayOfWeek = format(currentDate, "EEEE");
+  const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState({
     month: currentMonthNumber,
     day: currentDay,
@@ -33,6 +34,7 @@ export default function Calendar({
   );
 
   useEffect(() => {
+    setLoading(true);
     const fetchBlockedDays = async () => {
       try {
         const response = await fetch("/api/weekdayAvailability");
@@ -49,9 +51,11 @@ export default function Calendar({
     };
 
     fetchBlockedDays();
+    setLoading(false);
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const fetchBlockedDates = async () => {
       try {
         const response = await fetch("/api/blockedDays", { method: "GET" });
@@ -68,6 +72,7 @@ export default function Calendar({
     };
 
     fetchBlockedDates();
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -183,7 +188,7 @@ export default function Calendar({
         </div>
       </div>
 
-      {blockedDates.length <= 1 ? (
+      {loading ? (
         <div className=" w-[384px] h-64 mr-2 ml-2 flex items-center justify-center">
           <div className="big-loader" />
         </div>

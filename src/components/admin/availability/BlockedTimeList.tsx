@@ -9,6 +9,7 @@ import firebase from "firebase/compat/app";
 export default function BlockTimeList() {
   const [blockedTimes, setBlockedTimes] = useState<BlockedTimeType[]>([]);
   const [blockedDates, setBlockedDates] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchBlockedDates = async () => {
@@ -96,7 +97,7 @@ export default function BlockTimeList() {
       <h3 className="font-bold">Block Time List</h3>
       <div className=" lg:bg-darkblue/50 rounded-3xl p-4 h-[638px]">
         <h2>Blocked Dates</h2>
-        {blockedDates.length <= 1 ? (
+        {loading ? (
           <div className="w-80 h-64 mr-2 ml-2 flex items-center justify-center">
             <div className="big-loader" />
           </div>
@@ -119,7 +120,7 @@ export default function BlockTimeList() {
           </div>
         )}
         <h2 className="mt-4">Blocked Times</h2>
-        {blockedDates.length <= 1 ? (
+        {loading ? (
           <div className="w-80 h-64 mr-2 ml-2 flex items-center justify-center">
             <div className="big-loader" />
           </div>

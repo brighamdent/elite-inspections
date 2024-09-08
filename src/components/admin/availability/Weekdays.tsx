@@ -9,6 +9,7 @@ interface DaysOfWeekType {
 
 export default function WeekDays() {
   const [daysOfWeek, setDaysOfWeek] = useState<DaysOfWeekType[]>([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchWeekDays = async () => {
       try {
@@ -48,7 +49,7 @@ export default function WeekDays() {
     <div className="flex flex-col items-center h-full">
       <h3 className="font-bold">Weekday Availability</h3>
       <div className="flex flex-col items-center justify-center lg:bg-darkblue/50 rounded-3xl p-4 h-full overflow-y-scroll">
-        {daysOfWeek.length <= 1 ? (
+        {loading ? (
           <div className="w-80 h-64 mr-2 ml-2 flex items-center justify-center">
             <div className="big-loader" />
           </div>
