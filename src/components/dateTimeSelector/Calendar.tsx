@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { startOfMonth, endOfMonth, getDay, getDate, format } from "date-fns";
 import { monthFormatting } from "@/utils/dateUtils";
+import { useAppointment } from "@/context/AppointmentContext";
 
 export default function Calendar({
   currentMonthAppointments,
@@ -32,6 +33,7 @@ export default function Calendar({
   const [dateCountMap, setDateCountMap] = useState<Map<number, number>>(
     new Map(),
   );
+  const { setSelectedTime } = useAppointment();
 
   useEffect(() => {
     setLoading(true);
@@ -113,6 +115,7 @@ export default function Calendar({
       dayOfWeek,
       monthName: monthFormatted,
     });
+    setSelectedTime("");
   };
 
   useEffect(() => {
