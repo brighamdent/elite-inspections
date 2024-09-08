@@ -63,10 +63,11 @@ export const Faqs = () => {
           <div
             className="flex flex-col m-6 bg-royalblue rounded-xl min-h-24 p-6 text-left"
             key={faq.id}
+            onClick={() => handleClick(faq.id)}
           >
             <div className="flex items-center justify-between">
               <h3 className="w-5/6">{faq.question}</h3>
-              <button className="" onClick={() => handleClick(faq.id)}>
+              <button className="">
                 <FontAwesomeIcon
                   icon={!faq.opened ? faPlus : faMinus}
                   className="text-teal h-10"

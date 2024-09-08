@@ -38,7 +38,7 @@ export default function AwaitingPayment() {
             </div>
           ))
         ) : (
-          <div className="rounded-3xl bg-royalblue/50 w-80 p-4 m-2 flex items-center">
+          <div className="rounded-3xl bg-royalblue/50 w-80 p-4 m-2 flex items-center justify-center min-h-20">
             <p>No appointments awaiting payment at this time</p>
           </div>
         )}

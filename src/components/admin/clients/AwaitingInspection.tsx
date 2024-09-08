@@ -37,7 +37,7 @@ export default function AwaitingInspection() {
             </div>
           ))
         ) : (
-          <div className="rounded-3xl bg-royalblue/50 w-80 p-4 m-2 flex items-center">
+          <div className="rounded-3xl bg-royalblue/50 w-80 p-4 m-2 flex items-center min-h-20">
             <p>No appointments awaiting inspection at this time</p>
           </div>
         )}
