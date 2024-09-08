@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
 import AppointmentStatus from "./AppointmentStatus";
-import { AppointmentProvider } from "@/context/AppointmentContext";
 import DateTimeSelector from "../dateTimeSelector/DateTimeSelector";
 import ContactDetailsForm from "./ContactDetailsForm";
 import { useAppointment } from "@/context/AppointmentContext";

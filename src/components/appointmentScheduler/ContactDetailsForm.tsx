@@ -209,7 +209,7 @@ export default function ContactDetailsForm() {
                 Total Finished Square Feet
               </label>
               <input
-                type="text"
+                type="number"
                 pattern="\d*"
                 id="finishedSqft"
                 name="finishedSqft"
