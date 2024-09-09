@@ -1,8 +1,8 @@
-Elite Inspections
+# Elite Inspections
 
 Elite Inspections is a website for a home inspection company that allows clients to schedule inspections, provides business information, handles payments, and includes an admin dashboard for managing appointments.
 
-Features
+## Features
 - Online scheduling for home inspections.
 - Admin dashboard for appointment management.
 - Integration with Stripe for accepting payments.
@@ -10,19 +10,20 @@ Features
 - Firebase for authentication.
 - Google Drive integration for file storage.
 
-Technologies Used
-- Next.js: Framework for building the frontend and backend.
-- MariaDB: Database for storing appointments and user data.
-- Tailwind CSS: Utility-first CSS framework for styling.
-- Firebase: For authentication and user management.
-- Google Drive API: For managing files.
-- Stripe: For handling payments.
+## Technologies Used
+- **Next.js**: Framework for building the frontend and backend.
+- **MariaDB**: Database for storing appointments and user data.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Firebase**: For authentication and user management.
+- **Google Drive API**: For managing files.
+- **Stripe**: For handling payments.
 
-Setup Instructions
+## Setup Instructions
 
-1. Clone the repository
-   git clone https://github.com/yourusername/elite-inspections.git
-   cd elite-inspections
+### 1. Clone the repository
+```bash
+git clone https://github.com/brighamdent/elite-inspections.git
+cd elite-inspections
 
 2. Install dependencies
    npm install
@@ -65,10 +66,6 @@ Setup Instructions
 5. Run the development server
    npm run dev
    The app will be running at http://localhost:3000.
-
-6. Build for production
-   To build the project for production, run:
-   npm run build
 
 Usage
 - Access the scheduling system as a customer or admin via the provided dashboard.
