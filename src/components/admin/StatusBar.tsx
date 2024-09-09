@@ -7,7 +7,7 @@ export default function StatusBar() {
   const pathname = usePathname();
   return (
     <div
-      className={` w-full justify-center space-x-2 md:space-x-12 mt-4 mb-4 ${pathname != "/admin/login" ? "flex" : "hidden"}`}
+      className={`pt-10 sm:pt-0 w-full justify-center space-x-2 md:space-x-12 sm:mt-4 mb-4 ${pathname != "/admin/login" ? "flex" : "hidden"}`}
     >
       <h2
         onClick={() => router.push("/admin/schedule")}

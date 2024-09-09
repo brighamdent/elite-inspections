@@ -1,9 +1,12 @@
+import Logout from "@/components/admin/Logout";
 import StatusBar from "@/components/admin/StatusBar";
 const AdminLayout = ({ children }: any) => {
   return (
-    <div>
+    <div className="relative">
       <StatusBar />
-      {/* <Logout /> */}
+      <div className="absolute top-1 right-10">
+        <Logout />
+      </div>
       {children}
     </div>
   );
