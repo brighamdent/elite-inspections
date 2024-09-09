@@ -63,14 +63,17 @@ cd elite-inspections
    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
    STRIPE_SECRET_KEY=your_stripe_secret_key
 ```
-4. Database Setup
+
+### 4. Database Setup
    Ensure MariaDB is installed and running. Create a new database for the project, and update the .env.local file with the appropriate credentials.
 
-5. Run the development server
+### 5. Run the development server
+```bash
    npm run dev
    The app will be running at http://localhost:3000.
+```
 
-Usage
+### Usage
 - Access the scheduling system as a customer or admin via the provided dashboard.
 - Admins can manage appointments, handle payments, and view business insights.
 - Stripe integration ensures payments are processed securely.
