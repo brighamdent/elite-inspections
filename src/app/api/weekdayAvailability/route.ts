@@ -9,8 +9,11 @@ export async function GET(req: NextRequest) {
        *
        FROM days;`,
     );
+    const response = NextResponse.json(days, { status: 200 });
 
-    return NextResponse.json(days, { status: 200 });
+    response.headers.set("Cache-Control", "no-store");
+
+    return response;
   } catch (error) {
     console.error("Error during GET request:", error);
     return NextResponse.json(
