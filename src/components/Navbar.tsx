@@ -21,13 +21,13 @@ export default function Navbar() {
   return (
     <div className="sticky top-0 z-40">
       <div
-        className={`sticky top-0 bg-royalblue w-full z-50 h-24 flex justify-between items-center p-6 lg:pl-12 lg:pr-12 ${!isOpened && "shadow-lg"}`}
+        className={`sticky top-0 bg-royalblue w-full z-50 h-24 flex justify-between items-center p-6 lg:pl-16 lg:pr-16 ${!isOpened && "shadow-lg"}`}
       >
-        <Link href={"/"}>
-          <Image src={plainLogo} alt="Logo" className="xl:hidden" />
+        <Link href={"/"} className="xl:hidden">
+          <Image src={plainLogo} alt="Logo" />
         </Link>
-        <Link href={"/"}>
-          <div className="w-[370px] hidden xl:block ">
+        <Link href={"/"} className="hidden xl:block ">
+          <div className="w-[370px] ">
             <Image src={longLogo} alt="Logo" />
           </div>
         </Link>
