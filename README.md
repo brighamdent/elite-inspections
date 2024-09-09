@@ -24,13 +24,16 @@ Elite Inspections is a website for a home inspection company that allows clients
 ```bash
 git clone https://github.com/brighamdent/elite-inspections.git
 cd elite-inspections
+```
 
-2. Install dependencies
+### 2. Install dependencies
+```bash
    npm install
-
-3. Set up environment variables
+```
+### 3. Set up environment variables
    Create a .env.local file in the root directory and add the following environment variables:
 
+```bash
    # Database Credentials
    DB_HOST=your_db_host
    DB_USER=your_db_user
@@ -59,7 +62,7 @@ cd elite-inspections
    # Stripe Keys
    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
    STRIPE_SECRET_KEY=your_stripe_secret_key
-
+```
 4. Database Setup
    Ensure MariaDB is installed and running. Create a new database for the project, and update the .env.local file with the appropriate credentials.
 
