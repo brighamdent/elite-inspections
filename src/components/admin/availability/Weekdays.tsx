@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
+import { usePathname } from "next/navigation";
 
 interface DaysOfWeekType {
   id: number;
@@ -11,6 +12,7 @@ interface DaysOfWeekType {
 export default function WeekDays() {
   const [daysOfWeek, setDaysOfWeek] = useState<DaysOfWeekType[]>([]);
   const [loading, setLoading] = useState(false);
+  const pathname = usePathname();
   useEffect(() => {
     const fetchWeekDays = async () => {
       try {
@@ -23,7 +25,7 @@ export default function WeekDays() {
     };
     fetchWeekDays();
     console.log(daysOfWeek);
-  }, []);
+  }, [usePathname]);
 
   const handleClick = async (id: number) => {
     try {
