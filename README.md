@@ -1,37 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Elite Inspections
 
-## Getting Started
+Elite Inspections is a website for a home inspection company that allows clients to schedule inspections, provides business information, handles payments, and includes an admin dashboard for managing appointments.
 
-First, run the development server:
+Features
+- Online scheduling for home inspections.
+- Admin dashboard for appointment management.
+- Integration with Stripe for accepting payments.
+- Business information section.
+- Firebase for authentication.
+- Google Drive integration for file storage.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Technologies Used
+- Next.js: Framework for building the frontend and backend.
+- MariaDB: Database for storing appointments and user data.
+- Tailwind CSS: Utility-first CSS framework for styling.
+- Firebase: For authentication and user management.
+- Google Drive API: For managing files.
+- Stripe: For handling payments.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Setup Instructions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository
+   git clone https://github.com/yourusername/elite-inspections.git
+   cd elite-inspections
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Install dependencies
+   npm install
 
-## Learn More
+3. Set up environment variables
+   Create a .env.local file in the root directory and add the following environment variables:
 
-To learn more about Next.js, take a look at the following resources:
+   # Database Credentials
+   DB_HOST=your_db_host
+   DB_USER=your_db_user
+   DB_PASSWORD=your_db_password
+   DB_NAME=your_db_name
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   # Emailer Credentials
+   EMAIL=your_email
+   PASS=your_email_password
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   # Firebase API Keys
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
 
-## Deploy on Vercel
+   # Admin UID for Middleware
+   NEXT_PUBLIC_ADMIN_UID=your_admin_uid
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   # Google Drive Credentials
+   GOOGLE_DRIVE_FOLDER_ID=your_google_drive_folder_id
+   GOOGLE_CREDENTIALS=your_google_credentials_json
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# elite-inspections
+   # Stripe Keys
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+
+4. Database Setup
+   Ensure MariaDB is installed and running. Create a new database for the project, and update the .env.local file with the appropriate credentials.
+
+5. Run the development server
+   npm run dev
+   The app will be running at http://localhost:3000.
+
+6. Build for production
+   To build the project for production, run:
+   npm run build
+
+Usage
+- Access the scheduling system as a customer or admin via the provided dashboard.
+- Admins can manage appointments, handle payments, and view business insights.
+- Stripe integration ensures payments are processed securely.
+- Firebase handles authentication for users.
