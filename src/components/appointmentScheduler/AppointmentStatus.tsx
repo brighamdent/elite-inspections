@@ -27,7 +27,7 @@ export default function AppointmentStatus() {
   }, [currentStage]);
 
   return (
-    <div className="pb-0 flex flex-col items-center ml-3 sm:ml-0">
+    <div className="pb-0 flex flex-col items-center">
       <div className="flex flex-row">
         {appointmentStages.map((stage, index) => (
           <div

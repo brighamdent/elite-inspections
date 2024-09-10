@@ -73,7 +73,7 @@ export default function DateTimeSelector() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center w-full p-4">
+      <div className="flex items-center w-screen md:w-full p-4">
         <h2 className="w-full md:w-auto">Select a Date and Time</h2>
         <button
           type="button"
@@ -110,16 +110,18 @@ export default function DateTimeSelector() {
           selectedTime={selectedTime}
           setSelectedTime={setSelectedTime}
         />
-        <button
-          type="button"
-          className=" w-80 h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 lg:ml-6 transition-colors flex md:hidden"
-          onClick={handleSubmit}
-        >
-          <p className="font-extrabold ml-32 mr-2 text-2xl">Next</p>
-          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
-            <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
-          </div>
-        </button>
+        <div className="pr-4 pl-4 w-full md:hidden">
+          <button
+            type="button"
+            className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex md:hidden relative"
+            onClick={handleSubmit}
+          >
+            <p className="font-extrabold text-2xl">Next</p>
+            <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors absolute right-1">
+              <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   );

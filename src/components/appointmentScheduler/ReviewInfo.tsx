@@ -97,27 +97,29 @@ export default function ReviewInfo() {
         <PersonalDetails edit={true} />
         <PropertyDetails edit={true} />
       </div>
-      <button
-        type="button"
-        className={`  mt-5 w-80 h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden ${loading ? "opacity-60" : ""}`}
-        onClick={handleClick}
-        disabled={loading}
-      >
-        <p
-          className={` font-extrabold  mr-2 text-2xl ${loading ? "ml-20" : "ml-24"} `}
+      <div className="pl-4 pr-4 w-full">
+        <button
+          type="button"
+          className={`  mt-5 w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden ${loading ? "opacity-60" : ""}`}
+          onClick={handleClick}
+          disabled={loading}
         >
-          {loading ? "Confirming..." : "Confirm"}
-        </p>
-        <div
-          className={` bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors`}
-        >
-          {loading ? (
-            <div className="loader border-5 border-t-5 h-8 w-8  " />
-          ) : (
-            <FontAwesomeIcon className="h-8 w-8" icon={faArrowUp} />
-          )}
-        </div>
-      </button>
+          <p
+            className={` font-extrabold  mr-2 text-2xl ${loading ? "ml-20" : "ml-24"} `}
+          >
+            {loading ? "Confirming..." : "Confirm"}
+          </p>
+          <div
+            className={` bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors`}
+          >
+            {loading ? (
+              <div className="loader border-5 border-t-5 h-8 w-8  " />
+            ) : (
+              <FontAwesomeIcon className="h-8 w-8" icon={faArrowUp} />
+            )}
+          </div>
+        </button>
+      </div>
     </div>
   );
 }

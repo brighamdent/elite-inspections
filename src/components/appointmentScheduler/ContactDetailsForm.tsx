@@ -25,7 +25,7 @@ export default function ContactDetailsForm() {
   return (
     <div>
       <form
-        className="w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center"
+        className="w-screen md:w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center"
         onSubmit={handleSubmit}
       >
         <div className="flex  flex-col md:flex-row items-center w-full">
@@ -247,7 +247,7 @@ export default function ContactDetailsForm() {
                 Foundation Type
               </label>
               <select
-                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-full md:w-60 h-10 md:h-6 text-xl max-w-80 md:text-[16px] "
+                className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-full md:w-60 h-10 md:h-6 text-xl md:text-[16px] "
                 id="foundation_type"
                 name="foundationType"
                 value={contactDetails.foundationType}
@@ -283,7 +283,7 @@ export default function ContactDetailsForm() {
                 <option value={4}>4</option>
               </select>
             </div>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full max-w-80 pr-2 pl-2 md:pr-0 md:pl-0 md:w-auto">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0 md:w-auto">
               <label
                 htmlFor="phone_number"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -326,10 +326,10 @@ export default function ContactDetailsForm() {
         <div className=" pl-2 pr-2 w-full mt-4">
           <button
             type="submit"
-            className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden"
+            className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex md:hidden relative"
           >
-            <p className="font-extrabold ml-28 mr-2 text-2xl">Next</p>
-            <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
+            <p className="font-extrabold text-2xl">Next</p>
+            <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors absolute right-1">
               <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
             </div>
           </button>
