@@ -76,7 +76,9 @@ export default function SelectService() {
           />
         </div>
       )}
-      <SelectedAppointment edit={true} />
+      <div className="mb-4 md:mb-0">
+        <SelectedAppointment edit={true} />
+      </div>
       <PropertyDetails edit={true} />
       <div className="flex flex-col md:flex-row items-center justify-between w-full pr-4 pl-4 md:pr-0 md:pl-0">
         <div className="flex flex-col w-full md:w-auto">

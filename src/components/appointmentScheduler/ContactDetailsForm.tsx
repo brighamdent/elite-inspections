@@ -42,7 +42,7 @@ export default function ContactDetailsForm() {
             </div>
           </button>
         </div>
-        <div className="md:self-start">
+        <div className="md:self-start mb-4 md:mb-0">
           <SelectedAppointment edit={true} />
         </div>
         <div className="w-full pr-4 pl-4 md:pr-2 md:pl-2">
