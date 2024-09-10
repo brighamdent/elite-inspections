@@ -4,7 +4,7 @@ import React from "react";
 export default function PersonalDetails({ edit }: { edit: boolean }) {
   const { contactDetails, setCurrentStage } = useAppointment();
   return (
-    <div>
+    <div className="w-screen pr-4 pl-4 md:w-full md:p-0">
       <div className="flex w-full items-center md:justify-start justify-center pr-2 pl-2 md:pr-0 md:pl-0">
         <p className="text-center md:text-left mb-1">Personal Details:</p>
         {edit && (

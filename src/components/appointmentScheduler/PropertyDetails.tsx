@@ -4,7 +4,7 @@ import { useAppointment } from "@/context/AppointmentContext";
 export default function PropertyDetails({ edit }: { edit: boolean }) {
   const { contactDetails, setCurrentStage } = useAppointment();
   return (
-    <div className="flex flex-col items-center md:items-start w-screen pr-4 pl-4 md:pr-0 md:pl-0 ">
+    <div className="flex flex-col items-center md:items-start w-screen md:w-full pr-4 pl-4 md:pr-0 md:pl-0 ">
       <div className="flex w-full items-center justify-center md:justify-start">
         <p className=" text-left mb-1">Property Details:</p>
         {edit && (

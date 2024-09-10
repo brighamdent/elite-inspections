@@ -31,7 +31,7 @@ export default function ReviewInfo() {
 
   return (
     <div className="flex flex-col items-center w-full md:pl-9 md:pr-9">
-      <div className="flex items-center w-full pr-2 pl-2 md:pr-0 md:pl-0">
+      <div className="flex items-center w-full pr-2 pl-2 md:pr-0 md:pl-0 mb-4 md:mb-0">
         <h2>Please Double Check Your Information</h2>
         <button
           type="button"
@@ -55,10 +55,10 @@ export default function ReviewInfo() {
       <div className="flex flex-col items-center md:items-start w-full">
         <SelectedAppointment edit={true} />
       </div>
-      <div className="flex flex-col md:flex-row items-center justify-between mb-4">
-        <div className="flex items-end">
-          <div className=" bg-darkblue h-8 rounded-3xl mt-2 flex justify-between p-4 items-center">
-            <p className="mr-1">I am the...</p>
+      <div className="flex flex-col md:flex-row items-center justify-between mb-4 w-full pl-4 pr-4 md:pl-0 md:pr-0 mt-4 md:mt-0">
+        <div className="flex items-end w-full mb-4 md:mb-0 ">
+          <div className=" bg-royalblue/50 w-full md:w-auto md:bg-darkblue md:h-8 rounded-3xl mt-2 flex  md:justify-between p-4 items-center">
+            <p className="mr-2">I am the...</p>
             <div>
               <input
                 type="radio"
@@ -78,9 +78,9 @@ export default function ReviewInfo() {
             Edit
           </p>
         </div>
-        <div className="flex items-end ml-4">
-          <div className=" w-full bg-darkblue md:h-8 rounded-3xl mt-2 flex flex-col md:flex-row justify-between p-4 items-center">
-            <p>Service:</p>
+        <div className="flex items-end md:ml-4 w-full  md:w-screen">
+          <div className=" w-full bg-royalblue/50 md:bg-darkblue md:h-8 rounded-3xl mt-2 flex flex-row p-4 items-center">
+            <p className="mr-2">Service:</p>
             <p>
               {serviceDetails.inspectionType} | ${serviceDetails.quoteAmount}
             </p>
@@ -100,18 +100,14 @@ export default function ReviewInfo() {
       <div className="pl-4 pr-4 w-full">
         <button
           type="button"
-          className={`  mt-5 w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden ${loading ? "opacity-60" : ""}`}
+          className={`w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex md:hidden relative ${loading ? "opacity-60" : ""}`}
           onClick={handleClick}
           disabled={loading}
         >
-          <p
-            className={` font-extrabold  mr-2 text-2xl ${loading ? "ml-20" : "ml-24"} `}
-          >
+          <p className={` font-extrabold text-2xl`}>
             {loading ? "Confirming..." : "Confirm"}
           </p>
-          <div
-            className={` bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors`}
-          >
+          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors absolute right-1">
             {loading ? (
               <div className="loader border-5 border-t-5 h-8 w-8  " />
             ) : (

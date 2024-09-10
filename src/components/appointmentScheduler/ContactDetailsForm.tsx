@@ -45,9 +45,9 @@ export default function ContactDetailsForm() {
         <div className="md:self-start">
           <SelectedAppointment edit={true} />
         </div>
-        <div className="w-full pr-2 pl-2 md:pr-2 md:pl-2">
-          <div className=" w-full p-4 md:max-w-auto md:w-full md:bg-darkblue md:h-8 rounded-3xl mt-2 flex pl-24 pr-20  flex-col md:flex-row justify-between  md:pl-4 md:pr-4 items-start md:items-center bg-royalblue/50">
-            <p className="w-full text-center md:w-auto font-bold md:font-normal">
+        <div className="w-full pr-4 pl-4 md:pr-2 md:pl-2">
+          <div className=" w-full p-4 md:max-w-auto md:w-full md:bg-darkblue md:h-8 rounded-3xl mt-2 flex  flex-col md:flex-row justify-between  md:pl-4 md:pr-4 items-start md:items-center bg-royalblue/50">
+            <p className="w-full text-left pb-2 md:pb-0 md:w-auto font-bold md:font-normal">
               I am the...
             </p>
             <div>
@@ -105,7 +105,7 @@ export default function ContactDetailsForm() {
         </p>
         <div className="bg-darkblue rounded-3xl w-full md:p-4 ">
           <div className="flex  flex-col md:flex-row justify-between items-center md:w-full">
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-4 pl-4 md:pr-0 md:pl-0">
               <label
                 htmlFor="first_name"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -122,7 +122,7 @@ export default function ContactDetailsForm() {
                 required
               />
             </div>
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-4 pl-4 md:pr-0 md:pl-0">
               <label
                 htmlFor="last_name"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -141,7 +141,7 @@ export default function ContactDetailsForm() {
             </div>
           </div>
           <div className="flex  flex-col md:flex-row justify-between items-center w-full  mt-2 ">
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-2 pl-2 md:pr-0 md:pl-0">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-4 pl-4 md:pr-0 md:pl-0">
               <label
                 htmlFor="phoneNumber"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -158,7 +158,7 @@ export default function ContactDetailsForm() {
                 required
               />
             </div>
-            <div className="flex  items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-2 pl-2 md:pr-0 md:pl-0">
+            <div className="flex  items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-4 pl-4 md:pr-0 md:pl-0">
               <label
                 htmlFor="email"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -182,7 +182,7 @@ export default function ContactDetailsForm() {
         </p>
         <div className="bg-darkblue rounded-3xl md:p-4 pt-0 md:pt-4 w-full ">
           <div className="flex justify-between flex-col items-center ">
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full pr-4 pl-4 md:pr-0 md:pl-0">
               <label
                 htmlFor="address"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -201,7 +201,7 @@ export default function ContactDetailsForm() {
             </div>
           </div>
           <div className="flex  flex-col md:flex-row justify-between items-center w-full mt-2 gap-x-1">
-            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-2 pl-2 md:pr-0 md:pl-0">
+            <div className="flex items-start md:items-center flex-col md:flex-row gap-x-2 w-full md:w-auto pr-4 pl-4 md:pr-0 md:pl-0">
               <label
                 htmlFor="finishedSqft"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -219,7 +219,7 @@ export default function ContactDetailsForm() {
                 required
               />
             </div>
-            <div className="flex items-start md:items-center w-full pr-2 pl-2 md:pr-0 md:pl-0 flex-col md:flex-row gap-x-2 md:w-auto">
+            <div className="flex items-start md:items-center w-full pr-4 pl-4 md:pr-0 md:pl-0 flex-col md:flex-row gap-x-2 md:w-auto">
               <label
                 htmlFor="year_built"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -239,7 +239,7 @@ export default function ContactDetailsForm() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center w-full mt-2">
-            <div className="flex flex-col items-start md:items-center md:flex-row gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0 md:w-auto">
+            <div className="flex flex-col items-start md:items-center md:flex-row gap-x-2 w-full pr-4 pl-4 md:pr-0 md:pl-0 md:w-auto">
               <label
                 htmlFor="foundation_type"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -261,7 +261,7 @@ export default function ContactDetailsForm() {
                 <option value="option 4">Option 4</option>
               </select>
             </div>
-            <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-x-2 pr-2 pl-2 md:pr-0 md:pl-0 md:w-auto">
+            <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-x-2 pr-4 pl-4 md:pr-0 md:pl-0 md:w-auto">
               <label
                 htmlFor="phone_number"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -283,7 +283,7 @@ export default function ContactDetailsForm() {
                 <option value={4}>4</option>
               </select>
             </div>
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0 md:w-auto">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full pr-4 pl-4 md:pr-0 md:pl-0 md:w-auto">
               <label
                 htmlFor="phone_number"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -307,7 +307,7 @@ export default function ContactDetailsForm() {
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center w-full mt-2">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full pr-2 pl-2 md:pr-0 md:pl-0">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-x-2 w-full pr-4 pl-4 md:pr-0 md:pl-0">
               <label
                 htmlFor="address"
                 className="text-sm md:text-[16px] m-3 md:m-0"
@@ -323,7 +323,7 @@ export default function ContactDetailsForm() {
             </div>
           </div>
         </div>
-        <div className=" pl-2 pr-2 w-full mt-4">
+        <div className=" pl-4 pr-4 w-full mt-4 md:hidden">
           <button
             type="submit"
             className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex md:hidden relative"

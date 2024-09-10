@@ -49,7 +49,7 @@ export default function SelectService() {
   }, [message]);
 
   return (
-    <div className="w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center md:block min-w-[302px]">
+    <div className="w-screen md:w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center md:block min-w-[302px]">
       <div className="flex justify-center md:justify-start items-center w-full">
         <h2>Select Service</h2>
         <button
@@ -78,14 +78,14 @@ export default function SelectService() {
       )}
       <SelectedAppointment edit={true} />
       <PropertyDetails edit={true} />
-      <div className="flex flex-col md:flex-row items-center justify-between">
-        <div className="flex flex-col">
-          <div className="bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between p-2 mb-4">
+      <div className="flex flex-col md:flex-row items-center justify-between w-full pr-4 pl-4 md:pr-0 md:pl-0">
+        <div className="flex flex-col w-full md:w-auto">
+          <div className="w-full bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between md:p-2 mb-4">
             <p className="md:mr-2 text-sm md:text-[16px] m-3 md:m-0">
               Inspection Type
             </p>
             <select
-              className="bg-royalblue/50 rounded-3xl pl-3 md:pl-3 w-full md:w-60 h-10 md:h-6 text-xl md:text-[16px]"
+              className="bg-royalblue/50 rounded-3xl pl-3 w-full md:w-60 h-10 md:h-6 text-xl md:text-[16px]"
               name="inspectionType"
               value={serviceDetails.inspectionType}
               onChange={handleChange}
@@ -100,7 +100,7 @@ export default function SelectService() {
               <option value="Wind Midigation">Wind Midigation</option>
             </select>
           </div>
-          <div className="bg-darkblue rounded-3xl p-4 pt-2">
+          <div className="bg-darkblue rounded-3xl md:p-4 pt-2">
             <p className=" md:mr-2 text-sm md:text-[16px] m-3 md:m-0 w-full text-left">
               Your Quote
             </p>
@@ -109,7 +109,7 @@ export default function SelectService() {
             </div>
           </div>
         </div>
-        <div className="bg-darkblue rounded-3xl md:p-4 min-h-[170px] w-full pr-2 pl-2 md:pr-4 md:pl-4 md:w-[270px] flex flex-col justify-between ">
+        <div className="bg-darkblue rounded-3xl md:p-4 min-h-[170px] w-full pt-4 pr-2 pl-2 md:pr-4 md:pl-4 md:w-[270px] flex flex-col justify-between ">
           <div className="pl-2 pr-2">
             <p className="font-bold w-full text-left">Quote Breakdown</p>
             <div className="justify-between flex">
@@ -138,14 +138,14 @@ export default function SelectService() {
           </div>
         </div>
       </div>
-      <div className="w-full pr-2 pl-2">
+      <div className="w-full pr-4 pl-4 mt-4">
         <button
           type="button"
-          className=" mt-5 w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex md:hidden"
+          className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex md:hidden relative"
           onClick={handleSubmit}
         >
-          <p className="font-extrabold ml-20 mr-2 text-2xl">Review Info</p>
-          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
+          <p className="font-extrabold text-2xl">Review Info</p>
+          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors absolute right-1">
             <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
           </div>
         </button>
