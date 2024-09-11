@@ -1,6 +1,4 @@
-import Logout from "@/components/admin/Logout";
 import AppointmentCalendar from "@/components/admin/schedule/appointmentChecker/AppointmentCalendar";
-import AppointmentChecker from "@/components/admin/schedule/appointmentChecker/AppointmentChecker";
 import SelectedDayAppointments from "@/components/admin/schedule/appointmentChecker/SelectedDayAppointments";
 import TodaysAppointments from "@/components/admin/schedule/TodaysAppointments";
 import ProtectedRoute from "@/components/ProtectedRoute";

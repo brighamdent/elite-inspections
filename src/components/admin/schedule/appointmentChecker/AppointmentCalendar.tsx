@@ -90,8 +90,8 @@ export default function AppointmentCalendar() {
   console.log(dateSet.has(17));
 
   return (
-    <div className=" rounded-3xl flex flex-col w-screen max-w-96 p-2 lg:max-w-[750px] lg:w-full items-center">
-      <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">
+    <div className=" rounded-3xl flex flex-col w-screen max-w-96 p-4 lg:max-w-[750px] lg:w-screen items-center">
+      <div className="flex justify-between items-center w-full mb-4 lg:pl-4 lg:pr-4">
         <p className="text-lg lg:text-3xl">
           {monthFormatted} {currentYear}
         </p>
@@ -108,10 +108,10 @@ export default function AppointmentCalendar() {
           <AppointmentModal />
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-2 lg:gap-2 overflow-y-scroll max-h-[600px] ">
+      <div className="grid grid-cols-7 gap-2 lg:gap-2 w-full md:w-full lg:overflow-y-scroll max-h-[600px]   ">
         {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, i) => (
           <div
-            className="text-center text-white text-[10px] xl:text-base"
+            className="text-center text-white text-[10px] xl:text-base w-10 lg:w-16 xl:w-24"
             key={i}
           >
             {day}

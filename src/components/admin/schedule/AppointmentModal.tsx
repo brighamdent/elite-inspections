@@ -1,5 +1,7 @@
 import AppointmentScheduler from "@/components/appointmentScheduler/AppointmentScheduler";
 import { AppointmentProvider } from "@/context/AppointmentContext";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
 export default function AppointmentModal() {
@@ -13,9 +15,10 @@ export default function AppointmentModal() {
       <button
         type="button"
         onClick={handleClick}
-        className="bg-teal rounded-3xl p-2 font-bold "
+        className="bg-teal rounded-3xl p-2 font-bold min-w-10 min-h-10 md:w-auto flex items-center justify-center "
       >
-        Schedule Appointment
+        <p className="hidden mr-2 lg:block">Schedule Appointment</p>
+        <FontAwesomeIcon icon={faPlus} />
       </button>
       {modal && (
         <>

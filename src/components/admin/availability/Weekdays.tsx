@@ -25,7 +25,7 @@ export default function WeekDays() {
     };
     fetchWeekDays();
     console.log(daysOfWeek);
-  }, [pathname]);
+  }, []);
 
   const handleClick = async (id: number) => {
     try {

@@ -8,15 +8,15 @@ export default function TodaysAppointments() {
   const { todaysAppointments } = useAdminData();
 
   return (
-    <div className=" lg:bg-darkblue/50 h-full lg:flex-shrink lg:min-w-[200px] lg:max-w-full rounded-3xl  lg:p-4 md:p-0 ">
+    <div className=" lg:bg-darkblue/50 h-full w-screen p-4 lg:flex-shrink lg:min-w-[200px] lg:w-auto rounded-3xl max-w-96 ">
       <p className="font-bold">
         Today&apos;s Appointments {formatDate(currentDate)}
       </p>
       {todaysAppointments.length >= 1 ? (
-        <div>
+        <div className="w-full">
           {todaysAppointments.map((a, index) => (
             <div
-              className="bg-royalblue/50 lg:flex-shrink w-80 lg:w-auto 2xl:min-w-80 lg:min-w-[150px] lg:max-w-80 rounded-3xl p-4 m-4 text-left xl:p-6"
+              className="bg-royalblue/50 lg:flex-shrink w-full lg:w-auto 2xl:min-w-80 lg:min-w-[150px] lg:max-w-80 rounded-3xl p-4 mb-4 mt-4 text-left xl:p-6"
               key={index}
             >
               <h2>{convertTo12Hour(a.time)}</h2>
