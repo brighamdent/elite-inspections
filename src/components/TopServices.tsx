@@ -17,15 +17,15 @@ export default function TopServices() {
     },
     {
       photo: arial,
-      name: "Wind Midigation",
+      name: "Elite Wind Midigation",
       description:
         "A specialized inspection to evaluate a home's resilience against strong winds, such as those during hurricanes. It assesses key construction elements to minimize wind damage and can help qualify for insurance discounts.",
     },
     {
       photo: livingRoom,
-      name: "Radon Testing",
+      name: "Elite 4-Point Inspection",
       description:
-        "Testing for radon gas to ensure home safety. Radon is a radioactive gas that can cause lung cancer. Detectors are placed in the home, and results are analyzed to determine if mitigation is needed.",
+        "A 4-point inspections covers roofing, electrical, plumbing, and HVAC. We provide detailed reports with recommendations to ensure your home’s safety and meet insurance requirements.",
     },
   ];
   return (
