@@ -4,9 +4,9 @@ const AdminLayout = ({ children }: any) => {
   return (
     <div className="relative">
       <StatusBar />
-      <div className="absolute top-1 right-10">
-        <Logout />
-      </div>
+      {/* <div className="absolute top-1 right-10"> */}
+      {/*   <Logout /> */}
+      {/* </div> */}
       {children}
     </div>
   );

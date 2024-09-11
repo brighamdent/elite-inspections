@@ -1,17 +1,18 @@
 "use client";
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Logout from "./Logout";
 
 export default function StatusBar() {
   const router = useRouter();
   const pathname = usePathname();
   return (
     <div
-      className={`pt-10 sm:pt-0 w-full justify-center space-x-2 md:space-x-12 sm:mt-4 mb-4 ${pathname != "/admin/login" ? "flex" : "hidden"}`}
+      className={`pt-4 sm:pt-0 md:w-full md:justify-center items-center justify-around md:space-x-12 sm:mt-4 mb-4 w-screen ${pathname != "/admin/login" ? "flex" : "hidden"}`}
     >
       <h2
         onClick={() => router.push("/admin/schedule")}
-        className={`cursor-pointer ${
+        className={`cursor-pointer text-base md:text-2xl ${
           pathname === "/admin/schedule" ? "text-teal" : ""
         }`}
       >
@@ -19,7 +20,7 @@ export default function StatusBar() {
       </h2>
       <h2
         onClick={() => router.push("/admin/clients")}
-        className={`cursor-pointer ${
+        className={`cursor-pointer text-base md:text-2xl ${
           pathname === "/admin/clients" ? "text-teal" : ""
         }`}
       >
@@ -27,12 +28,13 @@ export default function StatusBar() {
       </h2>
       <h2
         onClick={() => router.push("/admin/availability")}
-        className={`cursor-pointer ${
+        className={`cursor-pointer text-base md:text-2xl ${
           pathname === "/admin/availability" ? "text-teal" : ""
         }`}
       >
         Availability
       </h2>
+      <Logout />
     </div>
   );
 }

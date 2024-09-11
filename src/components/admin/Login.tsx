@@ -42,7 +42,6 @@ export default function Login() {
     } catch (error) {
       console.log(error);
       setError("Incorrect login, please try again.");
-    } finally {
       setLoading(false);
     }
   };
