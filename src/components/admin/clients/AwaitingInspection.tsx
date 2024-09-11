@@ -20,7 +20,7 @@ export default function AwaitingInspection() {
   return (
     <div className="flex flex-col items-center h-full">
       <h3 className="font-bold">Awaiting Inspection</h3>
-      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full">
+      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full overflow-y-scroll">
         {appointmentsAwaitingInspection.length > 0 ? (
           appointmentsAwaitingInspection.map((app, index) => (
             <div
