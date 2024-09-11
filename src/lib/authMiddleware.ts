@@ -9,7 +9,6 @@ if (!admin.apps.length) {
 }
 
 export async function verifyAdmin(req: NextRequest) {
-  console.log("hello");
   const authHeader = req.headers.get("authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
