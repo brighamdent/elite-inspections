@@ -1,6 +1,9 @@
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
+"use client";
+import { faPhone, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import Image from "next/image";
+import React, { useState } from "react";
+import plainLogo from "../../public/plainlogo.svg";
 
 const sizes: any = {
   big: {
@@ -30,6 +33,7 @@ const sizes: any = {
 };
 
 export default function CallButton({ size = "small" }: { size: string }) {
+  const [modal, setModal] = useState(false);
   const {
     height,
     width,
@@ -43,19 +47,51 @@ export default function CallButton({ size = "small" }: { size: string }) {
     padding,
   } = sizes[size as any];
 
+  const handleClick = () => {
+    setModal(!modal);
+    console.log(modal);
+  };
+
   return (
-    <button
-      type="button"
-      className={`bg-royalblue ${height} ${width} ${lgHeight} ${lgWidth} ${rounded} ${padding} flex items-center group hover:bg-teal`}
-    >
-      <div className="flex justify-between items-center w-full">
-        <h2 className={`ml-5 lg:ml-1 ${textSize} text-white`}>407-818-3403 </h2>
-        <div
-          className={`${outerDivSize} ${lgOuterDivSize} rounded-full bg-teal p-2 flex items-center justify-center group-hover:bg-royalblue`}
-        >
-          <FontAwesomeIcon icon={faPhone} className={iconSize} />
+    <>
+      <button
+        type="button"
+        onClick={handleClick}
+        className={`bg-royalblue ${height} ${width} ${lgHeight} ${lgWidth} ${rounded} ${padding} flex items-center group hover:bg-teal`}
+      >
+        <div className="flex justify-between items-center w-full">
+          <h2 className={`ml-5 lg:ml-1 ${textSize} text-white`}>
+            407-818-3403{" "}
+          </h2>
+          <div
+            className={`${outerDivSize} ${lgOuterDivSize} rounded-full bg-teal p-2 flex items-center justify-center group-hover:bg-royalblue`}
+          >
+            <FontAwesomeIcon icon={faPhone} className={iconSize} />
+          </div>
         </div>
-      </div>
-    </button>
+      </button>
+      {modal && (
+        <>
+          <div
+            onClick={handleClick}
+            className="fixed left-0 top-0 z-50 h-full w-full bg-black/10 backdrop-blur-sm"
+          />
+          <div className=" max-h-[80vh] md:max-h-fit overflow-y-scroll md:overflow-y-auto fixed bg-darkblue rounded-3xl md:bg-transparent left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center">
+            <div className="relative w-96 h-80 bg-royalblue rounded-3xl p-4 flex flex-col items-center justify-center">
+              <FontAwesomeIcon
+                icon={faX}
+                className="absolute right-4 top-4"
+                onClick={handleClick}
+              />
+              <Image src={plainLogo} alt="Logo" className="h-full w-full" />
+              <h2>Reach out to us!</h2>
+              <p>Call 407-818-3403</p>
+              <h2>Or Send us an email</h2>
+              <p>elitehomeinspectiongroup@gmail.com</p>
+            </div>
+          </div>
+        </>
+      )}
+    </>
   );
 }
