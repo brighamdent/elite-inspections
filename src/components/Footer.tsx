@@ -14,7 +14,9 @@ export default function Footer() {
           </div>
           <div className="flex flex-col items-start ml-4">
             <h3 className="lg:text-sm font-bold">Contact Us</h3>
-            <p className="lg:text-sm">elitehomeinspectiongroup@gmail.com</p>
+            <p className="text-xs lg:text-sm">
+              elitehomeinspectiongroup@gmail.com
+            </p>
             <p className="lg:text-xs">407-818-3403</p>
           </div>
         </div>

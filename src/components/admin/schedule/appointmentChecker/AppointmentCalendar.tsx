@@ -90,7 +90,7 @@ export default function AppointmentCalendar() {
   console.log(dateSet.has(17));
 
   return (
-    <div className=" rounded-3xl flex flex-col w-80 lg:max-w-[750px] lg:w-full items-center">
+    <div className=" rounded-3xl flex flex-col w-screen max-w-96 p-2 lg:max-w-[750px] lg:w-full items-center">
       <div className="flex justify-between items-center w-full mb-4 pl-4 pr-4">
         <p className="text-lg lg:text-3xl">
           {monthFormatted} {currentYear}

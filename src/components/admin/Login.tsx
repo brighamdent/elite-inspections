@@ -1,5 +1,9 @@
 "use client";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRight,
+  faCircleExclamation,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
@@ -10,6 +14,8 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const { currentUser, login } = useAuth();
   const router = useRouter();
 
@@ -26,6 +32,8 @@ export default function Login() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    setError("");
+    setLoading(true);
 
     const { email, password } = formValues;
     try {
@@ -33,31 +41,47 @@ export default function Login() {
       router.push("/admin/schedule");
     } catch (error) {
       console.log(error);
+      setError("Incorrect login, please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <form
-      className="flex flex-col md:w-[550px] items-center rounded-3xl mt-40 p-4 md:bg-royalblue "
+      className="flex flex-col w-screen md:w-[550px] items-center rounded-3xl mt-16 md:mt-40 p-4 md:bg-royalblue "
       onSubmit={handleSubmit}
     >
       <h2 className="mb-2">Admin Login</h2>
-      <div className="m-4 md:bg-darkblue p-4 rounded-3xl md:w-[500px] flex flex-col items-center">
-        <div className="flex items-start flex-col gap-x-2">
-          <label htmlFor="finishedSqft" className="text-sm m-3">
+      {error && (
+        <div className="flex items-center md:w-[500px] justify-between bg-red-200 text-red-500 border border-red-500 w-full rounded-md p-4 h-16 mb-2">
+          <div className="flex items-center">
+            <FontAwesomeIcon className="mr-4" icon={faCircleExclamation} />
+            <p>{error}</p>
+          </div>
+          <FontAwesomeIcon
+            className="ml-4"
+            onClick={() => setError("")}
+            icon={faXmark}
+          />
+        </div>
+      )}
+      <div className=" md:bg-darkblue md:p-4 rounded-3xl md:w-[500px] flex flex-col items-center w-full">
+        <div className="flex items-start flex-col gap-x-2 w-full">
+          <label htmlFor="email" className="text-sm m-3">
             Email
           </label>
           <input
             type="email"
-            id="finishedSqft"
+            id="email"
             onChange={handleChange}
             name="email"
             value={formValues.email}
-            className="bg-royalblue/50 rounded-3xl pl-6 w-80 h-10 text-xl"
+            className="bg-royalblue/50 rounded-3xl pl-6 w-full  h-10 text-xl"
             required
           />
         </div>
-        <div className="flex items-start flex-col gap-x-2">
+        <div className="flex items-start flex-col w-full gap-x-2">
           <label htmlFor="finishedSqft" className="text-sm m-3 ">
             Password
           </label>
@@ -67,17 +91,24 @@ export default function Login() {
             name="password"
             value={formValues.password}
             onChange={handleChange}
-            className="bg-royalblue/50 rounded-3xl pl-6 w-80 h-10 text-xl "
+            className="bg-royalblue/50 rounded-3xl pl-6 w-full h-10 text-xl "
             required
           />
         </div>
         <button
           type="submit"
-          className=" mt-6 w-80 h-14 bg-teal group hover:bg-royalblue rounded-[100px] items-center justify-between p-1 transition-colors flex"
+          className={`w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex mt-6 relative ${loading ? "opacity-60" : ""}`}
+          disabled={loading}
         >
-          <p className="font-extrabold ml-32 mr-2 text-2xl">Login</p>
-          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors">
-            <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
+          <p className={` font-extrabold text-2xl`}>
+            {loading ? "Logging In..." : "Login"}
+          </p>
+          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors absolute right-1">
+            {loading ? (
+              <div className="loader border-5 border-t-5 h-8 w-8  " />
+            ) : (
+              <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
+            )}
           </div>
         </button>
       </div>
