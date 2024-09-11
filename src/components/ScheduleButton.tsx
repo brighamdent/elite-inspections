@@ -9,7 +9,7 @@ const sizes: any = {
     width: "w-[275px]",
     lgHeight: "lg:h-[60px]",
     lgWidth: "lg:w-[250px]",
-    textSize: "text-[24px]",
+    textSize: "text-[22px]",
     iconSize: "h-8",
     outerDivSize: "w-[55px] h-[55px]",
     lgOuterDivSize: "lg:w-[50px] lg:h-[50px]",
@@ -57,12 +57,12 @@ export default function ScheduleButton({
     <Link href={"/schedule"}>
       <button
         type="button"
-        className={`bg-teal ${height} ${width} ${lgHeight} ${lgWidth} ${rounded} ${padding} flex items-center group ${hoverColor}`}
+        className={`relative bg-teal ${height} ${width} ${lgHeight} ${lgWidth} ${rounded} ${padding} flex items-center group ${hoverColor}`}
       >
-        <div className="flex justify-between items-center w-full">
-          <h2 className={`ml-4 lg:ml-2 ${textSize}`}>Schedule Now</h2>
+        <div className="flex justify-center items-center w-full">
+          <h2 className={` pr-6 ${textSize}`}>Schedule Now</h2>
           <div
-            className={`${outerDivSize} ${lgOuterDivSize} rounded-full bg-royalblue p-2 flex items-center justify-center md:group-hover:bg-teal`}
+            className={`${outerDivSize} ${lgOuterDivSize} rounded-full bg-royalblue p-2 flex items-center justify-center md:group-hover:bg-teal absolute right-1`}
           >
             <FontAwesomeIcon icon={faArrowRight} className={iconSize} />
           </div>
