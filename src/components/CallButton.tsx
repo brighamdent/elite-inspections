@@ -52,19 +52,23 @@ export default function CallButton({ size = "small" }: { size: string }) {
     console.log(modal);
   };
 
+  const handleCall = () => {
+    window.location.href = "tel:+1234567890";
+  };
+
   return (
     <>
       <button
         type="button"
-        onClick={handleClick}
-        className={`bg-royalblue ${height} ${width} ${lgHeight} ${lgWidth} ${rounded} ${padding} flex items-center group hover:bg-teal`}
+        onClick={handleCall}
+        className={`bg-royalblue ${height} ${width} ${lgHeight} ${lgWidth} ${rounded} ${padding} flex items-center group hover:bg-teal relative`}
       >
         <div className="flex justify-between items-center w-full">
-          <h2 className={`ml-5 lg:ml-1 ${textSize} text-white`}>
+          <h2 className={` ml-4 lg:ml-2 ${textSize} text-white`}>
             407-818-3403{" "}
           </h2>
           <div
-            className={`${outerDivSize} ${lgOuterDivSize} rounded-full bg-teal p-2 flex items-center justify-center group-hover:bg-royalblue`}
+            className={`${outerDivSize} ${lgOuterDivSize} rounded-full bg-teal p-2 flex items-center justify-center group-hover:bg-royalblue absolute right-1`}
           >
             <FontAwesomeIcon icon={faPhone} className={iconSize} />
           </div>
@@ -77,7 +81,7 @@ export default function CallButton({ size = "small" }: { size: string }) {
             className="fixed left-0 top-0 z-50 h-full w-full bg-black/10 backdrop-blur-sm"
           />
           <div className=" max-h-[80vh] md:max-h-fit overflow-y-scroll md:overflow-y-auto fixed bg-darkblue rounded-3xl md:bg-transparent left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center">
-            <div className="relative w-96 h-80 bg-royalblue rounded-3xl p-4 flex flex-col items-center justify-center">
+            <div className="relative w-full sm:w-96 h-80 bg-royalblue rounded-3xl p-4 flex flex-col items-center justify-center">
               <FontAwesomeIcon
                 icon={faX}
                 className="absolute right-4 top-4"
