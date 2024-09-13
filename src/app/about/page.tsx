@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import aboutPortrait2 from "../../../public/about_portrait2.jpg";
+import aboutPortrait2 from "../../../public/profile_pic.jpg";
 import Footer from "@/components/Footer";
 
 export default function page() {

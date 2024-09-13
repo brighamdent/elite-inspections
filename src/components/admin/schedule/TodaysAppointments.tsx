@@ -10,7 +10,7 @@ export default function TodaysAppointments() {
   return (
     <div className=" lg:bg-darkblue/50 h-full w-screen p-4 lg:flex-shrink lg:min-w-[200px] lg:w-auto rounded-3xl max-w-96 ">
       <p className="font-bold">
-        Today&apos;s Appointments {formatDate(currentDate)}
+        max-w-96 Today&apos;s Appointments {formatDate(currentDate)}
       </p>
       {todaysAppointments.length >= 1 ? (
         <div className="w-full">

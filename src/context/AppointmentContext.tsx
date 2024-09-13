@@ -8,7 +8,7 @@ interface ContactDetailsData {
   phoneNumber: string;
   emailAddress: string;
   address: string;
-  finishedSqft: number;
+  finishedSqft: number | null;
   yearBuilt: number | string;
   foundationType: string;
   bedCount: number | string;
@@ -20,8 +20,9 @@ interface ServiceDetailsData {
   inspectionType: string;
   quoteAmount: number;
   extraSqft: number;
-  poolInspection: false;
-  windMitigation: false;
+  poolInspection: string;
+  windMitigation: string;
+  fourPointInspection: string;
 }
 
 interface AppointmentContextType {
@@ -74,7 +75,7 @@ export function AppointmentProvider({
     phoneNumber: "",
     emailAddress: "",
     address: "",
-    finishedSqft: 0,
+    finishedSqft: null,
     yearBuilt: "",
     foundationType: "",
     bedCount: "",
@@ -85,8 +86,9 @@ export function AppointmentProvider({
     inspectionType: "",
     quoteAmount: 0,
     extraSqft: 0,
-    poolInspection: false,
-    windMitigation: false,
+    poolInspection: "",
+    windMitigation: "",
+    fourPointInspection: "",
   });
   const makeAppointment = async () => {
     const {
@@ -109,6 +111,7 @@ export function AppointmentProvider({
       extraSqft,
       poolInspection,
       windMitigation,
+      fourPointInspection,
     } = serviceDetails;
     console.log(windMitigation);
     try {
@@ -135,21 +138,19 @@ export function AppointmentProvider({
           inspectionType,
           quoteAmount,
           extraSqft,
-          poolInspection,
-          windMitigation,
+          poolInspection: poolInspection !== "true" ? false : true,
+          windMitigation: windMitigation !== "true" ? false : true,
+          fourPointInspection: fourPointInspection !== "true" ? false : true,
         }),
       });
 
-      const result = await res.json();
+      await res.json();
       if (res.ok) {
-        // setMessage(result.message);
       } else {
         throw Error("Something went wrong while connecting to our database.");
       }
     } catch (error) {
       throw Error("Something went wrong while connecting to our database.");
-      // setMessage("Error scheduling appointment");
-      console.log(error);
     }
   };
   const sendAppointmentConfirmation = async () => {

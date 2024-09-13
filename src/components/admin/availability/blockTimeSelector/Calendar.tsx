@@ -180,7 +180,7 @@ export default function Calendar({
       </div>
       <div className="grid grid-cols-7 gap-2 md:gap-2 ">
         {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((day, i) => (
-          <div className="text-center text-white text-[10px]" key={i}>
+          <div className="text-center text-white text-[10px] w-" key={i}>
             {day}
           </div>
         ))}
