@@ -8,7 +8,7 @@ interface ContactDetailsData {
   phoneNumber: string;
   emailAddress: string;
   address: string;
-  finishedSqft: number | null;
+  finishedSqft: number | string;
   yearBuilt: number | string;
   foundationType: string;
   bedCount: number | string;
@@ -75,7 +75,7 @@ export function AppointmentProvider({
     phoneNumber: "",
     emailAddress: "",
     address: "",
-    finishedSqft: null,
+    finishedSqft: "",
     yearBuilt: "",
     foundationType: "",
     bedCount: "",

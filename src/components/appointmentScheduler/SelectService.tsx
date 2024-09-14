@@ -34,8 +34,8 @@ export default function SelectService() {
       const extraSqft =
         serviceDetails.inspectionType !== "Elite Home Inspection"
           ? 0
-          : contactDetails.finishedSqft! >= 2500
-            ? contactDetails.finishedSqft! - 2500
+          : Number(contactDetails.finishedSqft!) >= 2500
+            ? Number(contactDetails.finishedSqft!) - 2500
             : 0;
       const poolAmount = serviceDetails.poolInspection === "true" ? 50 : 0;
       const midigationAmount =
