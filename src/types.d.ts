@@ -39,6 +39,7 @@ interface ServiceDetailsType {
   extra_sqft: number;
   pool_inspection: boolean;
   wind_mitigation: boolean;
+  four_point_inspection: boolean;
 }
 
 interface AppointmentType {

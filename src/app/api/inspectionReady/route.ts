@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       text: `Hello ${firstName},
 Your inspection is ready to view and download please complete your payment using the link below. 
 
-http://localhost:3000/payment?user=${appointmentId}
+http://elitehomeinspectgroup/payment?user=${appointmentId}
 
 Thank you for choosing Elite Home Inspection Group!
 

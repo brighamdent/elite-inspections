@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
       const propertyId = propertyResult.insertId;
 
       const [serviceDetailsResult]: any = await connection.execute(
-        "INSERT INTO service_details (inspection_type, quote_amount, extra_sqft, pool_inspection, wind_mitigation, 4_point_inspection) VALUES (?, ?, ?, ?, ?, ?)",
+        "INSERT INTO service_details (inspection_type, quote_amount, extra_sqft, pool_inspection, wind_mitigation, four_point_inspection) VALUES (?, ?, ?, ?, ?, ?)",
         [
           inspectionType,
           quoteAmount,

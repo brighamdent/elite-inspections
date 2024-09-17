@@ -88,7 +88,7 @@ export default function ReviewInfo() {
           </div>
           <p
             className="text-xs border-b h-4 ml-2 cursor-pointer"
-            onClick={() => setCurrentStage(2)}
+            onClick={() => setCurrentStage(3)}
           >
             Edit
           </p>
