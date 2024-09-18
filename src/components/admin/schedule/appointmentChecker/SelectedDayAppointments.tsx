@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { dayFormatting, monthFormatting } from "@/utils/dateUtils";
 import convertTo12Hour from "@/utils/convertTo12Hour";
 import { useAdminData } from "@/context/AdminDataContext";
+import ViewAppointmentModal from "../ViewAppointmentModal";
 
 export default function SelectedDayAppointments() {
   const { currentMonthAppointments } = useAdminData();
@@ -32,19 +33,7 @@ export default function SelectedDayAppointments() {
       {selectedDayAppointments.length ? (
         <div>
           {selectedDayAppointments.map((a, index) => (
-            <div
-              className="text-left bg-royalblue/50 lg:flex-shrink w-80 lg:w-auto lg:min-w-[150px] 2xl:min-w-80 lg:max-w-80 rounded-3xl p-4 xl:p-6 m-4 "
-              key={index}
-            >
-              <h2>{convertTo12Hour(a.time)}</h2>
-              <div>
-                <p>
-                  {a.contact.first_name} {a.contact.last_name}
-                </p>
-                <p>{a.contact.phone_number}</p>
-                <p>{a.property.address}</p>
-              </div>
-            </div>
+            <ViewAppointmentModal a={a} index={index} />
           ))}
         </div>
       ) : (
