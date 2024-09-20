@@ -3,6 +3,9 @@ import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useRef } from "react";
 import AdminPropertyDetails from "./AdminPropertyDetails";
+import AdminContactDetails from "./AdminContactDetails";
+import QuoteBreakdown from "../QuoteBreakdown";
+import Quote from "../Quote";
 
 export default function ViewAppointmentModal({
   a,
@@ -44,7 +47,12 @@ export default function ViewAppointmentModal({
               <h1>
                 {a.contact.first_name} {a.contact.last_name}
               </h1>
+              <AdminContactDetails edit={true} contactDetails={a.contact} />
               <AdminPropertyDetails edit={true} propertyDetails={a.property} />
+              <div className="md:flex items-center w-full">
+                <Quote serviceDetails={a.service_details} />
+                <QuoteBreakdown serviceDetails={a.service_details} />
+              </div>
             </div>
           </div>
         </>
