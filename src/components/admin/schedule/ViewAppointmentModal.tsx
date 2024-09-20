@@ -2,8 +2,15 @@ import convertTo12Hour from "@/utils/convertTo12Hour";
 import { faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useRef } from "react";
+import AdminPropertyDetails from "./AdminPropertyDetails";
 
-export default function ViewAppointmentModal({ a, index }) {
+export default function ViewAppointmentModal({
+  a,
+  index,
+}: {
+  a: AppointmentType;
+  index: Number;
+}) {
   const [modal, setModal] = useState(false);
 
   const handleToggleModal = () => {
@@ -14,7 +21,7 @@ export default function ViewAppointmentModal({ a, index }) {
     <div>
       <div
         className="text-left bg-royalblue/50 lg:flex-shrink w-80 lg:w-auto lg:min-w-[150px] 2xl:min-w-80 lg:max-w-80 rounded-3xl p-4 xl:p-6 m-4 "
-        key={index}
+        key={index.toString()}
         onClick={handleToggleModal}
       >
         <h2>{convertTo12Hour(a.time)}</h2>
@@ -34,7 +41,10 @@ export default function ViewAppointmentModal({ a, index }) {
           />
           <div className="max-h-[80vh] md:max-h-fit overflow-y-scroll md:overflow-y-auto fixed bg-darkblue rounded-3xl md:bg-transparent left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center">
             <div className="md:w-[750px] md:bg-royalblue rounded-3xl md:mt-20 p-6 flex flex-col items-center">
-              {a.contact.first_name}
+              <h1>
+                {a.contact.first_name} {a.contact.last_name}
+              </h1>
+              <AdminPropertyDetails edit={true} propertyDetails={a.property} />
             </div>
           </div>
         </>
