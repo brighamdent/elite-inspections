@@ -33,7 +33,7 @@ export default function SelectedDayAppointments() {
       {selectedDayAppointments.length ? (
         <div>
           {selectedDayAppointments.map((a, index) => (
-            <ViewAppointmentModal a={a} index={index} />
+            <ViewAppointmentModal a={a} index={index} key={index} />
           ))}
         </div>
       ) : (
