@@ -5,6 +5,7 @@ import AdminContactDetails from "./AdminContactDetails";
 import QuoteBreakdown from "../QuoteBreakdown";
 import Quote from "../Quote";
 import AppointmentTime from "../AppointmentTime";
+import EditContactDetailsForm from "@/components/appointmentScheduler/ContactDetailsForm";
 
 export default function ViewAppointmentModal({
   a,
@@ -14,6 +15,7 @@ export default function ViewAppointmentModal({
   index: Number;
 }) {
   const [modal, setModal] = useState(false);
+  const [page, setPage] = useState("home");
 
   const handleToggleModal = () => {
     setModal(!modal);
@@ -43,16 +45,27 @@ export default function ViewAppointmentModal({
           />
           <div className="max-h-[80vh] md:max-h-fit overflow-y-scroll md:overflow-y-auto fixed bg-darkblue rounded-3xl md:bg-transparent left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center">
             <div className="md:w-[750px] md:bg-royalblue rounded-3xl md:mt-20 p-6 flex flex-col items-center">
-              <h1 className="w-full text-left">
-                {a.contact.first_name} {a.contact.last_name}
-              </h1>
-              <AppointmentTime edit={true} appointment={a} />
-              <AdminContactDetails edit={true} contactDetails={a.contact} />
-              <AdminPropertyDetails edit={true} propertyDetails={a.property} />
-              <div className="md:flex items-center w-full">
-                <Quote serviceDetails={a.service_details} />
-                <QuoteBreakdown serviceDetails={a.service_details} />
-              </div>
+              {page === "home" ? (
+                <div className="w-full">
+                  <h1 className="w-full text-left">
+                    {a.contact.first_name} {a.contact.last_name}
+                  </h1>
+                  <AppointmentTime edit={true} appointment={a} />
+                  <AdminContactDetails edit={true} contactDetails={a.contact} />
+                  <AdminPropertyDetails
+                    edit={true}
+                    propertyDetails={a.property}
+                  />
+                  <div className="md:flex items-center w-full">
+                    <Quote serviceDetails={a.service_details} />
+                    <QuoteBreakdown serviceDetails={a.service_details} />
+                  </div>
+                </div>
+              ) : page === "contactDetails" ? (
+                <EditContactDetailsForm />
+              ) : (
+                <div></div>
+              )}
             </div>
           </div>
         </>
