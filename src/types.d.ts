@@ -55,6 +55,7 @@ interface AppointmentType {
   file_id: number;
   service_details_id: number;
   service_details: ServiceDetailsType;
+  [key: string]: any;
 }
 
 interface DaysOfWeekType {

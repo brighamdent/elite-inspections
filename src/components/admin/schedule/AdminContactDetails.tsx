@@ -4,9 +4,11 @@ import React from "react";
 export default function AdminContactDetails({
   edit,
   contactDetails,
+  editFunction,
 }: {
   edit: boolean;
   contactDetails: ContactType;
+  editFunction: () => void;
 }) {
   return (
     <div className="w-screen pr-4 pl-4 md:w-full md:p-0">
@@ -15,7 +17,7 @@ export default function AdminContactDetails({
         {edit && (
           <p
             className="text-xs border-b h-4 ml-2 mb-1 cursor-pointer"
-            // onClick={() => setCurrentStage(2)}
+            onClick={editFunction}
           >
             Edit
           </p>

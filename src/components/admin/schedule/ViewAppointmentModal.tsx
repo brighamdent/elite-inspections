@@ -5,7 +5,7 @@ import AdminContactDetails from "./AdminContactDetails";
 import QuoteBreakdown from "../QuoteBreakdown";
 import Quote from "../Quote";
 import AppointmentTime from "../AppointmentTime";
-import EditContactDetailsForm from "@/components/appointmentScheduler/ContactDetailsForm";
+import EditContactForm from "./viewAppointmentModal/EditContactForm";
 
 export default function ViewAppointmentModal({
   a,
@@ -51,7 +51,11 @@ export default function ViewAppointmentModal({
                     {a.contact.first_name} {a.contact.last_name}
                   </h1>
                   <AppointmentTime edit={true} appointment={a} />
-                  <AdminContactDetails edit={true} contactDetails={a.contact} />
+                  <AdminContactDetails
+                    edit={true}
+                    contactDetails={a.contact}
+                    editFunction={() => setPage("contactDetails")}
+                  />
                   <AdminPropertyDetails
                     edit={true}
                     propertyDetails={a.property}
@@ -62,7 +66,7 @@ export default function ViewAppointmentModal({
                   </div>
                 </div>
               ) : page === "contactDetails" ? (
-                <EditContactDetailsForm />
+                <EditContactForm intitialAppointmentDetails={a} />
               ) : (
                 <div></div>
               )}

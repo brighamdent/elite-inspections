@@ -4,7 +4,7 @@ import convertTo12Hour from "@/utils/convertTo12Hour";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 // import SelectedAppointment from "./SelectedAppointment";
-export default function ContactDetailsForm({
+export default function EditContactForm({
   intitialAppointmentDetails,
 }: {
   intitialAppointmentDetails: AppointmentType;
@@ -15,11 +15,76 @@ export default function ContactDetailsForm({
 
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target;
-    setContactDetails({ ...contactDetails, [name]: value });
+    const keys = name.split("."); // Split the name by dot notation for nested fields
+
+    setContactDetails((prevDetails) => {
+      let updatedDetails = { ...prevDetails }; // Clone the previous state
+
+      // Iterate over the keys to find the right nested property
+      keys.reduce((acc, key, index) => {
+        if (index === keys.length - 1) {
+          acc[key] = value; // Set the final key to the new value
+        } else {
+          acc[key] = { ...acc[key] }; // Continue cloning nested objects
+        }
+        return acc[key];
+      }, updatedDetails);
+
+      return updatedDetails;
+    });
   };
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // setCurrentStage(currentStage + 1);
+
+    const { role, appointment_id } = contactDetails;
+
+    const { contact_id, first_name, last_name, phone_number, email } =
+      contactDetails.contact;
+
+    const {
+      property_id,
+      address,
+      total_finished_square_feet,
+      year_built,
+      foundation_type,
+      beds,
+      baths,
+      notes,
+    } = contactDetails.property;
+    try {
+      const res = await fetch("/api/updateContactDetails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          role,
+          appointment_id,
+          contact_id,
+          first_name,
+          last_name,
+          phone_number,
+          email,
+          property_id,
+          address,
+          total_finished_square_feet,
+          year_built,
+          foundation_type,
+          beds,
+          baths,
+          notes,
+        }),
+      });
+
+      await res.json();
+      if (res.ok) {
+      } else {
+        throw Error("Something went wrong while connecting to our database.");
+      }
+    } catch (error) {
+      console.log(error);
+      throw Error("Something went wrong while connecting to our database.");
+    }
   };
 
   return (
@@ -29,14 +94,12 @@ export default function ContactDetailsForm({
         onSubmit={handleSubmit}
       >
         <div className="flex  flex-col md:flex-row items-center w-full">
-          <h2 className="text-xl md:text-[24px]">
-            Please Provide Contact Details
-          </h2>
+          <h2 className="text-xl md:text-[24px]">Update Contact Details</h2>
           <button
             type="submit"
             className="bg-teal group hover:bg-darkblue rounded-3xl hidden md:flex  flex-col md:flex-row items-center justify-between p-1 ml-6 transition-colors"
           >
-            <p className="font-extrabold ml-2 mr-2">Next</p>
+            <p className="font-extrabold ml-2 mr-2">Update</p>
             <div className="bg-royalblue group-hover:bg-teal rounded-3xl h-6 w-6 flex  flex-col md:flex-row items-center justify-center transition-colors">
               <FontAwesomeIcon icon={faArrowRight} />
             </div>
@@ -54,7 +117,7 @@ export default function ContactDetailsForm({
               <input
                 type="radio"
                 id="homebuyer"
-                name="person"
+                name="role"
                 value="Homebuyer"
                 checked={contactDetails.role === "Homebuyer"}
                 onChange={handleChange}
@@ -66,7 +129,7 @@ export default function ContactDetailsForm({
               <input
                 type="radio"
                 id="homeowner"
-                name="person"
+                name="role"
                 value="Homeowner"
                 checked={contactDetails.role === "Homeowner"}
                 onChange={handleChange}
@@ -78,7 +141,7 @@ export default function ContactDetailsForm({
               <input
                 type="radio"
                 id="buyers_agent"
-                name="person"
+                name="role"
                 value="Buyer's Agent"
                 checked={contactDetails.role === "Buyer's Agent"}
                 onChange={handleChange}
@@ -90,7 +153,7 @@ export default function ContactDetailsForm({
               <input
                 type="radio"
                 id="sellers_agent"
-                name="person"
+                name="role"
                 value="Seller's agent"
                 checked={contactDetails.role === "Seller's Agent"}
                 onChange={handleChange}
@@ -115,7 +178,7 @@ export default function ContactDetailsForm({
               <input
                 type="text"
                 id="first_name"
-                name="firstName"
+                name="contact.first_name"
                 value={contactDetails.contact.first_name}
                 onChange={handleChange}
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
@@ -132,7 +195,7 @@ export default function ContactDetailsForm({
               <input
                 type="text"
                 id="last_name"
-                name="lastName"
+                name="contact.last_name"
                 value={contactDetails.contact.last_name}
                 onChange={handleChange}
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
@@ -151,7 +214,7 @@ export default function ContactDetailsForm({
               <input
                 type="text"
                 id="phone_number"
-                name="phoneNumber"
+                name="contact.phone_number"
                 value={contactDetails.contact.phone_number}
                 onChange={handleChange}
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
@@ -168,7 +231,7 @@ export default function ContactDetailsForm({
               <input
                 type="email"
                 id="email"
-                name="emailAddress"
+                name="contact.email"
                 value={contactDetails.contact.email}
                 onChange={handleChange}
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-56 h-10 md:h-6 text-xl md:text-[16px]"
@@ -192,7 +255,7 @@ export default function ContactDetailsForm({
               <input
                 type="text"
                 id="address"
-                name="address"
+                name="property.address"
                 value={contactDetails.property.address}
                 onChange={handleChange}
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-full md:w-full h-10 md:h-6 text-xl md:text-[16px]"
@@ -212,7 +275,7 @@ export default function ContactDetailsForm({
                 type="number"
                 pattern="\d*"
                 id="finishedSqft"
-                name="finishedSqft"
+                name="property.total_finished_square_feet"
                 value={contactDetails.property.total_finished_square_feet}
                 onChange={handleChange}
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-44 h-10 md:h-6 text-xl md:text-[16px]"
@@ -230,7 +293,7 @@ export default function ContactDetailsForm({
                 type="text"
                 pattern="\d*"
                 id="year_built"
-                name="yearBuilt"
+                name="property.year_built"
                 value={contactDetails.property.year_built}
                 onChange={handleChange}
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-44 h-10 md:h-6 text-xl md:text-[16px]"
@@ -249,7 +312,7 @@ export default function ContactDetailsForm({
               <select
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-full md:w-60 h-10 md:h-6 text-xl md:text-[16px] "
                 id="foundation_type"
-                name="foundationType"
+                name="property.foundation_type"
                 value={contactDetails.property.foundation_type}
                 onChange={handleChange}
                 required
@@ -271,7 +334,7 @@ export default function ContactDetailsForm({
               <select
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-20 h-10 md:h-6 text-xl md:text-[16px]"
                 id="bed_count"
-                name="bedCount"
+                name="property.beds"
                 value={contactDetails.property.beds}
                 onChange={handleChange}
                 required
@@ -293,7 +356,7 @@ export default function ContactDetailsForm({
               <select
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3  w-full md:max-w-auto md:w-20 h-10 md:h-6 text-xl md:text-[16px]"
                 id="bath_count"
-                name="bathCount"
+                name="property.baths"
                 value={contactDetails.property.baths}
                 onChange={handleChange}
                 required
@@ -316,7 +379,7 @@ export default function ContactDetailsForm({
               </label>
               <textarea
                 className="bg-royalblue/50 rounded-3xl pl-6 md:pl-3 w-full md:w-full h-32 md:h-16 text-xl md:text-[16px]"
-                name="notes"
+                name="property.notes"
                 value={contactDetails.property.notes}
                 onChange={handleChange}
               ></textarea>
