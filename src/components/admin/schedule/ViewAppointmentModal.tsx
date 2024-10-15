@@ -66,7 +66,10 @@ export default function ViewAppointmentModal({
                   </div>
                 </div>
               ) : page === "contactDetails" ? (
-                <EditContactForm intitialAppointmentDetails={a} />
+                <EditContactForm
+                  intitialAppointmentDetails={a}
+                  setPage={setPage}
+                />
               ) : (
                 <div></div>
               )}

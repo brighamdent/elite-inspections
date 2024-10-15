@@ -1,26 +1,26 @@
-import React, { useState } from "react";
-import { useAppointment } from "@/context/AppointmentContext";
-import convertTo12Hour from "@/utils/convertTo12Hour";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-// import SelectedAppointment from "./SelectedAppointment";
+import { useAdminData } from "@/context/AdminDataContext";
 export default function EditContactForm({
   intitialAppointmentDetails,
+  setPage,
 }: {
   intitialAppointmentDetails: AppointmentType;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [contactDetails, setContactDetails] = useState(
     intitialAppointmentDetails,
   );
+  const { setCurrentMonthAppointments } = useAdminData();
 
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target;
-    const keys = name.split("."); // Split the name by dot notation for nested fields
+    const keys = name.split(".");
 
     setContactDetails((prevDetails) => {
-      let updatedDetails = { ...prevDetails }; // Clone the previous state
+      let updatedDetails = { ...prevDetails };
 
-      // Iterate over the keys to find the right nested property
       keys.reduce((acc, key, index) => {
         if (index === keys.length - 1) {
           acc[key] = value; // Set the final key to the new value
@@ -33,6 +33,44 @@ export default function EditContactForm({
       return updatedDetails;
     });
   };
+
+  const updateAppointment = () => {
+    console.log("hello");
+    setCurrentMonthAppointments((prevAppointments) =>
+      prevAppointments.map(
+        (appointment) =>
+          appointment.appointment_id === contactDetails.appointment_id
+            ? {
+                ...appointment, // keep other properties unchanged
+                role: contactDetails.role, // update role
+                contact: {
+                  ...appointment.contact, // keep other contact properties unchanged
+                  first_name: contactDetails.contact.first_name,
+                  last_name: contactDetails.contact.last_name,
+                  phone_number: contactDetails.contact.phone_number,
+                  email: contactDetails.contact.email,
+                },
+                property: {
+                  ...appointment.property, // keep other property details unchanged
+                  address: contactDetails.property.address,
+                  total_finished_square_feet:
+                    contactDetails.property.total_finished_square_feet,
+                  year_built: contactDetails.property.year_built,
+                  foundation_type: contactDetails.property.foundation_type,
+                  beds: contactDetails.property.beds,
+                  baths: contactDetails.property.baths,
+                  notes: contactDetails.property.notes,
+                },
+              }
+            : appointment, // return unchanged appointment if it doesn't match
+      ),
+    );
+  };
+
+  // useEffect(() => {
+  //   console.log(pastAppointments);
+  // }, [pastAppointments]);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
@@ -52,6 +90,8 @@ export default function EditContactForm({
       notes,
     } = contactDetails.property;
     try {
+      updateAppointment();
+
       const res = await fetch("/api/updateContactDetails", {
         method: "POST",
         headers: {
@@ -78,6 +118,7 @@ export default function EditContactForm({
 
       await res.json();
       if (res.ok) {
+        setPage("home");
       } else {
         throw Error("Something went wrong while connecting to our database.");
       }
@@ -318,10 +359,10 @@ export default function EditContactForm({
                 required
               >
                 <option value="">Select an option</option>
-                <option value="option 1">Option 1</option>
-                <option value="option 2">Option 2</option>
-                <option value="option 3">Option 3</option>
-                <option value="option 4">Option 4</option>
+                <option value="Slab-on-Grade">Slab-on-Grade</option>
+                <option value="Pier and Beam">Pier and Beam</option>
+                <option value="Stem Wall">Stem Wall</option>
+                <option value="Pile Foundations">Pile Foundations</option>
               </select>
             </div>
             <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-x-2 pr-4 pl-4 md:pr-0 md:pl-0 md:w-auto">

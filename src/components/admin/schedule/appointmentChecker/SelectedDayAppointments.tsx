@@ -10,7 +10,7 @@ export default function SelectedDayAppointments() {
   const [selectedDayAppointments, setSelectedDayAppointments] = useState<
     AppointmentType[]
   >([]);
-  const { date } = useAdminData();
+  const { date, pastAppointments } = useAdminData();
 
   useEffect(() => {
     const fetchTodaysAppointments = () => {
@@ -23,7 +23,7 @@ export default function SelectedDayAppointments() {
       console.log(newArr);
     };
     fetchTodaysAppointments();
-  }, [currentMonthAppointments, date]);
+  }, [currentMonthAppointments, date, pastAppointments]);
 
   return (
     <div className=" lg:bg-darkblue/50 p-4 rounded-3xl lg:flex-shrink lg:min-w-[200px] lg:max-w-full h-full">

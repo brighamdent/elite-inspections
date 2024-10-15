@@ -255,10 +255,10 @@ export default function EditContactDetailsForm() {
                 required
               >
                 <option value="">Select an option</option>
-                <option value="option 1">Option 1</option>
-                <option value="option 2">Option 2</option>
-                <option value="option 3">Option 3</option>
-                <option value="option 4">Option 4</option>
+                <option value="Slab-on-Grade">Slab-on-Grade</option>
+                <option value="Pier and Beam">Pier and Beam</option>
+                <option value="Stem Wall">Stem Wall</option>
+                <option value="Pile Foundations">Pile Foundations</option>
               </select>
             </div>
             <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-x-2 pr-4 pl-4 md:pr-0 md:pl-0 md:w-auto">

@@ -11,6 +11,9 @@ import { useAuth } from "./AuthContext";
 
 interface AdminDataContextType {
   currentMonthAppointments: AppointmentType[];
+  setCurrentMonthAppointments: React.Dispatch<
+    React.SetStateAction<AppointmentType[]>
+  >;
   todaysAppointments: AppointmentType[];
   date: DateData;
   setDate: React.Dispatch<React.SetStateAction<DateData>>;
@@ -131,6 +134,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     <AdminDataContext.Provider
       value={{
         currentMonthAppointments,
+        setCurrentMonthAppointments,
         todaysAppointments,
         date,
         setDate,
