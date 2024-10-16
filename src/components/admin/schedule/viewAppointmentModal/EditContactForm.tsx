@@ -195,7 +195,7 @@ export default function EditContactForm({
                 type="radio"
                 id="sellers_agent"
                 name="role"
-                value="Seller's agent"
+                value="Seller's Agent"
                 checked={contactDetails.role === "Seller's Agent"}
                 onChange={handleChange}
                 required

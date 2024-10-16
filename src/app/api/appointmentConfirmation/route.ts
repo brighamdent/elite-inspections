@@ -52,7 +52,7 @@ Beds: ${bedCount}
 Baths: ${bathCount}
 Notes: ${notes}
 
-If you need to make any changes to your appointment details, please contact us at 555-555-555 or email us at businessemail@gmail.com.
+If you need to make any changes to your appointment details, please contact us at 407-818-3403 or email us at elitehomeinspectiongroup@gmail.com.
 
 Thank you for choosing Elite Home Inspection Group!
 

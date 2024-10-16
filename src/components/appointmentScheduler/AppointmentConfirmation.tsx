@@ -27,7 +27,7 @@ export default function AppointmentConfirmation() {
       </div>
       <p className="md:text-left md:w-auto">
         If you need to change any of your appointment details please give us a
-        call at 555-555-555 or email us at businessemail@gmail.com
+        call at 407-818-3403 or email us at elitehomeinspectiongroup@gmail.com
       </p>
     </div>
   );

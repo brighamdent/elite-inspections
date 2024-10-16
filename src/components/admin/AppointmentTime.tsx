@@ -5,9 +5,11 @@ import convertTo12Hour from "@/utils/convertTo12Hour";
 export default function AppointmentTime({
   edit,
   appointment,
+  editFunction,
 }: {
   edit: boolean;
   appointment: AppointmentType;
+  editFunction: () => void;
 }) {
   const dateString = appointment.date;
   const date = new Date(dateString);
@@ -29,7 +31,7 @@ export default function AppointmentTime({
         {edit && (
           <p
             className="text-xs border-b h-4  md:mr-0 ml-2 md:mb-4 cursor-pointer self-end"
-            // onClick={() => setCurrentStage(1)}
+            onClick={editFunction}
           >
             Edit
           </p>

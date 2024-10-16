@@ -6,6 +6,7 @@ import QuoteBreakdown from "../QuoteBreakdown";
 import Quote from "../Quote";
 import AppointmentTime from "../AppointmentTime";
 import EditContactForm from "./viewAppointmentModal/EditContactForm";
+import EditTime from "./viewAppointmentModal/dateTimeSelector/EditTime";
 
 export default function ViewAppointmentModal({
   a,
@@ -19,6 +20,7 @@ export default function ViewAppointmentModal({
 
   const handleToggleModal = () => {
     setModal(!modal);
+    setPage("home");
   };
 
   return (
@@ -50,7 +52,11 @@ export default function ViewAppointmentModal({
                   <h1 className="w-full text-left">
                     {a.contact.first_name} {a.contact.last_name}
                   </h1>
-                  <AppointmentTime edit={true} appointment={a} />
+                  <AppointmentTime
+                    edit={true}
+                    appointment={a}
+                    editFunction={() => setPage("time")}
+                  />
                   <AdminContactDetails
                     edit={true}
                     contactDetails={a.contact}
@@ -59,6 +65,7 @@ export default function ViewAppointmentModal({
                   <AdminPropertyDetails
                     edit={true}
                     propertyDetails={a.property}
+                    editFunction={() => setPage("contactDetails")}
                   />
                   <div className="md:flex items-center w-full">
                     <Quote serviceDetails={a.service_details} />
@@ -69,6 +76,12 @@ export default function ViewAppointmentModal({
                 <EditContactForm
                   intitialAppointmentDetails={a}
                   setPage={setPage}
+                />
+              ) : page === "time" ? (
+                <EditTime
+                  appointmentId={a.appointment_id}
+                  time={a.time}
+                  initialDate={a.date}
                 />
               ) : (
                 <div></div>

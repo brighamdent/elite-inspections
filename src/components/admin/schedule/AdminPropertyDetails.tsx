@@ -4,9 +4,11 @@ import { useAppointment } from "@/context/AppointmentContext";
 export default function AdminPropertyDetails({
   edit,
   propertyDetails,
+  editFunction,
 }: {
   edit: boolean;
   propertyDetails: PropertyType;
+  editFunction: () => void;
 }) {
   return (
     <div className="flex flex-col items-center md:items-start w-screen md:w-full pr-4 pl-4 md:pr-0 md:pl-0 ">
@@ -15,7 +17,7 @@ export default function AdminPropertyDetails({
         {edit && (
           <p
             className="text-xs border-b h-4 ml-2 mb-1 cursor-pointer"
-            // onClick={() => setCurrentStage(2)}
+            onClick={editFunction}
           >
             Edit
           </p>
