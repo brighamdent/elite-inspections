@@ -87,8 +87,6 @@ export default function AppointmentCalendar() {
     return boolean;
   };
 
-  console.log(dateSet.has(17));
-
   return (
     <div className=" rounded-3xl flex flex-col w-screen max-w-96 p-4 lg:max-w-[750px] lg:w-screen items-center">
       <div className="flex justify-between items-center w-full mb-4 lg:pl-4 lg:pr-4">

@@ -15,8 +15,6 @@ export async function POST(req: NextRequest) {
       [serviceId],
     );
 
-    connection.release();
-
     if (rows.length === 0) {
       return NextResponse.json({ error: "Service not found" }, { status: 404 });
     }
@@ -39,11 +37,12 @@ export async function POST(req: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
-    connection.release();
     console.error(error);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 },
     );
+  } finally {
+    connection.release();
   }
 }

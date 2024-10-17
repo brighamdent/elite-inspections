@@ -82,13 +82,11 @@ export async function POST(req: NextRequest) {
 
       // Commit the transaction
       await connection.commit();
-      connection.release();
       return NextResponse.json(
         { message: "Appointment scheduled successfully!" },
         { status: 200 },
       );
     } catch (error) {
-      connection.release();
       console.error("Database Error:", error);
       return NextResponse.json(
         { message: "Failed to schedule appointment." },

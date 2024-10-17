@@ -16,7 +16,7 @@ export default function AppointmentTime({
 
   const dayOfWeek = date.toLocaleString("en-US", { weekday: "long" });
   const monthName = date.toLocaleString("en-US", { month: "long" });
-  const day = date.getDate();
+  const day = date.getDate() + 1;
   const year = date.getFullYear();
   return (
     <div className="w-screen md:w-full pr-4 pl-4 md:pr-0 md:pl-0">

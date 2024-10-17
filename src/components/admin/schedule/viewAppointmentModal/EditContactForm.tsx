@@ -90,8 +90,6 @@ export default function EditContactForm({
       notes,
     } = contactDetails.property;
     try {
-      updateAppointment();
-
       const res = await fetch("/api/updateContactDetails", {
         method: "POST",
         headers: {
@@ -118,6 +116,7 @@ export default function EditContactForm({
 
       await res.json();
       if (res.ok) {
+        updateAppointment();
         setPage("home");
       } else {
         throw Error("Something went wrong while connecting to our database.");

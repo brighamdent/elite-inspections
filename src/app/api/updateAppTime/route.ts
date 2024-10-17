@@ -20,11 +20,11 @@ UPDATE appointments SET scheduled_time = ? WHERE appointment_id = ?;
 `,
       [formattedDate, appointmentId],
     );
-    connection.release();
 
     return NextResponse.json({ status: 200 });
   } catch (error) {
-    connection.release();
     console.log(error);
+  } finally {
+    connection.release();
   }
 }

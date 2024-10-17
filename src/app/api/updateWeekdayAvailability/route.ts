@@ -25,11 +25,11 @@ export async function POST(req: NextRequest) {
 `,
       [id],
     );
-    connection.release();
 
     return NextResponse.json({ status: 200 });
   } catch (error) {
-    connection.release();
     console.log(error);
+  } finally {
+    connection.release();
   }
 }

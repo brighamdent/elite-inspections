@@ -69,7 +69,6 @@ export default function Calendar({
         const blockedDatesArray = data.data.map((day: BlockedDayType) => {
           return day.date;
         });
-        console.log(blockedDatesArray);
 
         setBlockedDates(blockedDatesArray);
       } catch (error) {
@@ -155,8 +154,6 @@ export default function Calendar({
     } else if (dateCountMap.has(day) && dateCountMap.get(day)! > 1) {
       boolean = true;
     } else if (blockedWeekdays.includes(currWeekday)) {
-      console.log("currWeekday", currWeekday);
-
       boolean = true;
     } else if (
       blockedDates?.includes(

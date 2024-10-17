@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useState } from "react";
 import Calendar from "./Calendar";
 import TimeSelector from "./TimeSelector";
@@ -11,20 +10,23 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import firebase from "firebase/compat/app";
+import { useAdminData } from "@/context/AdminDataContext";
 
 export default function EditTime({
   appointmentId,
   time,
   initialDate,
+  setPage,
 }: {
   appointmentId: number;
   time: string;
   initialDate: string;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [unavailableTimes, setUnavailableTimes] = useState<string[]>([]);
-  const [currentMonthAppointments, setCurrentMonthAppointments] = useState<
-    CalanderAppointmentType[]
-  >([]);
+  const [currMonthApp, setCurrMonthApps] = useState<CalanderAppointmentType[]>(
+    [],
+  );
   const [message, setMessage] = useState("");
   const [date, setDate] = useState<DateData>({
     month: null,
@@ -34,11 +36,12 @@ export default function EditTime({
     monthName: null,
   });
   const [selectedTime, setSelectedTime] = useState(time);
-
-  console.log(initialDate);
+  const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
+  const { currentMonthAppointments, setCurrentMonthAppointments } =
+    useAdminData();
 
   useEffect(() => {
-    const fetchCurrentMonthAppointments = async () => {
+    const fetchCurrMonthApps = async () => {
       try {
         const response = await fetch(
           `/api/appointments?year=${date.year}&month=${date.month}`,
@@ -48,17 +51,17 @@ export default function EditTime({
         }
 
         const data = await response.json();
-        setCurrentMonthAppointments(data); // Assuming `data` is an array of times
+        setCurrMonthApps(data); // Assuming `data` is an array of times
       } catch (error) {
         console.error("Error fetching available times:", error);
       }
     };
-    fetchCurrentMonthAppointments();
+    fetchCurrMonthApps();
   }, [date]);
 
   useEffect(() => {
     const getUnavailableTimes = (day: number | null) => {
-      const times = currentMonthAppointments
+      const times = currMonthApp
         .filter((appointment: CalanderAppointmentType) => {
           const appointmentDay = parseInt(
             appointment.scheduled_time.slice(8, 10),
@@ -72,17 +75,36 @@ export default function EditTime({
     };
 
     getUnavailableTimes(date.day);
+  }, [currMonthApp]);
+
+  const updateTime = () => {
+    console.log(currentMonthAppointments);
+    setCurrentMonthAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) =>
+        appointment.appointment_id == appointmentId
+          ? {
+              ...appointment,
+              date: `${date.year}-${date.month}-${date.day}`,
+              time: selectedTime,
+            }
+          : appointment,
+      ),
+    );
+  };
+
+  useEffect(() => {
+    console.log("currApp changed");
+    console.log(currentMonthAppointments);
   }, [currentMonthAppointments]);
 
   const handleSubmit = async () => {
     setMessage("");
-    const formattedDate = `${date.year}-${date.month}-${date.day} ${selectedTime}`;
     try {
       const user = firebase.auth().currentUser;
       if (user) {
         console.log(formattedDate, appointmentId);
         const token = await user.getIdToken();
-        await fetch("/api/updateAppTime", {
+        const response = await fetch("/api/updateAppTime", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -93,6 +115,10 @@ export default function EditTime({
             appointmentId,
           }),
         });
+        if (response.ok) {
+          setPage("home");
+          updateTime();
+        }
       } else {
         console.error("No user is currently signed in.");
       }
@@ -129,7 +155,7 @@ export default function EditTime({
       )}
       <div className="flex flex-col md:flex-row md:bg-royalblue rounded-3xl justify-between">
         <Calendar
-          currentMonthAppointments={currentMonthAppointments}
+          currentMonthAppointments={currMonthApp}
           setDate={setDate}
           setSelectedTime={setSelectedTime}
         />

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import pool from "../../../lib/db";
 import { verifyAdmin } from "@/lib/authMiddleware";
-import { release } from "os";
 
 export async function POST(req: NextRequest) {
   const isAdmin = await verifyAdmin(req);
@@ -21,12 +20,12 @@ VALUES (?);
 `,
       [date],
     );
-    connection.release();
 
     return NextResponse.json({ status: 200 });
   } catch (error) {
-    connection.release();
     console.log(error);
+  } finally {
+    connection.release();
   }
 }
 
@@ -42,11 +41,8 @@ ORDER BY date ASC;
 `,
     );
 
-    connection.release();
-
     return NextResponse.json({ status: 200, data: rows });
   } catch (error) {
-    connection.release();
     console.log(error);
   } finally {
     connection.release();

@@ -28,7 +28,6 @@ export default function TimeSelector({
 
       const data = await response.json();
       setBlockedTimes(data.data);
-      console.log(data.data);
     };
     fetchBlockedTimes();
   }, []);

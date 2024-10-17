@@ -82,6 +82,7 @@ export default function ViewAppointmentModal({
                   appointmentId={a.appointment_id}
                   time={a.time}
                   initialDate={a.date}
+                  setPage={setPage}
                 />
               ) : (
                 <div></div>
