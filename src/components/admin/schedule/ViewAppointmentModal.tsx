@@ -7,6 +7,7 @@ import Quote from "../Quote";
 import AppointmentTime from "../AppointmentTime";
 import EditContactForm from "./viewAppointmentModal/EditContactForm";
 import EditTime from "./viewAppointmentModal/dateTimeSelector/EditTime";
+import EditQuote from "./viewAppointmentModal/EditQuote";
 
 export default function ViewAppointmentModal({
   a,
@@ -68,7 +69,10 @@ export default function ViewAppointmentModal({
                     editFunction={() => setPage("contactDetails")}
                   />
                   <div className="md:flex items-center w-full">
-                    <Quote serviceDetails={a.service_details} />
+                    <Quote
+                      serviceDetails={a.service_details}
+                      editFunction={() => setPage("quote")}
+                    />
                     <QuoteBreakdown serviceDetails={a.service_details} />
                   </div>
                 </div>
@@ -84,6 +88,8 @@ export default function ViewAppointmentModal({
                   initialDate={a.date}
                   setPage={setPage}
                 />
+              ) : page === "quote" ? (
+                <EditQuote appointment={a} />
               ) : (
                 <div></div>
               )}

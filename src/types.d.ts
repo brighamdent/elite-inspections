@@ -40,6 +40,7 @@ interface ServiceDetailsType {
   pool_inspection: boolean;
   wind_mitigation: boolean;
   four_point_inspection: boolean;
+  [key: string]: any;
 }
 
 interface AppointmentType {
