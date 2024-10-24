@@ -48,7 +48,7 @@ export default function QuoteBreakdown({
             <p className="text-xs">$50.00</p>
           </div>
         )}
-        {serviceDetails.four_point_inspection === true && (
+        {serviceDetails.four_point_inspection === "true" && (
           <div className="justify-between flex">
             <p className="text-xs">Add on 4 Point Inspection</p>
             <p className="text-xs">$50.00</p>

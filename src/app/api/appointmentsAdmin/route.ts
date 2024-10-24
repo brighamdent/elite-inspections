@@ -52,11 +52,18 @@ export async function GET(req: NextRequest) {
           [appointment.service_details_id],
         );
 
+        const serviceDetails = serviceDetailsRows.map((row) => ({
+          ...row,
+          pool_inspection: !!row.pool_inspection,
+          wind_mitigation: !!row.wind_mitigation,
+          four_point_inspection: !!row.four_point_inspection,
+        }));
+
         return {
           ...appointment,
           contact: contactRows[0] || null,
           property: propertyRows[0] || null,
-          service_details: serviceDetailsRows[0] || null,
+          service_details: serviceDetails[0] || null,
         };
       }),
     );

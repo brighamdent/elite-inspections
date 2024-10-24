@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppointment } from "@/context/AppointmentContext";
+import firebase from "firebase/compat/app";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
@@ -9,8 +10,10 @@ import {
 
 export default function EditQuote({
   appointment,
+  setPage,
 }: {
   appointment: AppointmentType;
+  setPage: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const [message, setMessage] = useState("");
   const [serviceDetails, setServiceDetails] = useState(
@@ -28,6 +31,10 @@ export default function EditQuote({
           : serviceDetails.inspection_type === "4 Point Inspection"
             ? 149
             : 0;
+
+  useEffect(() => {
+    console.log(serviceDetails);
+  }, [serviceDetails]);
 
   useEffect(() => {
     const calculateQuote = () => {
@@ -63,21 +70,70 @@ export default function EditQuote({
     propertyDetails,
   ]);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+
+    try {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        console.error("No user is currently signed in.");
+        alert("User is not signed in.");
+        // setLoading(false);
+        return;
+      }
+
+      const token = await user.getIdToken();
+      const {
+        inspection_type,
+        wind_mitigation,
+        pool_inspection,
+        four_point_inspection,
+        service_details_id,
+      } = serviceDetails;
+
+      const res = await fetch("/api/updateServiceDetails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          inspection_type,
+          wind_mitigation,
+          pool_inspection,
+          four_point_inspection,
+          service_details_id,
+        }),
+      });
+
+      await res.json();
+      if (res.ok) {
+        // updateAppointment();
+        setPage("home");
+      } else {
+        throw Error("Something went wrong while connecting to our database.");
+      }
+    } catch (error) {
+      console.log(error);
+      throw Error("Something went wrong while connecting to our database.");
+    }
   };
 
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target;
-    if (name === "inspectionType" && value !== "Elite Home Inpection") {
+    if (name === "inspection_type" && value !== "Elite Home Inpection") {
       setServiceDetails({
         ...serviceDetails,
         [name]: value,
-        poolInspection: false,
-        windMitigation: false,
-        fourPointInspection: false,
+        pool_inspection: false,
+        wind_mitigation: false,
+        four_point_inspection: false,
       });
-    } else setServiceDetails({ ...serviceDetails, [name]: value });
+    } else
+      setServiceDetails({
+        ...serviceDetails,
+        [name]: value === "true" ? true : value === "false" ? false : value,
+      });
   };
 
   useEffect(() => {
@@ -89,13 +145,13 @@ export default function EditQuote({
       className="w-screen md:w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center md:block min-w-[302px]"
       onSubmit={handleSubmit}
     >
-      <div className="flex justify-center md:justify-start items-center w-full">
-        <h2>Select Service</h2>
+      <div className="flex justify-center md:justify-start items-center w-full mb-4">
+        <h2>Adjust Quote</h2>
         <button
           type="submit"
           className="bg-teal group hover:bg-darkblue rounded-3xl hidden md:flex items-center justify-between p-1 ml-6 transition-colors"
         >
-          <p className="font-extrabold ml-2 mr-2">Next</p>
+          <p className="font-extrabold ml-2 mr-2">Update</p>
           <div className="bg-royalblue group-hover:bg-teal rounded-3xl h-6 w-6 flex items-center justify-center transition-colors">
             <FontAwesomeIcon icon={faArrowRight} />
           </div>
@@ -121,7 +177,7 @@ export default function EditQuote({
           </p>
           <select
             className="bg-royalblue/50 rounded-3xl pl-3 w-full md:w-60 h-10 md:h-6 text-xl md:text-[16px]"
-            name="inspectionType"
+            name="inspection_type"
             value={serviceDetails.inspection_type}
             onChange={handleChange}
             required
@@ -141,7 +197,7 @@ export default function EditQuote({
           </p>
           <select
             className="bg-royalblue/50 rounded-3xl pl-3 w-full md:w-max h-10 md:h-6 text-xl md:text-[16px]"
-            name="poolInspection"
+            name="pool_inspection"
             value={serviceDetails.pool_inspection ? "true" : "false"}
             onChange={handleChange}
             required={
@@ -162,12 +218,11 @@ export default function EditQuote({
           className={` w-full md:w-max bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between md:p-3 mb-4 ${serviceDetails.inspection_type !== "Elite Home Inspection" ? "hidden md:opacity-50" : ""}`}
         >
           <p className="md:mr-2 text-sm md:text-[16px] m-3 md:m-0">
-            Would you like to add on wind mitigation? (This could lower
-            insurance costs)
+            Would you like to add on wind mitigation?
           </p>
           <select
             className="bg-royalblue/50 rounded-3xl pl-3 w-full md:w-max h-10 md:h-6 text-xl md:text-[16px]"
-            name="windMitigation"
+            name="wind_mitigation"
             value={serviceDetails.wind_mitigation ? "true" : "false"}
             onChange={handleChange}
             disabled={
@@ -188,12 +243,11 @@ export default function EditQuote({
           className={` w-full md:w-full bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between md:p-3 mb-4 ${serviceDetails.inspection_type !== "Elite Home Inspection" ? "hidden md:opacity-50" : ""}`}
         >
           <p className="md:mr-2 text-sm md:text-[16px] m-3 md:m-0">
-            Need 4 point inspection? (May be required by insurance for older
-            homes)
+            Need 4 point inspection?
           </p>
           <select
             className="bg-royalblue/50 rounded-3xl pl-3 w-full md:w-max h-10 md:h-6 text-xl md:text-[16px]"
-            name="fourPointInspection"
+            name="four_point_inspection"
             value={serviceDetails.four_point_inspection ? "true" : "false"}
             onChange={handleChange}
             disabled={
@@ -219,7 +273,7 @@ export default function EditQuote({
               Your Quote
             </p>
             <div className="bg-royalblue/50 rounded-3xl h-full flex items-center justify-center">
-              {/* <h1>{serviceDetails.quote_amount!.toFixed(2)}</h1> */}
+              <h1>${Number(serviceDetails.quote_amount).toFixed(2)}</h1>
             </div>
           </div>
         </div>
@@ -237,7 +291,9 @@ export default function EditQuote({
                 <p className="text-xs">
                   $0.10 x {serviceDetails.extra_sqft} extra sq ft
                 </p>
-                <p className="text-xs">${serviceDetails.extra_sqft * 0.1}</p>
+                <p className="text-xs">
+                  ${(serviceDetails.extra_sqft * 0.1).toFixed(2)}
+                </p>
               </div>
             )}
             {serviceDetails.pool_inspection === true && (
@@ -264,7 +320,7 @@ export default function EditQuote({
             <div className="flex justify-between pl-2 pr-2">
               <p className="text-xs">Total:</p>
               <p className="text-xs">
-                {/* ${serviceDetails.quote_amount!.toFixed(2)} */}
+                ${Number(serviceDetails.quote_amount).toFixed(2)}
               </p>
             </div>
           </div>
@@ -275,7 +331,7 @@ export default function EditQuote({
           type="submit"
           className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex md:hidden relative"
         >
-          <p className="font-extrabold text-2xl">Review Info</p>
+          <p className="font-extrabold text-2xl">Update</p>
           <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors absolute right-1">
             <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
           </div>

@@ -89,7 +89,7 @@ export default function ViewAppointmentModal({
                   setPage={setPage}
                 />
               ) : page === "quote" ? (
-                <EditQuote appointment={a} />
+                <EditQuote appointment={a} setPage={setPage} />
               ) : (
                 <div></div>
               )}
