@@ -96,7 +96,7 @@ interface TimeSelectorProps {
   setSelectedTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface LineItems {
+interface SingleLineItem {
   line_items_id: string;
   service_details_id: number;
   description: string;

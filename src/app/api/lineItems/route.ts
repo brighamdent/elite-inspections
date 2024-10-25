@@ -13,16 +13,17 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
   try {
-    const { service_details_id, description, amount } = await req.json();
+    const { lineItemId, serviceDetailsId, description, amount } =
+      await req.json();
 
-    console.log(service_details_id, description, amount);
+    console.log(lineItemId, serviceDetailsId, description, amount);
 
     try {
       const connection = await pool.getConnection();
 
       const [result]: any = await connection.execute(
-        `INSERT INTO line_items (service_details_id, description, amount) VALUES (?, ? ?)`,
-        [service_details_id, description, amount],
+        `INSERT INTO line_items (line_item_id, service_details_id, description, amount) VALUES (?, ?, ?, ?)`,
+        [lineItemId, serviceDetailsId, description, amount],
       );
 
       return NextResponse.json(
@@ -48,7 +49,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function PUT(req: NextRequest) {
+export async function DELETE(req: NextRequest) {
   const connection = await pool.getConnection();
 
   const isAdmin = await verifyAdmin(req);
@@ -59,48 +60,27 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
   try {
-    const {
-      inspection_type,
-      wind_mitigation,
-      pool_inspection,
-      four_point_inspection,
-      quote_amount,
-      service_details_id,
-    } = await req.json();
+    const { id } = await req.json();
 
-    console.log(
-      inspection_type,
-      wind_mitigation,
-      pool_inspection,
-      four_point_inspection,
-      quote_amount,
-      service_details_id,
-    );
+    console.log(id);
 
     try {
       const connection = await pool.getConnection();
 
       const [serviceResult]: any = await connection.execute(
-        "UPDATE service_details SET inspection_type = ? , wind_mitigation = ?, pool_inspection = ?, four_point_inspection = ?, quote_amount = ? WHERE service_details_id = ? ",
-        [
-          inspection_type,
-          wind_mitigation,
-          pool_inspection,
-          four_point_inspection,
-          quote_amount,
-          service_details_id,
-        ],
+        "DELETE FROM line_items WHERE line_item_id = ?",
+        [id],
       );
 
       return NextResponse.json(
-        { message: "Appointment scheduled successfully!" },
+        { message: "Line item deleted successfully!" },
         { status: 200 },
       );
     } catch (error) {
       connection.release();
       console.error("Database Error:", error);
       return NextResponse.json(
-        { message: "Failed to schedule appointment." },
+        { message: "Failed to delete line item." },
         { status: 500 },
       );
     }

@@ -300,7 +300,7 @@ export default function EditQuote({
           </select>
         </div>
       </div>
-      <LineItems />
+      <LineItems serviceDetailsId={serviceDetails.service_details_id} />
       {/* <PropertyDetails edit={true} /> */}
       <div className="flex flex-col md:flex-row items-center justify-between w-full pr-4 pl-4 md:pr-0 md:pl-0">
         <div className="flex flex-col w-full md:w-full">

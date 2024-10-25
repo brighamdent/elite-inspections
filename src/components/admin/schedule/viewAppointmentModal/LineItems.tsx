@@ -2,32 +2,95 @@ import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import firebase from "firebase/compat/app";
 
-export default function LineItems() {
-  const [lineItems, setLineItems] = useState<LineItems[]>([]);
+export default function LineItems({
+  serviceDetailsId,
+}: {
+  serviceDetailsId: Number;
+}) {
   const [input, setInput] = useState({
     description: "",
     amount: "",
   });
   let service_details_id = 4;
   const [isAdding, setIsAdding] = useState(false);
+  const [lineItems, setLineItems] = useState<SingleLineItem[]>([]);
 
-  const addLineItem = () => {
+  const addLineItem = async () => {
     const { description, amount } = input;
-    setLineItems([
-      ...lineItems,
-      {
-        line_items_id: uuidv4(),
-        description,
-        amount: Number(amount),
-        service_details_id,
-      },
-    ]);
-    setIsAdding(false);
-    setInput({
-      description: "",
-      amount: "",
-    });
+    const lineItemId = uuidv4();
+    const amountFormatted = Number(amount);
+    try {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        console.error("No user is currently signed in.");
+        alert("User is not signed in.");
+        // setLoading(false);
+        return;
+      }
+      const token = await user.getIdToken();
+      const res = await fetch("/api/lineItems", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          lineItemId,
+          description,
+          amount: amountFormatted,
+          serviceDetailsId,
+        }),
+      });
+      if (res.ok) {
+        setLineItems([
+          ...lineItems,
+          {
+            line_items_id: lineItemId,
+            description,
+            amount: amountFormatted,
+            service_details_id,
+          },
+        ]);
+        setIsAdding(false);
+        setInput({
+          description: "",
+          amount: "",
+        });
+      }
+    } catch (error) {}
+  };
+
+  const deleteLineItem = async (id: string) => {
+    try {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        console.error("No user is currently signed in.");
+        alert("User is not signed in.");
+        // setLoading(false);
+        return;
+      }
+      const token = await user.getIdToken();
+      const res = await fetch("/api/lineItems", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id,
+        }),
+      });
+      if (res.ok) {
+        const newLineItems = lineItems.filter(
+          (lineItem) => lineItem.line_items_id !== id,
+        );
+        setLineItems(newLineItems);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleChange = (event: ChangeEvent) => {
@@ -66,6 +129,7 @@ export default function LineItems() {
                 <button
                   type="button"
                   className="bg-royalblue/50 rounded-3xl w-6 h-6 flex items-center justify-center"
+                  onClick={() => deleteLineItem(lineItem.line_items_id)}
                 >
                   <FontAwesomeIcon icon={faX} className="h-3 w-3 " />
                 </button>
