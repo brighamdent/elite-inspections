@@ -13,6 +13,52 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
   try {
+    const { service_details_id, description, amount } = await req.json();
+
+    console.log(service_details_id, description, amount);
+
+    try {
+      const connection = await pool.getConnection();
+
+      const [result]: any = await connection.execute(
+        `INSERT INTO line_items (service_details_id, description, amount) VALUES (?, ? ?)`,
+        [service_details_id, description, amount],
+      );
+
+      return NextResponse.json(
+        { message: "Line Items Updated successfully" },
+        { status: 200 },
+      );
+    } catch (error) {
+      connection.release();
+      console.error("Database Error:", error);
+      return NextResponse.json(
+        { message: "Failed to update line items." },
+        { status: 500 },
+      );
+    }
+  } catch (error) {
+    console.error("Request Error:", error);
+    return NextResponse.json(
+      { message: "Failed to process request." },
+      { status: 500 },
+    );
+  } finally {
+    connection.release();
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  const connection = await pool.getConnection();
+
+  const isAdmin = await verifyAdmin(req);
+
+  console.log("Admin check result:", isAdmin);
+
+  if (isAdmin !== true) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
+  try {
     const {
       inspection_type,
       wind_mitigation,

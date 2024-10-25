@@ -95,3 +95,10 @@ interface TimeSelectorProps {
   selectedTime: string;
   setSelectedTime: React.Dispatch<React.SetStateAction<string>>;
 }
+
+interface LineItems {
+  line_items_id: string;
+  service_details_id: number;
+  description: string;
+  amount: number;
+}

@@ -22,7 +22,7 @@ export default function Quote({
           </p>
         </div>
         <div className="bg-royalblue/50 rounded-3xl h-full flex items-center justify-center">
-          <h1>${serviceDetails.quote_amount}</h1>
+          <h1>${Number(serviceDetails.quote_amount).toFixed(2)}</h1>
         </div>
       </div>
     </div>

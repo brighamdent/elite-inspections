@@ -36,19 +36,19 @@ export default function QuoteBreakdown({
             </p>
           </div>
         )}
-        {serviceDetails.pool_inspection === true && (
+        {serviceDetails.pool_inspection && (
           <div className="justify-between flex">
             <p className="text-xs">Add on Pool Inspection</p>
             <p className="text-xs">$50.00</p>
           </div>
         )}
-        {serviceDetails.wind_mitigation === true && (
+        {serviceDetails.wind_mitigation && (
           <div className="justify-between flex">
             <p className="text-xs">Add on Wind Mitigation</p>
             <p className="text-xs">$50.00</p>
           </div>
         )}
-        {serviceDetails.four_point_inspection === "true" && (
+        {serviceDetails.four_point_inspection && (
           <div className="justify-between flex">
             <p className="text-xs">Add on 4 Point Inspection</p>
             <p className="text-xs">$50.00</p>
@@ -59,7 +59,9 @@ export default function QuoteBreakdown({
         <div className="bg-teal h-[2px] w-full" />
         <div className="flex justify-between pl-2 pr-2">
           <p className="text-xs">Total:</p>
-          <p className="text-xs">${serviceDetails.quote_amount}</p>
+          <p className="text-xs">
+            ${Number(serviceDetails.quote_amount).toFixed(2)}
+          </p>
         </div>
       </div>
     </div>

@@ -7,6 +7,8 @@ import {
   faWarning,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAdminData } from "@/context/AdminDataContext";
+import LineItems from "./LineItems";
 
 export default function EditQuote({
   appointment,
@@ -20,6 +22,8 @@ export default function EditQuote({
     appointment.service_details,
   );
   const [propertyDetails, setPropertyDetails] = useState(appointment.property);
+
+  const { setCurrentMonthAppointments } = useAdminData();
 
   const baseInpection =
     serviceDetails.inspection_type === "Elite Home Inspection"
@@ -70,6 +74,33 @@ export default function EditQuote({
     propertyDetails,
   ]);
 
+  const updateQuoteState = () => {
+    const {
+      inspection_type,
+      wind_mitigation,
+      pool_inspection,
+      four_point_inspection,
+      quote_amount,
+    } = serviceDetails;
+    setCurrentMonthAppointments((prevAppointments) =>
+      prevAppointments.map((appointment) =>
+        appointment.appointment_id === appointment.appointment_id
+          ? {
+              ...appointment,
+              service_details: {
+                ...serviceDetails,
+                inspection_type,
+                wind_mitigation,
+                pool_inspection,
+                four_point_inspection,
+                quote_amount,
+              },
+            }
+          : appointment,
+      ),
+    );
+  };
+
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -88,8 +119,11 @@ export default function EditQuote({
         wind_mitigation,
         pool_inspection,
         four_point_inspection,
+        quote_amount,
         service_details_id,
       } = serviceDetails;
+
+      console.log(quote_amount);
 
       const res = await fetch("/api/updateServiceDetails", {
         method: "POST",
@@ -102,13 +136,14 @@ export default function EditQuote({
           wind_mitigation,
           pool_inspection,
           four_point_inspection,
+          quote_amount,
           service_details_id,
         }),
       });
 
       await res.json();
       if (res.ok) {
-        // updateAppointment();
+        updateQuoteState();
         setPage("home");
       } else {
         throw Error("Something went wrong while connecting to our database.");
@@ -240,7 +275,7 @@ export default function EditQuote({
           </select>
         </div>
         <div
-          className={` w-full md:w-full bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between md:p-3 mb-4 ${serviceDetails.inspection_type !== "Elite Home Inspection" ? "hidden md:opacity-50" : ""}`}
+          className={` w-full md:w-max bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between md:p-3 mb-4 ${serviceDetails.inspection_type !== "Elite Home Inspection" ? "hidden md:opacity-50" : ""}`}
         >
           <p className="md:mr-2 text-sm md:text-[16px] m-3 md:m-0">
             Need 4 point inspection?
@@ -265,6 +300,7 @@ export default function EditQuote({
           </select>
         </div>
       </div>
+      <LineItems />
       {/* <PropertyDetails edit={true} /> */}
       <div className="flex flex-col md:flex-row items-center justify-between w-full pr-4 pl-4 md:pr-0 md:pl-0">
         <div className="flex flex-col w-full md:w-full">

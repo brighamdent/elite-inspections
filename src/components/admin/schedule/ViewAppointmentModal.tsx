@@ -46,11 +46,11 @@ export default function ViewAppointmentModal({
             onClick={handleToggleModal}
             className="fixed left-0 top-0 z-50 h-full w-full bg-black/10 backdrop-blur-sm"
           />
-          <div className="max-h-[80vh] md:max-h-fit overflow-y-scroll md:overflow-y-auto fixed bg-darkblue rounded-3xl md:bg-transparent left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center">
+          <div className="max-h-[100vh] md:max-h-fit overflow-y-scroll md:overflow-y-auto fixed bg-darkblue rounded-3xl md:bg-transparent left-1/2 top-1/2 z-50 flex -translate-x-1/2 -translate-y-1/2 transform flex-col items-center">
             <div className="md:w-[750px] md:bg-royalblue rounded-3xl md:mt-20 p-6 flex flex-col items-center">
               {page === "home" ? (
                 <div className="w-full">
-                  <h1 className="w-full text-left">
+                  <h1 className="w-full md:text-left">
                     {a.contact.first_name} {a.contact.last_name}
                   </h1>
                   <AppointmentTime
