@@ -52,6 +52,11 @@ export async function GET(req: NextRequest) {
           [appointment.service_details_id],
         );
 
+        const [lineItemsRows] = await pool.query<RowDataPacket[]>(
+          `SELECT * FROM line_items WHERE service_details_id = ?`,
+          [appointment.service_details_id],
+        );
+
         const serviceDetails = serviceDetailsRows.map((row) => ({
           ...row,
           pool_inspection: !!row.pool_inspection,
@@ -64,6 +69,7 @@ export async function GET(req: NextRequest) {
           contact: contactRows[0] || null,
           property: propertyRows[0] || null,
           service_details: serviceDetails[0] || null,
+          line_items: lineItemsRows || null,
         };
       }),
     );

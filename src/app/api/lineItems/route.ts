@@ -94,3 +94,52 @@ export async function DELETE(req: NextRequest) {
     connection.release();
   }
 }
+
+export async function GET(req: NextRequest) {
+  const connection = await pool.getConnection();
+
+  const isAdmin = await verifyAdmin(req);
+
+  console.log("Admin check result:", isAdmin);
+
+  if (isAdmin !== true) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
+  }
+  try {
+    const { service_details_id } = await req.json();
+
+    console.log(service_details_id);
+
+    try {
+      const connection = await pool.getConnection();
+
+      const [serviceResult]: any = await connection.execute(
+        "SELECT * FROM line_items WHERE line_item_id = ?",
+        [service_details_id],
+      );
+
+      return NextResponse.json(
+        {
+          data: serviceResult[0],
+          message: "Line items fetched successfully!",
+        },
+        { status: 200 },
+      );
+    } catch (error) {
+      connection.release();
+      console.error("Database Error:", error);
+      return NextResponse.json(
+        { message: "Failed to fetch line item." },
+        { status: 500 },
+      );
+    }
+  } catch (error) {
+    console.error("Request Error:", error);
+    return NextResponse.json(
+      { message: "Failed to process request." },
+      { status: 500 },
+    );
+  } finally {
+    connection.release();
+  }
+}

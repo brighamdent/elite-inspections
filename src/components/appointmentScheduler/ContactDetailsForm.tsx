@@ -17,6 +17,7 @@ export default function EditContactDetailsForm() {
     const { name, value } = event.target;
     setContactDetails({ ...contactDetails, [name]: value });
   };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setCurrentStage(currentStage + 1);

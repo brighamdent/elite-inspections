@@ -56,6 +56,7 @@ interface AppointmentType {
   file_id: number;
   service_details_id: number;
   service_details: ServiceDetailsType;
+  line_items: SingleLineItem[];
   [key: string]: any;
 }
 

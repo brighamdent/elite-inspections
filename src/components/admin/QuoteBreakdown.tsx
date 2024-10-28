@@ -2,8 +2,10 @@ import React from "react";
 
 export default function QuoteBreakdown({
   serviceDetails,
+  lineItems,
 }: {
   serviceDetails: ServiceDetailsType;
+  lineItems: SingleLineItem[];
 }) {
   const baseInpection =
     serviceDetails.inspection_type === "Elite Home Inspection"
@@ -54,6 +56,12 @@ export default function QuoteBreakdown({
             <p className="text-xs">$50.00</p>
           </div>
         )}
+        {lineItems?.map((lineItem) => (
+          <div className="justify-between flex">
+            <p className="text-xs">{lineItem.description}</p>
+            <p className="text-xs">${lineItem.amount}</p>
+          </div>
+        ))}
       </div>
       <div>
         <div className="bg-teal h-[2px] w-full" />
