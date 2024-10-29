@@ -73,7 +73,10 @@ export default function ViewAppointmentModal({
                       serviceDetails={a.service_details}
                       editFunction={() => setPage("quote")}
                     />
-                    <QuoteBreakdown serviceDetails={a.service_details} />
+                    <QuoteBreakdown
+                      serviceDetails={a.service_details}
+                      lineItems={a.line_items}
+                    />
                   </div>
                 </div>
               ) : page === "contactDetails" ? (

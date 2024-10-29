@@ -56,8 +56,8 @@ export default function QuoteBreakdown({
             <p className="text-xs">$50.00</p>
           </div>
         )}
-        {lineItems?.map((lineItem) => (
-          <div className="justify-between flex">
+        {lineItems?.map((lineItem, index) => (
+          <div className="justify-between flex" key={index}>
             <p className="text-xs">{lineItem.description}</p>
             <p className="text-xs">${lineItem.amount}</p>
           </div>

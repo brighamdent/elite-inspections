@@ -30,9 +30,9 @@ VALUES (?);
 }
 
 export async function GET(req: NextRequest) {
-  const connection = await pool.getConnection();
+  // const connection = await pool.getConnection();
   try {
-    const [rows] = await connection.execute(
+    const [rows] = await pool.query(
       `
 SELECT DATE_FORMAT(date, '%Y-%m-%d') AS date 
 FROM blocked_dates 
@@ -45,7 +45,7 @@ ORDER BY date ASC;
   } catch (error) {
     console.log(error);
   } finally {
-    connection.release();
+    // connection.release();
   }
 }
 

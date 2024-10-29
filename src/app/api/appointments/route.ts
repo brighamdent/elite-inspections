@@ -105,7 +105,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const connection = await pool.getConnection();
+  // const connection = await pool.getConnection();
   const year = req.nextUrl.searchParams.get("year");
   const month = req.nextUrl.searchParams.get("month");
 
@@ -114,23 +114,23 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const [rows] = await connection.query(
+    const [rows] = await pool.query(
       "SELECT DATE_FORMAT(scheduled_time, '%Y-%m-%d %H:%i:%s') AS scheduled_time FROM appointments WHERE YEAR(scheduled_time) = ? AND MONTH(scheduled_time) = ?",
       [year, month],
     );
 
     console.log("Query results:", rows);
 
-    connection.release();
+    // connection.release();
     return NextResponse.json(rows, { status: 200 });
   } catch (error) {
-    connection.release();
+    // connection.release();
     console.error("Error during GET request:", error);
     return NextResponse.json(
       { error: "Failed to fetch transaction" },
       { status: 500 },
     );
   } finally {
-    connection.release();
+    // connection.release();
   }
 }

@@ -30,9 +30,9 @@ VALUES (?, ?);
 }
 
 export async function GET(req: NextRequest) {
-  const connection = await pool.getConnection();
+  // const connection = await pool.getConnection();
   try {
-    const [rows] = await connection.execute(
+    const [rows] = await pool.query(
       `SELECT
     id,
     DATE_FORMAT(date, '%Y-%m-%d') AS date,
@@ -43,11 +43,11 @@ export async function GET(req: NextRequest) {
 `,
     );
 
-    connection.release();
+    // connection.release();
 
     return NextResponse.json({ status: 200, data: rows });
   } catch (error) {
-    connection.release();
+    // connection.release();
     console.log(error);
   }
 }
