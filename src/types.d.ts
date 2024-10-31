@@ -98,7 +98,7 @@ interface TimeSelectorProps {
 }
 
 interface SingleLineItem {
-  line_items_id: string;
+  line_item_id: string;
   service_details_id: number;
   description: string;
   amount: number;

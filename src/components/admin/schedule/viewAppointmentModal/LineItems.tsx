@@ -4,6 +4,7 @@ import React, { ChangeEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import firebase from "firebase/compat/app";
 import useScrollToBottom from "@/hooks/useScrollToBottom";
+import { useAdminData } from "@/context/AdminDataContext";
 
 export default function LineItems({
   serviceDetailsId,
@@ -19,6 +20,7 @@ export default function LineItems({
   const [isAdding, setIsAdding] = useState(false);
   const [lineItems, setLineItems] =
     useState<SingleLineItem[]>(initialLineItems);
+  const { setCurrentMonthAppointments } = useAdminData();
 
   const addLineItem = async () => {
     const { description, amount } = input;
@@ -47,15 +49,26 @@ export default function LineItems({
         }),
       });
       if (res.ok) {
-        setLineItems([
-          ...lineItems,
-          {
-            line_items_id: lineItemId,
-            description,
-            amount: amountFormatted,
-            service_details_id: Number(serviceDetailsId),
-          },
-        ]);
+        const newLineItem = {
+          line_item_id: lineItemId,
+          description,
+          amount: amountFormatted,
+          service_details_id: Number(serviceDetailsId),
+        };
+        setCurrentMonthAppointments((prevAppointments) =>
+          prevAppointments.map((appointment) => {
+            if (
+              appointment.service_details.service_details_id ===
+              serviceDetailsId
+            ) {
+              return {
+                ...appointment,
+                line_items: [...appointment.line_items, newLineItem],
+              };
+            } else return appointment;
+          }),
+        );
+        setLineItems([...lineItems, newLineItem]);
         setIsAdding(false);
         setInput({
           description: "",
@@ -74,6 +87,7 @@ export default function LineItems({
         // setLoading(false);
         return;
       }
+      console.log(lineItems);
       const token = await user.getIdToken();
       const res = await fetch("/api/lineItems", {
         method: "DELETE",
@@ -82,12 +96,25 @@ export default function LineItems({
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          id: serviceDetailsId,
+          id,
         }),
       });
       if (res.ok) {
+        setCurrentMonthAppointments((previousAppointments) =>
+          previousAppointments.map((appointment) => {
+            if (appointment.service_details_id === serviceDetailsId) {
+              return {
+                ...appointment,
+                line_items: appointment.line_items.filter(
+                  (lineItem) => lineItem.line_item_id !== id,
+                ),
+              };
+            }
+            return appointment;
+          }),
+        );
         const newLineItems = lineItems.filter(
-          (lineItem) => lineItem.line_items_id !== id,
+          (lineItem) => lineItem.line_item_id !== id,
         );
         setLineItems(newLineItems);
       }
@@ -127,7 +154,7 @@ export default function LineItems({
             {lineItems?.map((lineItem) => (
               <div
                 className="w-full flex justify-between items-center mb-2"
-                key={lineItem.line_items_id}
+                key={lineItem.line_item_id}
               >
                 <p className="ml-2">{lineItem.description}</p>
                 <div className="flex items-center">
@@ -135,7 +162,7 @@ export default function LineItems({
                   <button
                     type="button"
                     className="bg-royalblue/50 rounded-3xl w-6 h-6 flex items-center justify-center"
-                    onClick={() => deleteLineItem(lineItem.line_items_id)}
+                    onClick={() => deleteLineItem(lineItem.line_item_id)}
                   >
                     <FontAwesomeIcon icon={faX} className="h-3 w-3 " />
                   </button>
