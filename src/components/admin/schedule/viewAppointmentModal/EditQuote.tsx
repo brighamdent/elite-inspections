@@ -303,6 +303,7 @@ export default function EditQuote({
       <LineItems
         serviceDetailsId={serviceDetails.service_details_id}
         initialLineItems={appointment.line_items}
+        quoteAmount={serviceDetails.quote_amount}
       />
       {/* <PropertyDetails edit={true} /> */}
       <div className="flex flex-col md:flex-row items-center justify-between w-full pr-4 pl-4 md:pr-0 md:pl-0">

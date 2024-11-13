@@ -1,6 +1,6 @@
 import { faCheck, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import firebase from "firebase/compat/app";
 import useScrollToBottom from "@/hooks/useScrollToBottom";
@@ -9,9 +9,11 @@ import { useAdminData } from "@/context/AdminDataContext";
 export default function LineItems({
   serviceDetailsId,
   initialLineItems,
+  quoteAmount,
 }: {
-  serviceDetailsId: Number;
+  serviceDetailsId: number;
   initialLineItems: SingleLineItem[];
+  quoteAmount: number;
 }) {
   const [input, setInput] = useState({
     description: "",
@@ -49,6 +51,21 @@ export default function LineItems({
         }),
       });
       if (res.ok) {
+        const newQuote = amountFormatted + quoteAmount;
+        const quoteRes = await fetch("/api/updateQuote", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            serviceDetailsId,
+            quoteAmount: newQuote,
+          }),
+        });
+        if (quoteRes.ok) {
+          console.log("worked");
+        }
         const newLineItem = {
           line_item_id: lineItemId,
           description,
