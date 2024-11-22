@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAppointment } from "@/context/AppointmentContext";
 import firebase from "firebase/compat/app";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -52,12 +52,18 @@ export default function EditQuote({
       const midigationAmount = serviceDetails.wind_mitigation === true ? 50 : 0;
       const fourPointInspection =
         serviceDetails.four_point_inspection === true ? 50 : 0;
+      const lineItemsTotal = appointment.line_items.reduce(
+        (sum, line) => sum + Number(line.amount),
+        0,
+      );
+      console.log(lineItemsTotal);
       const quoteAmount =
         extraSqft * 0.1 +
         baseInpection +
         poolAmount +
         midigationAmount +
-        fourPointInspection;
+        fourPointInspection +
+        lineItemsTotal;
       setServiceDetails((prev) => ({
         ...prev,
         extra_sqft: extraSqft,

@@ -3,6 +3,7 @@ import pool from "../../../lib/db";
 import { verifyAdmin } from "@/lib/authMiddleware";
 
 export async function PUT(req: NextRequest) {
+  console.log("hi");
   const isAdmin = await verifyAdmin(req);
 
   console.log("is running");
