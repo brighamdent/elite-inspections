@@ -54,19 +54,7 @@ export default function LineItems({
       });
       if (res.ok) {
         const newQuote = amountFormatted + quoteAmount;
-        const quoteRes = await fetch("/api/updateQuote", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            serviceDetailsId,
-            quoteAmount: newQuote,
-          }),
-        });
-        if (quoteRes.ok) {
-        }
+        updateQuote(newQuote);
         const newLineItem = {
           line_item_id: lineItemId,
           description,
@@ -101,6 +89,9 @@ export default function LineItems({
   };
 
   const deleteLineItem = async (id: string) => {
+    const amountToDelete =
+      lineItems.find((lineItem) => lineItem.line_item_id === id)?.amount ?? 0;
+    const newQuote = quoteAmount - amountToDelete;
     try {
       const user = firebase.auth().currentUser;
       if (!user) {
@@ -118,14 +109,20 @@ export default function LineItems({
         },
         body: JSON.stringify({
           id,
+          newQuote,
         }),
       });
       if (res.ok) {
+        updateQuote(newQuote);
         setCurrentMonthAppointments((previousAppointments) =>
           previousAppointments.map((appointment) => {
             if (appointment.service_details_id === serviceDetailsId) {
               return {
                 ...appointment,
+                service_details: {
+                  ...appointment.service_details,
+                  quote_amount: newQuote,
+                },
                 line_items: appointment.line_items.filter(
                   (lineItem) => lineItem.line_item_id !== id,
                 ),
@@ -141,6 +138,31 @@ export default function LineItems({
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const updateQuote = async (quote: number) => {
+    try {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        console.error("No user is currently signed in.");
+        alert("User is not signed in.");
+        return;
+      }
+      const token = await user.getIdToken();
+      const quoteRes = await fetch("/api/updateQuote", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          serviceDetailsId,
+          quoteAmount: quote,
+        }),
+      });
+    } catch (error) {
+      console.log("Error updating quote", error);
     }
   };
 
