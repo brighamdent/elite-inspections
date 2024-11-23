@@ -10,10 +10,12 @@ export default function LineItems({
   serviceDetailsId,
   initialLineItems,
   quoteAmount,
+  updateQuoteState,
 }: {
   serviceDetailsId: number;
   initialLineItems: SingleLineItem[];
   quoteAmount: number;
+  updateQuoteState: () => void;
 }) {
   const [input, setInput] = useState({
     description: "",
@@ -64,7 +66,6 @@ export default function LineItems({
           }),
         });
         if (quoteRes.ok) {
-          console.log("worked");
         }
         const newLineItem = {
           line_item_id: lineItemId,
@@ -80,6 +81,10 @@ export default function LineItems({
             ) {
               return {
                 ...appointment,
+                service_details: {
+                  ...appointment.service_details,
+                  quote_amount: newQuote,
+                },
                 line_items: [...appointment.line_items, newLineItem],
               };
             } else return appointment;
@@ -101,7 +106,6 @@ export default function LineItems({
       if (!user) {
         console.error("No user is currently signed in.");
         alert("User is not signed in.");
-        // setLoading(false);
         return;
       }
       console.log(lineItems);

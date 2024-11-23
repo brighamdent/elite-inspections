@@ -23,7 +23,8 @@ export default function EditQuote({
   );
   const [propertyDetails, setPropertyDetails] = useState(appointment.property);
 
-  const { setCurrentMonthAppointments } = useAdminData();
+  const { setCurrentMonthAppointments, currentMonthAppointments } =
+    useAdminData();
 
   const baseInpection =
     serviceDetails.inspection_type === "Elite Home Inspection"
@@ -35,10 +36,6 @@ export default function EditQuote({
           : serviceDetails.inspection_type === "4 Point Inspection"
             ? 149
             : 0;
-
-  useEffect(() => {
-    console.log(serviceDetails);
-  }, [serviceDetails]);
 
   useEffect(() => {
     const calculateQuote = () => {
@@ -56,7 +53,6 @@ export default function EditQuote({
         (sum, line) => sum + Number(line.amount),
         0,
       );
-      console.log(lineItemsTotal);
       const quoteAmount =
         extraSqft * 0.1 +
         baseInpection +
@@ -77,8 +73,13 @@ export default function EditQuote({
     serviceDetails.pool_inspection,
     serviceDetails.wind_mitigation,
     serviceDetails.four_point_inspection,
+    appointment.line_items,
     propertyDetails,
   ]);
+
+  useEffect(() => {
+    console.log("currentMonthAppointments", currentMonthAppointments);
+  }, [currentMonthAppointments]);
 
   const updateQuoteState = () => {
     const {
@@ -89,8 +90,8 @@ export default function EditQuote({
       quote_amount,
     } = serviceDetails;
     setCurrentMonthAppointments((prevAppointments) =>
-      prevAppointments.map((appointment) =>
-        appointment.appointment_id === appointment.appointment_id
+      prevAppointments.map((app) =>
+        app.appointment_id === appointment.appointment_id
           ? {
               ...appointment,
               service_details: {
@@ -102,7 +103,7 @@ export default function EditQuote({
                 quote_amount,
               },
             }
-          : appointment,
+          : app,
       ),
     );
   };
@@ -115,7 +116,6 @@ export default function EditQuote({
       if (!user) {
         console.error("No user is currently signed in.");
         alert("User is not signed in.");
-        // setLoading(false);
         return;
       }
 
@@ -310,6 +310,7 @@ export default function EditQuote({
         serviceDetailsId={serviceDetails.service_details_id}
         initialLineItems={appointment.line_items}
         quoteAmount={serviceDetails.quote_amount}
+        updateQuoteState={updateQuoteState}
       />
       {/* <PropertyDetails edit={true} /> */}
       <div className="flex flex-col md:flex-row items-center justify-between w-full pr-4 pl-4 md:pr-0 md:pl-0">

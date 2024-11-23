@@ -77,7 +77,6 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
           }
 
           const data: AppointmentType[] = await response.json();
-          console.log(data);
           setCurrentMonthAppointments(data);
           setFirstEffectDone(true);
         } else {
@@ -119,7 +118,6 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
 
           const data: AppointmentType[] = await response.json();
           setPastAppointments(data);
-          console.log(data);
         } else {
           console.error("No user is currently signed in.");
         }

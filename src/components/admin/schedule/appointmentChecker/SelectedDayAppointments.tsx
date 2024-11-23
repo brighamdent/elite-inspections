@@ -6,11 +6,10 @@ import { useAdminData } from "@/context/AdminDataContext";
 import ViewAppointmentModal from "../ViewAppointmentModal";
 
 export default function SelectedDayAppointments() {
-  const { currentMonthAppointments } = useAdminData();
   const [selectedDayAppointments, setSelectedDayAppointments] = useState<
     AppointmentType[]
   >([]);
-  const { date, pastAppointments } = useAdminData();
+  const { date, pastAppointments, currentMonthAppointments } = useAdminData();
 
   useEffect(() => {
     const fetchTodaysAppointments = () => {
@@ -20,10 +19,13 @@ export default function SelectedDayAppointments() {
           `${date.year}-${monthFormatting(date.month)}-${dayFormatting(date.day)}`,
       );
       setSelectedDayAppointments(newArr);
-      console.log(newArr);
     };
     fetchTodaysAppointments();
   }, [currentMonthAppointments, date, pastAppointments]);
+
+  useEffect(() => {
+    console.log("selectedDayAppointments", selectedDayAppointments);
+  }, [selectedDayAppointments]);
 
   return (
     <div className=" lg:bg-darkblue/50 p-4 rounded-3xl lg:flex-shrink lg:min-w-[200px] lg:max-w-full h-full">
