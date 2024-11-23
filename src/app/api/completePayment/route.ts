@@ -6,11 +6,10 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {});
 
 export async function POST(req: NextRequest) {
-  const connection = await pool.getConnection();
   try {
     const { serviceId, appointmentId } = await req.json();
 
-    const [rows] = await connection.execute<RowDataPacket[]>(
+    const [rows] = await pool.query<RowDataPacket[]>(
       "SELECT quote_amount FROM service_details WHERE service_details_id = ?;",
       [serviceId],
     );
@@ -42,7 +41,5 @@ export async function POST(req: NextRequest) {
       { error: "Internal Server Error" },
       { status: 500 },
     );
-  } finally {
-    connection.release();
   }
 }

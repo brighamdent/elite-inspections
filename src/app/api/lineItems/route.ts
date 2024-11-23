@@ -3,8 +3,6 @@ import pool from "../../../lib/db";
 import { verifyAdmin } from "@/lib/authMiddleware";
 
 export async function POST(req: NextRequest) {
-  const connection = await pool.getConnection();
-
   const isAdmin = await verifyAdmin(req);
 
   console.log("Admin check result:", isAdmin);
@@ -19,9 +17,7 @@ export async function POST(req: NextRequest) {
     console.log(lineItemId, serviceDetailsId, description, amount);
 
     try {
-      const connection = await pool.getConnection();
-
-      const [result]: any = await connection.execute(
+      const [result]: any = await pool.query(
         `INSERT INTO line_items (line_item_id, service_details_id, description, amount) VALUES (?, ?, ?, ?)`,
         [lineItemId, serviceDetailsId, description, amount],
       );
@@ -31,7 +27,6 @@ export async function POST(req: NextRequest) {
         { status: 200 },
       );
     } catch (error) {
-      connection.release();
       console.error("Database Error:", error);
       return NextResponse.json(
         { message: "Failed to update line items." },
@@ -44,14 +39,10 @@ export async function POST(req: NextRequest) {
       { message: "Failed to process request." },
       { status: 500 },
     );
-  } finally {
-    connection.release();
   }
 }
 
 export async function DELETE(req: NextRequest) {
-  const connection = await pool.getConnection();
-
   const isAdmin = await verifyAdmin(req);
 
   console.log("Admin check result:", isAdmin);
@@ -60,15 +51,13 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
   try {
-    const { id } = await req.json();
+    const { id, newQuote } = await req.json();
 
     console.log(id);
 
     try {
-      const connection = await pool.getConnection();
-
-      const [serviceResult]: any = await connection.execute(
-        "DELETE FROM line_items WHERE line_item_id = ?",
+      const [serviceResult]: any = await pool.query(
+        "DELETE FROM line_items WHERE line_item_id = ?;",
         [id],
       );
 
@@ -77,7 +66,6 @@ export async function DELETE(req: NextRequest) {
         { status: 200 },
       );
     } catch (error) {
-      connection.release();
       console.error("Database Error:", error);
       return NextResponse.json(
         { message: "Failed to delete line item." },
@@ -90,14 +78,10 @@ export async function DELETE(req: NextRequest) {
       { message: "Failed to process request." },
       { status: 500 },
     );
-  } finally {
-    connection.release();
   }
 }
 
 export async function GET(req: NextRequest) {
-  const connection = await pool.getConnection();
-
   const isAdmin = await verifyAdmin(req);
 
   console.log("Admin check result:", isAdmin);
@@ -111,9 +95,7 @@ export async function GET(req: NextRequest) {
     console.log(service_details_id);
 
     try {
-      const connection = await pool.getConnection();
-
-      const [serviceResult]: any = await connection.execute(
+      const [serviceResult]: any = await pool.query(
         "SELECT * FROM line_items WHERE line_item_id = ?",
         [service_details_id],
       );
@@ -126,7 +108,6 @@ export async function GET(req: NextRequest) {
         { status: 200 },
       );
     } catch (error) {
-      connection.release();
       console.error("Database Error:", error);
       return NextResponse.json(
         { message: "Failed to fetch line item." },
@@ -139,7 +120,5 @@ export async function GET(req: NextRequest) {
       { message: "Failed to process request." },
       { status: 500 },
     );
-  } finally {
-    connection.release();
   }
 }

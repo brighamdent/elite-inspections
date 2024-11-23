@@ -9,12 +9,11 @@ export async function PUT(req: NextRequest) {
     return isAdmin;
   }
 
-  const connection = await pool.getConnection();
   try {
     const { formattedDate, appointmentId } = await req.json();
     console.log(formattedDate, appointmentId);
 
-    await connection.execute(
+    await pool.query(
       `
 UPDATE appointments SET scheduled_time = ? WHERE appointment_id = ?;
 `,
@@ -24,7 +23,5 @@ UPDATE appointments SET scheduled_time = ? WHERE appointment_id = ?;
     return NextResponse.json({ status: 200 });
   } catch (error) {
     console.log(error);
-  } finally {
-    connection.release();
   }
 }

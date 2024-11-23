@@ -9,28 +9,24 @@ export async function POST(req: NextRequest) {
     return isAdmin;
   }
 
-  const connection = await pool.getConnection();
   try {
     const { date, time } = await req.json();
 
-    await connection.execute(
+    await pool.query(
       `
 INSERT INTO blocked_times (date, time)
 VALUES (?, ?);
 `,
       [date, time],
     );
-    connection.release();
 
     return NextResponse.json({ status: 200 });
   } catch (error) {
-    connection.release();
     console.log(error);
   }
 }
 
 export async function GET(req: NextRequest) {
-  // const connection = await pool.getConnection();
   try {
     const [rows] = await pool.query(
       `SELECT
@@ -43,11 +39,8 @@ export async function GET(req: NextRequest) {
 `,
     );
 
-    // connection.release();
-
     return NextResponse.json({ status: 200, data: rows });
   } catch (error) {
-    // connection.release();
     console.log(error);
   }
 }
@@ -59,31 +52,26 @@ export async function DELETE(req: NextRequest) {
     return isAdmin;
   }
 
-  const connection = await pool.getConnection();
   try {
     const { timeId } = await req.json();
 
-    await connection.execute(
+    await pool.query(
       `
 DELETE FROM blocked_times
 WHERE id = ?;
 `,
       [timeId],
     );
-    connection.release();
 
     return NextResponse.json({
       status: 200,
       message: "Date deleted successfully",
     });
   } catch (error) {
-    connection.release();
     console.log(error);
     return NextResponse.json({
       status: 500,
       error: "Failed to delete the date",
     });
-  } finally {
-    connection.release();
   }
 }

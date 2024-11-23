@@ -9,11 +9,10 @@ export async function POST(req: NextRequest) {
     return isAdmin;
   }
 
-  const connection = await pool.getConnection();
   try {
     const { id } = await req.json();
 
-    await connection.execute(
+    await pool.query(
       `
   UPDATE days
   SET available = CASE 
@@ -29,7 +28,5 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ status: 200 });
   } catch (error) {
     console.log(error);
-  } finally {
-    connection.release();
   }
 }
