@@ -77,10 +77,6 @@ export default function EditQuote({
     propertyDetails,
   ]);
 
-  useEffect(() => {
-    console.log("currentMonthAppointments", currentMonthAppointments);
-  }, [currentMonthAppointments]);
-
   const updateQuoteState = () => {
     const {
       inspection_type,

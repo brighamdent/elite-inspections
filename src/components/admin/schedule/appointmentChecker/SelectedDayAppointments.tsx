@@ -23,10 +23,6 @@ export default function SelectedDayAppointments() {
     fetchTodaysAppointments();
   }, [currentMonthAppointments, date, pastAppointments]);
 
-  useEffect(() => {
-    console.log("selectedDayAppointments", selectedDayAppointments);
-  }, [selectedDayAppointments]);
-
   return (
     <div className=" lg:bg-darkblue/50 p-4 rounded-3xl lg:flex-shrink lg:min-w-[200px] lg:max-w-full h-full">
       <p>
