@@ -178,10 +178,7 @@ export default function EditQuote({
   }, [message]);
 
   return (
-    <form
-      className="w-screen md:w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center md:block min-w-[302px]"
-      onSubmit={handleSubmit}
-    >
+    <div className="w-screen md:w-full md:pl-9 md:pr-9 pt-4 flex flex-col items-center md:block min-w-[302px]">
       <div className="flex justify-center md:justify-start items-center w-full mb-4">
         <h2>Adjust Quote</h2>
         <button
@@ -207,7 +204,10 @@ export default function EditQuote({
           />
         </div>
       )}
-      <div className="w-full pr-4 pl-4 md:pr-0 md:pl-0">
+      <form
+        className="w-full pr-4 pl-4 md:pr-0 md:pl-0"
+        onSubmit={handleSubmit}
+      >
         <div className="w-full md:w-max bg-darkblue rounded-3xl flex flex-col md:flex-row items-start md:items-center justify-between md:p-3 mb-4">
           <p className="md:mr-2 text-sm md:text-[16px] m-3 md:m-0">
             Inspection Type
@@ -301,7 +301,18 @@ export default function EditQuote({
             <option value="false">No</option>
           </select>
         </div>
-      </div>
+        <div className="w-full pr-4 pl-4 mt-4">
+          <button
+            type="submit"
+            className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex md:hidden relative"
+          >
+            <p className="font-extrabold text-2xl">Update</p>
+            <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors absolute right-1">
+              <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
+            </div>
+          </button>
+        </div>
+      </form>
       <LineItems
         serviceDetailsId={serviceDetails.service_details_id}
         initialLineItems={appointment.line_items}
@@ -357,6 +368,16 @@ export default function EditQuote({
                 <p className="text-xs">$50.00</p>
               </div>
             )}
+            {appointment.line_items?.map(
+              (lineItem: SingleLineItem, index: number) => (
+                <div className="justify-between flex" key={index}>
+                  <p className="text-xs">{lineItem.description}</p>
+                  <p className="text-xs">
+                    ${Number(lineItem.amount).toFixed(2)}
+                  </p>
+                </div>
+              ),
+            )}
           </div>
           <div>
             <div className="bg-teal h-[2px] w-full" />
@@ -369,17 +390,6 @@ export default function EditQuote({
           </div>
         </div>
       </div>
-      <div className="w-full pr-4 pl-4 mt-4">
-        <button
-          type="submit"
-          className="w-full h-14 bg-teal group md:hover:bg-darkblue hover:bg-royalblue rounded-[100px] justify-center items-center p-1 transition-colors flex md:hidden relative"
-        >
-          <p className="font-extrabold text-2xl">Update</p>
-          <div className="bg-royalblue group-hover:bg-teal rounded-[100px] h-12 w-12 flex items-center justify-center transition-colors absolute right-1">
-            <FontAwesomeIcon className="h-8 w-8" icon={faArrowRight} />
-          </div>
-        </button>
-      </div>
-    </form>
+    </div>
   );
 }

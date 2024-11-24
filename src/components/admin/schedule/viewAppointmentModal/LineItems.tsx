@@ -26,7 +26,9 @@ export default function LineItems({
     useState<SingleLineItem[]>(initialLineItems);
   const { setCurrentMonthAppointments } = useAdminData();
 
-  const addLineItem = async () => {
+  const addLineItem = async (e: FormEvent) => {
+    e.preventDefault();
+
     const { description, amount } = input;
     const lineItemId = uuidv4();
     const amountFormatted = Number(amount);
@@ -99,7 +101,6 @@ export default function LineItems({
         alert("User is not signed in.");
         return;
       }
-      console.log(lineItems);
       const token = await user.getIdToken();
       const res = await fetch("/api/lineItems", {
         method: "DELETE",
@@ -166,9 +167,14 @@ export default function LineItems({
     }
   };
 
-  const handleChange = (event: ChangeEvent) => {
+  const handleChange = (event: ChangeEvent, number?: boolean) => {
     const { name, value } = event.target as HTMLInputElement;
-    setInput({ ...input, [name]: value });
+    let newValue = value;
+    if (number) {
+      newValue = value.replace(/\D/g, "");
+    }
+
+    setInput({ ...input, [name]: newValue });
   };
 
   useScrollToBottom("item", lineItems);
@@ -201,7 +207,7 @@ export default function LineItems({
               >
                 <p className="ml-2">{lineItem.description}</p>
                 <div className="flex items-center">
-                  <p className="mr-14">${lineItem.amount}</p>
+                  <p className="mr-14">${Number(lineItem.amount).toFixed(2)}</p>
                   <button
                     type="button"
                     className="bg-royalblue/50 rounded-3xl w-6 h-6 flex items-center justify-center"
@@ -215,29 +221,36 @@ export default function LineItems({
           </div>
         )}
         {isAdding && (
-          <div className="w-full flex justify-between items-center">
+          <form
+            onSubmit={addLineItem}
+            className="w-full flex justify-between items-center"
+          >
             <input
               placeholder="Description"
               name="description"
-              onChange={handleChange}
+              value={input.description}
+              onChange={(e) => handleChange(e, false)}
               className="bg-royalblue/50 rounded-3xl p-2 w-full mr-4"
+              required
             />
             <div className="flex items-center">
+              <span className="mr-1">$</span>
               <input
                 className="mr-4 rounded-3xl bg-royalblue/50 p-2 w-28"
                 name="amount"
-                onChange={handleChange}
+                value={input.amount}
+                onChange={(e) => handleChange(e, true)}
                 placeholder="Amount"
+                required
               />
               <button
-                type="button"
+                type="submit"
                 className="bg-teal rounded-3xl w-6 h-6 mb-2 flex items-center justify-center"
-                onClick={addLineItem}
               >
                 <FontAwesomeIcon icon={faCheck} />
               </button>
             </div>
-          </div>
+          </form>
         )}
       </div>
     </div>
