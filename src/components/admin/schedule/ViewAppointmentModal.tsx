@@ -27,7 +27,7 @@ export default function ViewAppointmentModal({
   return (
     <div>
       <div
-        className="text-left bg-royalblue/50 lg:flex-shrink w-80 lg:w-auto lg:min-w-[150px] 2xl:min-w-80 lg:max-w-80 rounded-3xl p-4 xl:p-6 m-4 "
+        className="bg-royalblue/50 lg:flex-shrink w-full lg:w-auto 2xl:min-w-80 lg:min-w-[150px] lg:max-w-80 rounded-3xl p-4 mb-4 mt-4 text-left xl:p-6"
         key={index.toString()}
         onClick={handleToggleModal}
       >

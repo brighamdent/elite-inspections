@@ -103,20 +103,28 @@ export default function BlockTimeList() {
           </div>
         ) : (
           <div className="flex flex-col h-64 overflow-y-scroll ">
-            {blockedDates?.map((date, index) => (
+            {blockedDates.length >= 1 ? (
+              blockedDates.map((date, index) => (
+                <div
+                  className={`  p-6 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
+                  key={index}
+                >
+                  <div className="flex items-center">
+                    <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+                    {formatBackwardsDate(date)}
+                  </div>
+                  <button onClick={() => deleteBlockedDate(date)}>
+                    <FontAwesomeIcon icon={faX} />
+                  </button>
+                </div>
+              ))
+            ) : (
               <div
                 className={`  p-6 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
-                key={index}
               >
-                <div className="flex items-center">
-                  <FontAwesomeIcon icon={faCalendar} className="mr-2" />
-                  {formatBackwardsDate(date)}
-                </div>
-                <button onClick={() => deleteBlockedDate(date)}>
-                  <FontAwesomeIcon icon={faX} />
-                </button>
+                <p>No Blocked Times</p>
               </div>
-            ))}
+            )}
           </div>
         )}
         <h2 className="mt-4">Blocked Times</h2>

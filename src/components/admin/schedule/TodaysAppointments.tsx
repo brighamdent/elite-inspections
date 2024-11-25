@@ -47,7 +47,7 @@ export default function TodaysAppointments() {
           ))}
         </div>
       ) : (
-        <div className="bg-royalblue/50 rounded-3xl p-4 m-4 lg:flex-shrink w-80 lg:w-auto lg:min-w-[150px] 2xl:min-w-80 lg:max-w-80">
+        <div className="bg-royalblue/50 lg:flex-shrink w-full lg:w-auto 2xl:min-w-80 lg:min-w-[150px] lg:max-w-80 rounded-3xl p-4 mb-4 mt-4 text-left xl:p-6">
           <div>
             <p>No Appointments to Show</p>
           </div>

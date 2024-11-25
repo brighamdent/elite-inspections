@@ -24,7 +24,7 @@ export default function SelectedDayAppointments() {
   }, [currentMonthAppointments, date, pastAppointments]);
 
   return (
-    <div className=" lg:bg-darkblue/50 p-4 rounded-3xl lg:flex-shrink lg:min-w-[200px] lg:max-w-full h-full">
+    <div className="w-full lg:bg-darkblue/50 p-4 rounded-3xl lg:flex-shrink lg:min-w-[200px] lg:max-w-full h-full">
       <p>
         Appointments for {date.month}/{date.day}/{date.year}
       </p>
@@ -35,7 +35,7 @@ export default function SelectedDayAppointments() {
           ))}
         </div>
       ) : (
-        <div className="bg-royalblue/50 rounded-3xl p-4 m-4 lg:flex-shrink w-80 lg:w-auto lg:min-w-[150px] 2xl:min-w-80 lg:max-w-80">
+        <div className="bg-royalblue/50 lg:flex-shrink w-full lg:w-auto 2xl:min-w-80 lg:min-w-[150px] lg:max-w-80 rounded-3xl p-4 mb-4 mt-4 text-left xl:p-6">
           <div>
             <p>No Appointments to Show</p>
           </div>

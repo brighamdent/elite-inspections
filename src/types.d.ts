@@ -1,3 +1,9 @@
+// import { Pool } from "mysql2/promise";
+//
+// declare global {
+//   var __mysqlPool: Pool | undefined;
+// }
+
 type ChangeEvent =
   | React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLSelectElement>
@@ -103,3 +109,5 @@ interface SingleLineItem {
   description: string;
   amount: number;
 }
+
+// export {};
