@@ -8,7 +8,7 @@ export default function TodaysAppointments() {
   const { todaysAppointments } = useAdminData();
 
   return (
-    <div className=" lg:bg-darkblue/50 h-full w-screen p-4 lg:flex-shrink lg:min-w-[200px] lg:w-auto rounded-3xl max-w-96 ">
+    <div className=" lg:bg-darkblue/50 h-full w-screen p-4 lg:flex-shrink lg:min-w-auto lg:w-auto rounded-3xl max-w-96 ">
       <p className="font-bold">
         Today&apos;s Appointments {formatDate(currentDate)}
       </p>

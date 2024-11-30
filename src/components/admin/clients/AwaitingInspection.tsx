@@ -18,13 +18,13 @@ export default function AwaitingInspection() {
   console.log(appointmentsAwaitingInspection);
 
   return (
-    <div className="flex flex-col items-center h-full">
+    <div className="flex flex-col items-center h-full w-full lg:w-auto">
       <h3 className="font-bold">Awaiting Inspection</h3>
-      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full overflow-y-scroll">
+      <div className="flex flex-col items-center lg:bg-darkblue/50 rounded-3xl p-4 h-full overflow-y-scroll w-full max-w-96">
         {appointmentsAwaitingInspection.length > 0 ? (
           appointmentsAwaitingInspection.map((app, index) => (
             <div
-              className="rounded-3xl bg-royalblue/50 w-80 p-4 m-2 flex items-center"
+              className="rounded-3xl bg-royalblue/50 w-full lg:w-80 h-20 p-4 m-2 flex items-center"
               key={index}
             >
               <UploadInspectionModalWrapper appointment={app} />
@@ -37,7 +37,7 @@ export default function AwaitingInspection() {
             </div>
           ))
         ) : (
-          <div className="rounded-3xl bg-royalblue/50 w-80 p-4 m-2 flex items-center min-h-20">
+          <div className="rounded-3xl bg-royalblue/50 w-full p-4 m-2 flex items-center min-h-20">
             <p>No appointments awaiting inspection at this time</p>
           </div>
         )}
