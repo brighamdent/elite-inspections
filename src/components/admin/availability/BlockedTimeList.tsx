@@ -122,7 +122,7 @@ export default function BlockTimeList() {
               <div
                 className={`  p-6 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
               >
-                <p>No Blocked Times</p>
+                <p>No Blocked Dates</p>
               </div>
             )}
           </div>
@@ -134,27 +134,37 @@ export default function BlockTimeList() {
           </div>
         ) : (
           <div className="flex flex-col h-64 overflow-y-scroll ">
-            {blockedTimes.map((date, index) => (
-              <div
-                className={`  p-4 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
-                key={index}
-              >
-                <div className="flex items-center text-sm">
-                  <div className="flex items-center mr-2">
-                    {" "}
-                    <FontAwesomeIcon icon={faCalendar} className="mr-2" />
-                    <p className="text-sm">{formatBackwardsDate(date.date)}</p>
-                  </div>
+            {blockedTimes.length >= 1 ? (
+              blockedTimes.map((date, index) => (
+                <div
+                  className={`  p-4 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
+                  key={index}
+                >
                   <div className="flex items-center text-sm">
-                    <FontAwesomeIcon icon={faClock} className="mr-1" />
-                    <p className="text-sm">{convertTo12Hour(date.time)}</p>
+                    <div className="flex items-center mr-2">
+                      {" "}
+                      <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+                      <p className="text-sm">
+                        {formatBackwardsDate(date.date)}
+                      </p>
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <FontAwesomeIcon icon={faClock} className="mr-1" />
+                      <p className="text-sm">{convertTo12Hour(date.time)}</p>
+                    </div>
                   </div>
+                  <button onClick={() => deleteBlockedTime(date)}>
+                    <FontAwesomeIcon icon={faX} />
+                  </button>
                 </div>
-                <button onClick={() => deleteBlockedTime(date)}>
-                  <FontAwesomeIcon icon={faX} />
-                </button>
+              ))
+            ) : (
+              <div
+                className={`  p-6 m-2 rounded-3xl w-80 min-h-16 flex items-center justify-between bg-royalblue/50`}
+              >
+                <p>No Blocked Times</p>
               </div>
-            ))}
+            )}
           </div>
         )}
       </div>
