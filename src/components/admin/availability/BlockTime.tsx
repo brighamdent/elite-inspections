@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import BlockedTimeModal from "./BlockedTimeModal";
+import { useAdminData } from "@/context/AdminDataContext";
 
 export default function BlockTime() {
   const [modal, setModal] = useState(false);
+  const { setUpdateBlocked } = useAdminData();
 
   const handleToggleModal = () => {
     setModal(!modal);
+    setUpdateBlocked((prev: number) => prev + 1);
   };
   return (
     <div className="flex flex-col items-center h-full">

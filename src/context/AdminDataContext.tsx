@@ -21,6 +21,8 @@ interface AdminDataContextType {
   setPastAppointments: React.Dispatch<React.SetStateAction<AppointmentType[]>>;
   updatePastAppointments: number;
   setUpdatePastAppointments: React.Dispatch<React.SetStateAction<number>>;
+  updateBlocked: number;
+  setUpdateBlocked: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const AdminDataContext = createContext<AdminDataContextType | undefined>(
@@ -54,6 +56,7 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
     dayOfWeek: null,
     monthName: null,
   });
+  const [updateBlocked, setUpdateBlocked] = useState(0);
   const { currentUser } = useAuth();
 
   useEffect(() => {
@@ -140,6 +143,8 @@ export function AdminDataProvider({ children }: { children: React.ReactNode }) {
         setPastAppointments,
         updatePastAppointments,
         setUpdatePastAppointments,
+        updateBlocked,
+        setUpdateBlocked,
       }}
     >
       {children}

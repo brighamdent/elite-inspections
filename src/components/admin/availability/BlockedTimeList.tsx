@@ -5,11 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faClock, faX } from "@fortawesome/free-solid-svg-icons";
 import convertTo12Hour from "@/utils/convertTo12Hour";
 import firebase from "firebase/compat/app";
+import { useAdminData } from "@/context/AdminDataContext";
 
 export default function BlockTimeList() {
   const [blockedTimes, setBlockedTimes] = useState<BlockedTimeType[]>([]);
   const [blockedDates, setBlockedDates] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { updateBlocked } = useAdminData();
 
   useEffect(() => {
     const fetchBlockedDates = async () => {
@@ -28,7 +30,7 @@ export default function BlockTimeList() {
     };
 
     fetchBlockedDates();
-  }, []);
+  }, [updateBlocked]);
 
   useEffect(() => {
     const fetchBlockedTimes = async () => {
@@ -41,7 +43,7 @@ export default function BlockTimeList() {
       console.log(data.data);
     };
     fetchBlockedTimes();
-  }, []);
+  }, [updateBlocked]);
 
   const deleteBlockedDate = async (dateToDelete: string) => {
     try {
